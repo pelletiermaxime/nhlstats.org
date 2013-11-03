@@ -12,8 +12,8 @@
 @show
 </head>
 <body>
-<div align="center"><a href="index.php">
-	<img src="images/banner.png" alt="NhlStats" border="0" width="550" /></a>
+<div align="center"><a href="{{ route('index') }}">
+	<img src="{{ asset('images/banner.png') }}" alt="NhlStats" border="0" width="550" /></a>
 </div>
 @yield('body')
 </body>

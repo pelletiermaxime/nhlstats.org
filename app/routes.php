@@ -6,5 +6,8 @@
 
 // Route::get('index', 'HomeController@showWelcome');
 
-Route::get('/', 'PlayerController@getList');
-Route::controller('/', 'PlayerController');
+Route::get('/', array(
+	'as' => 'index',
+	'uses' => 'PlayerController@getList'
+));
+// Route::controller('/', 'PlayerController');
