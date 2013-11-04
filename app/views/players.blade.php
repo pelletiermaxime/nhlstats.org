@@ -1,11 +1,25 @@
 @extends('layouts.base')
 @section('body')
-{{ Form::open(array('route' => 'index', 'method' => 'GET')) }}
+{{ Form::open(array('route' => 'players_filtered', 'method' => 'GET')) }}
+<ul class="errors">
+@foreach($errors->all() as $message)
+	<li>{{ $message }}</li>
+@endforeach
+</ul>
 <table border="0" align="center" cellspacing="3" cellpadding="3">
 	<tr>
-		<td align="right">{{ Form::label('player', 'Player name :') }}</td>
+		<td colspan="3">
+			<ul class="errors">
+			@foreach($errors->get('name') as $message)
+				<li>{{ $message }}</li>
+			@endforeach
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">{{ Form::label('name', 'Player name :') }}</td>
 		<td align="right" style="width:180px">
-			{{ Form::text('player', Input::get('player'), array('style'=>"width:155px")) }}
+			{{ Form::text('name', Input::get('name'), array('style'=>"width:155px")) }}
 		</td>
 	</tr>
 	<tr>
@@ -21,6 +35,8 @@
 	<tr>
 		<td align="right">Number to show :</td>
 		<td align="right" style="width:180px">
+			{{ $count }}
+			{{ Form::select('count', $possible_counts, $count, array('style'=>"width:155px")) }}
 		</td>
 	</tr>
 	<tr>

@@ -8,6 +8,11 @@
 
 Route::get('/', array(
 	'as' => 'index',
-	'uses' => 'PlayerController@getList'
+	'uses' => 'PlayerController@getListFiltered'
+));
+
+Route::get('filter', array(
+	'as' => 'players_filtered',
+	'uses' => 'PlayerController@getListFiltered',
 ));
 // Route::controller('/', 'PlayerController');
