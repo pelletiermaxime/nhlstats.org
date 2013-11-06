@@ -11,31 +11,35 @@ class PlayerController extends BaseController
 			'count'    => Input::get('count'),
 		];
 
-		$possible_counts = [
+		/* ----------- COUNTS ----------- */
+		$all_counts = [
 			'50'  => '50',
 			'100' => '100',
 			'500' => '500',
 			'All' => 'All'
 		];
-		$data['possible_counts'] = $possible_counts;
+		$data['all_counts'] = $all_counts;
 
 		//Default to 50 if not a possible count
-		if (!isset($possible_counts[$data['count']]))
+		if (!isset($all_counts[$data['count']]))
 		{
 			$data['count'] = '50';
 		}
 
-		// $rules = array(
-		// 	'player' => 'alpha_num',
-		// );
+		/* ----------- TEAMS ----------- */
+		$all_teams = Team::orderBy('city', 'ASC')->get();
+		foreach ($all_teams as $team)
+		{
+			$team_list[$team->short_name] = $team->city;
+		}
+		$data['all_teams'] = $team_list;
 
-		// $validator = Validator::make($data, $rules);
-		// if ($validator->fails()) {
-		// 	$data['errors'] = $validator->messages();
-		// }
-		// return Redirect::to('index')->withErrors($validator)->withInput();
-		// $data = array('name' => $name);
-		// return Redirect::to('index')->flash($data);
+		//Default to first team if invalid is passed
+		if (!isset($team_list[$data['team']]))
+		{
+			$data['team'] = key($team_list);
+		}
+
 		return View::make('players',  $data);
 	}
 }

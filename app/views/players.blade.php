@@ -25,6 +25,7 @@
 	<tr>
 		<td align="right">Team :</td>
 		<td align="right" style="width:180px">
+			{{ Form::select('team', $all_teams, $team, array('style'=>"width:155px")) }}
 		</td>
 	</tr>
 	<tr>
@@ -35,8 +36,7 @@
 	<tr>
 		<td align="right">Number to show :</td>
 		<td align="right" style="width:180px">
-			{{ $count }}
-			{{ Form::select('count', $possible_counts, $count, array('style'=>"width:155px")) }}
+			{{ Form::select('count', $all_counts, $count, array('style'=>"width:155px")) }}
 		</td>
 	</tr>
 	<tr>
