@@ -20,8 +20,6 @@ class CreateTeam extends Migration {
 			$table->timestamps();
 
 			$table->index(['short_name']);
-			// $table->smallInteger('division');
-			// $table->softDeletes();
 		});
 	}
 
