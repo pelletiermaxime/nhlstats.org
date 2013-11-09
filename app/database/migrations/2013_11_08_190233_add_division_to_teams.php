@@ -14,7 +14,7 @@ class AddDivisionToTeams extends Migration {
 	{
 		Schema::table('teams', function(Blueprint $table) {
 			$table->integer('division_id')->unsigned()->nullable();
-			$table->foreign('division_id')->references('id')->on('divisions');
+			$table->foreign('division_id')->references('id')->on('divisions')->onDelete('cascade');
 		});
 	}
 
@@ -26,8 +26,8 @@ class AddDivisionToTeams extends Migration {
 	public function down()
 	{
 		Schema::table('teams', function(Blueprint $table) {
-			$table->dropColumn('division_id');
 			$table->dropForeign('teams_division_id_foreign');
+			$table->dropColumn('division_id');
 		});
 	}
 

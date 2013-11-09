@@ -4,8 +4,8 @@ class DivisionsTableSeeder extends Seeder {
 
 	public function run()
 	{
-		Team::truncate();
-		Division::truncate();
+		Team::whereYear('1314')->delete();
+		Division::whereYear('1314')->delete();
 
 		$division = new Division();
 		$timestamp = $division->freshTimestamp();
