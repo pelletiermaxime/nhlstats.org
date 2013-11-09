@@ -1,7 +1,9 @@
 <?php
-use Illuminate\Database\Migrations\Migration;
 
-class CreateTeam extends Migration {
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+
+class CreateDivisions extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -10,19 +12,16 @@ class CreateTeam extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('teams', function($table)
-		{
+		Schema::create('divisions', function(Blueprint $table) {
 			$table->engine = 'InnoDB';
 			$table->increments('id');
-			$table->string('short_name');
-			$table->string('city');
-			$table->string('name');
-			$table->smallInteger('year');
+			$table->string('division');
+			$table->string('conference');
+			$table->smallInteger('year')->unsigned();
 			$table->timestamps();
-
-			$table->index(['short_name']);
 		});
 	}
+
 
 	/**
 	 * Reverse the migrations.
@@ -31,7 +30,7 @@ class CreateTeam extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('teams');
+		Schema::drop('divisions');
 	}
 
 }
