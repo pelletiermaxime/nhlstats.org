@@ -13,7 +13,7 @@ class AddDivisionToTeams extends Migration {
 	public function up()
 	{
 		Schema::table('teams', function(Blueprint $table) {
-			$table->integer('division_id')->unsigned();
+			$table->integer('division_id')->unsigned()->nullable();
 			$table->foreign('division_id')->references('id')->on('divisions');
 		});
 	}
