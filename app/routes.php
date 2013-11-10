@@ -6,13 +6,19 @@
 
 // Route::get('index', 'HomeController@showWelcome');
 
-Route::get('/', array(
-	'as' => 'index',
+Route::get('/', [
+	'as'   => 'index',
 	'uses' => 'PlayerController@getListFiltered'
-));
+]);
 
-Route::get('filter', array(
-	'as' => 'players_filtered',
+Route::get('filter', [
+	'as'   => 'players_filtered',
 	'uses' => 'PlayerController@getListFiltered',
-));
+]);
+
+Route::get('standings', [
+	'as'   => 'standings',
+	'uses' => 'StandingsController@index'
+]);
+
 // Route::controller('/', 'PlayerController');
