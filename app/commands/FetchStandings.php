@@ -53,8 +53,28 @@ class FetchStandings extends Command {
 			Standings::whereTeamId($team_id)->delete();
 			Standings::create([
 				'team_id' => $team_id,
+				'year'    => '1314',
+				'gp'      => $team['GP'],
+				'w'       => $team['W'],
+				'l'       => $team['L'],
+				'otl'     => $team['OTL'],
+				'pts'     => $team['PTS'],
+				'gf'      => $team['GF'],
+				'ga'      => $team['GA'],
+				'diff'    => $team['Diff'],
+				'ppg'     => $team['PPG'],
+				'ppo'     => $team['PPO'],
+				'ppp'     => $team['PPP'],
+				'ppga'    => $team['PPGA'],
+				'ppoa'    => $team['PPOA'],
+				'pkp'     => $team['PKP'],
+				'home'    => $team['HOME'],
+				'away'    => $team['ROAD'],
+				'l10'     => $team['L10'],
+				'streak'  => $team['Streak'],
 			]);
 		}
+
 		// var_dump($teams);
 	}
 

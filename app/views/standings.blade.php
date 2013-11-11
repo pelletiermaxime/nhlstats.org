@@ -34,9 +34,9 @@
 	<th>L10</th>
 	<th>Streak</th>
 </tr>
-@foreach ($standings as $s)
+@foreach ($standings as $position => $s)
 <tr>
-	<td></td>
+	<td>{{ ++$position }}</td>
 	<td>
 		<img height="35" src="{{ asset('images/SVG') }}/{{ $s->team->short_name }}.svg" alt="{{ $s->team->city }} {{ $s->team->name }}" />
 	</td>
