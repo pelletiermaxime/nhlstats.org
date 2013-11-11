@@ -38,6 +38,7 @@ class FetchStandings extends Command {
 	public function fire()
 	{
 		$teams = $this->getTeamsArray();
+		Standings::whereYear('1314')->delete();
 		foreach($teams as $team)
 		{
 			if (strpos($team['Team'], 'NY') !== false)
@@ -50,7 +51,6 @@ class FetchStandings extends Command {
 				$team['Team'] = str_replace('St. Louis', 'St Louis', $team['Team']);
 				$team_id = Team::whereCity($team['Team'])->pluck('id');
 			}
-			Standings::whereTeamId($team_id)->delete();
 			Standings::create([
 				'team_id' => $team_id,
 				'year'    => '1314',
