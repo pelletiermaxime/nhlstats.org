@@ -8,7 +8,9 @@
 <meta name="robots" content="index,nofollow" />
 <meta name="Author" content="Maxime Pelletier" />
 <meta name="description" content=""/>
-<link rel="stylesheet" media="all" type="text/css" href="includes/general.css" />
+<link rel="stylesheet" media="all" type="text/css" href="{{ asset('css/general.css') }}" />
+<script type="text/javascript" src="{{ asset('javascript/DataTables/media/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('javascript/DataTables/media/jquery.dataTables.min.js') }}"></script>
 @show
 </head>
 <body>

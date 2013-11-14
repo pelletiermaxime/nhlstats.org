@@ -1,0 +1,62 @@
+body
+{
+	font-family:"lucida grande", tahoma, verdana, arial, sans-serif;
+	font-size:12px;
+	background:white;
+	color:black;
+	/*background:#BCBCBC;
+	color:white;*/
+}
+
+table
+{
+	border:thin solid black;
+}
+table thead th
+{
+	cursor:pointer;
+}
+table thead tr
+{
+	font-weight:bold;
+	background:#A1A1A1;
+	color:white;
+}
+.thead
+{
+	font-weight:bold;
+	background:#A1A1A1;
+	color:white;
+}
+th
+{
+	border-bottom:thin solid black;
+}
+.highlightedColumn
+{
+	background-color:#CCC;
+}
+.alert
+{
+	border: 1px solid #e7dc2b;
+	background: #fff888;
+}
+.success
+{
+	border: 1px solid #669966;
+	background: #88ff88;
+}
+.error
+{
+	border: 1px solid #ff0000;
+	background: #ffaaaa;
+	font-size:2em;
+	width:15em;
+}
+#verify-form
+{
+	border: 1px solid #777777;
+	background: #dddddd;
+	margin-top: 1em;
+	padding-bottom: 0em;
+}

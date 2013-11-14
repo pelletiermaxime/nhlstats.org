@@ -1,11 +1,22 @@
 @extends('layouts.base')
 @section('body')
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#tableOverall').dataTable({
+		"bPaginate": false,
+		"bFilter": false,
+		"bInfo": false,
+	});
+});
+</script>
+
 @foreach ($divisions as $division)
-{{ $division->division }}
+{{-- $division->division --}}
 @endforeach
 
-<table border="1">
+<table width="80%" style="text-align:center;" id="tableOverall" align="center" cellspacing="0" cellpadding="2">
+<thead>
 <tr>
 	<th colspan="10">&nbsp;</th>
 	<th colspan="3" style="border:1px solid black;border-bottom:none;">Powerplay</th>
@@ -34,6 +45,8 @@
 	<th>L10</th>
 	<th>Streak</th>
 </tr>
+</thead>
+<tbody>
 @foreach ($standings as $position => $s)
 <tr>
 	<td>{{ ++$position }}</td>
@@ -60,5 +73,6 @@
 	<td>{{ $s->streak }}</td>
 </tr>
 @endforeach
+</tbody>
 </table>
 @stop
