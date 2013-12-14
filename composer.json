@@ -4,10 +4,10 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.0.*",
+		"laravel/framework": "4.1.*",
 		"way/generators": "dev-master",
 		"laravelbook/ardent": "dev-master",
-		"elvedia/goutte": "1.0.*"
+		"elvedia/goutte": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
