@@ -9,6 +9,10 @@
 		"laravelbook/ardent": "dev-master",
 		"elvedia/goutte": "dev-master"
 	},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.*",
+		"way/phpunit-wrappers": "dev-master"
+	},
 	"autoload": {
 		"classmap": [
 			"app/commands",

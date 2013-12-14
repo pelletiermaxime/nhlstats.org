@@ -6,6 +6,3 @@ php:
 before_install:
   - composer install
 
-install:
-  - php artisan migrate
-  - php artisan db:seed
