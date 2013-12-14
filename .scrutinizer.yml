@@ -1,7 +1,7 @@
 filter:
-	excluded_paths: [vendor/*, public/*]
+    excluded_paths: [vendor/*, public/*]
 
 tools:
-	php_cpd: true
-	php_pdepend:
-		excluded_dirs: [vendor]
+    php_cpd: true
+    php_pdepend:
+        excluded_dirs: [vendor]
