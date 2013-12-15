@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://nhlstats.local/',
+	'url' => 'http://new.nhlstats.org',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -109,6 +109,7 @@ return array(
 
 		'Way\Generators\GeneratorsServiceProvider',
 		'Elvedia\Goutte\Providers\GoutteServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 	),
 
 	/*
@@ -176,6 +177,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 
 		'Goutte'          => 'Elvedia\Goutte\Facades\Laravel\GoutteFacade',
+		'Debugbar'        => 'Barryvdh\Debugbar\Facade',
 	),
 
 );

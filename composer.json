@@ -7,7 +7,8 @@
 		"laravel/framework": "4.1.*",
 		"way/generators": "dev-master",
 		"laravelbook/ardent": "dev-master",
-		"elvedia/goutte": "dev-master"
+		"elvedia/goutte": "dev-master",
+		"barryvdh/laravel-debugbar": "dev-master"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*",
@@ -30,6 +31,7 @@
 		"post-update-cmd": [
 			"php artisan clear-compiled",
 			"php artisan optimize"
+			"php artisan debugbar:publish"
 		],
 		"post-create-project-cmd": [
 			"php artisan key:generate"

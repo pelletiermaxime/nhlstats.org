@@ -25,7 +25,7 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment(function(){
-	return getenv('NHLSTATS_ENV') ?: 'production';
+	return getenv('ENV') ?: 'development';
 });
 
 /*
