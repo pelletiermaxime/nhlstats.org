@@ -1,7 +1,7 @@
 <?php
 
-class PlayerController extends BaseController
-{
+class PlayerController extends BaseController {
+
 	public function getListFiltered()
 	{
 		$data = [
@@ -40,6 +40,6 @@ class PlayerController extends BaseController
 			$data['team'] = key($team_list);
 		}
 
-		return View::make('players',  $data);
+		return View::make('players', $data);
 	}
 }
