@@ -1,7 +1,7 @@
 <?php
 
-class StandingsController extends BaseController
-{
+class StandingsController extends BaseController {
+
 	public function index()
 	{
 		$divisions = Division::rememberForever()->get();

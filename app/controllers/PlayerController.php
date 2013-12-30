@@ -1,6 +1,13 @@
 <?php
 
+use Nhlstats\Repositories\TeamRepository as Team;
+
 class PlayerController extends BaseController {
+
+	public function __construct(Team $team)
+	{
+		$this->team = $team;
+	}
 
 	public function getListFiltered()
 	{
@@ -27,17 +34,12 @@ class PlayerController extends BaseController {
 		}
 
 		/* ----------- TEAMS ----------- */
-		$all_teams = Team::orderBy('city', 'ASC')->get();
-		foreach ($all_teams as $team)
-		{
-			$team_list[$team->short_name] = $team->city;
-		}
-		$data['all_teams'] = $team_list;
+		$data['all_teams'] = $this->team->getWithShortNameAndCity();
 
 		//Default to first team if invalid is passed
-		if (!isset($team_list[$data['team']]))
+		if (!isset($data['all_teams'][$data['team']]))
 		{
-			$data['team'] = key($team_list);
+			$data['team'] = key($data['all_teams']);
 		}
 
 		return View::make('players', $data);
