@@ -8,7 +8,8 @@
 
 Route::get('/', [
 	'as'   => 'index',
-	'uses' => 'PlayerController@getListFiltered'
+	'uses' => 'PlayerController@getListFiltered',
+	'after' => 'cache:30'
 ]);
 
 Route::get('filter', [

@@ -110,7 +110,8 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Elvedia\Goutte\Providers\GoutteServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
-		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider'
+		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+		'Barryvdh\HttpCache\ServiceProvider',
 	),
 
 	/*

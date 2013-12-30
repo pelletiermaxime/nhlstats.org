@@ -9,7 +9,8 @@
 		"laravelbook/ardent": "dev-master",
 		"elvedia/goutte": "dev-master",
 		"barryvdh/laravel-debugbar": "dev-master",
-		"barryvdh/laravel-ide-helper": "1.*"
+		"barryvdh/laravel-ide-helper": "1.*",
+		"barryvdh/laravel-httpcache": "*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*",
