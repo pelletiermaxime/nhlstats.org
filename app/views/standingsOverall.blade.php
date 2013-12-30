@@ -1,4 +1,4 @@
-<table width="80%" style="text-align:center;" id="tableOverall" align="center" cellspacing="0" cellpadding="2">
+<table width="80%" id="tableOverall" class="table table-condensed">
 <thead>
 <tr>
 	<th colspan="11">&nbsp;</th>
@@ -18,12 +18,12 @@
 	<th>GF</th>
 	<th>GA</th>
 	<th>Diff</th>
-	<th style="border-left:1px solid black;" title="Goals">G</th>
-	<th title="Opportunities">O</th>
-	<th style="border-right:1px solid black;" title="Percent">P</th>
-	<th style="border-left:1px solid black;" title="Goals Against">G</th>
-	<th title="Opportunities against">O</th>
-	<th style="border-right:1px solid black;" title="Penalty Kill Percent">P</th>
+	<th style="border-left:1px solid black;border-top:none;" title="Goals">G</th>
+	<th style="border-top:none;" title="Opportunities">O</th>
+	<th style="border-right:1px solid black;border-top:none;" title="Percent">P</th>
+	<th style="border-left:1px solid black;border-top:none;" title="Goals Against">G</th>
+	<th style="border-top:none;" title="Opportunities against">O</th>
+	<th style="border-right:1px solid black;border-top:none;" title="Penalty Kill Percent">P</th>
 	<th>Home</th>
 	<th>Away</th>
 	<th>L10</th>

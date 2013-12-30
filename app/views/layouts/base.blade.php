@@ -8,6 +8,7 @@
 <meta name="robots" content="index,nofollow" />
 <meta name="Author" content="Maxime Pelletier" />
 <meta name="description" content=""/>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 <link rel="stylesheet" media="all" type="text/css" href="{{ asset('css/general.css') }}" />
 <script type="text/javascript" src="{{ asset('javascript/DataTables/media/jquery.js') }}"></script>
 <script type="text/javascript" src="{{ asset('javascript/DataTables/media/jquery.dataTables.min.js') }}"></script>
