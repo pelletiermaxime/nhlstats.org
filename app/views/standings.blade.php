@@ -63,10 +63,10 @@ $(document).ready(function(){
 	<td>{{ $s->diff }}</td>
 	<td>{{ $s->ppg }}</td>
 	<td>{{ $s->ppo }}</td>
-	<td>{{ $s->ppp }}</td>
+	<td>{{ sprintf ("%6.2f", $s->ppp) }}</td>
 	<td>{{ $s->ppga }}</td>
 	<td>{{ $s->ppoa }}</td>
-	<td>{{ $s->pkp }}</td>
+	<td>{{ sprintf ("%6.2f", $s->pkp) }}</td>
 	<td>{{ $s->home }}</td>
 	<td>{{ $s->away }}</td>
 	<td>{{ $s->l10 }}</td>
