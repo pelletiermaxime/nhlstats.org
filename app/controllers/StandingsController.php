@@ -4,9 +4,7 @@ class StandingsController extends BaseController {
 
 	public function index()
 	{
-		$divisions = Division::rememberForever()->get();
-		$standings = Standings::orderBy('PTS', 'DESC')->with('team')->remember(60)->get();
-		$data['divisions'] = $divisions;
+		$standings = Standings::orderBy('PTS', 'DESC')->with('team.division')->remember(60)->get();
 		$data['standings'] = $standings;
 		return View::make('standings', $data);
 	}
