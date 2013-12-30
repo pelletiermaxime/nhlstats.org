@@ -7,9 +7,9 @@
 // Route::get('index', 'HomeController@showWelcome');
 
 Route::get('/', [
-	'as'   => 'index',
-	'uses' => 'PlayerController@getListFiltered',
-	'after' => 'cache:30'
+	'as'    => 'index',
+	'uses'  => 'PlayerController@getListFiltered',
+	'after' => 'cache:300',
 ]);
 
 Route::get('filter', [
@@ -18,8 +18,9 @@ Route::get('filter', [
 ]);
 
 Route::get('standings', [
-	'as'   => 'standings',
-	'uses' => 'StandingsController@index'
+	'as'    => 'standings',
+	'uses'  => 'StandingsController@index',
+	'after' => 'cache:300',
 ]);
 
 // Route::controller('/', 'PlayerController');

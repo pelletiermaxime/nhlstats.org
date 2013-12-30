@@ -3,6 +3,6 @@
 return [
 
 	'debug' => true,
-	'url'   => 'http://nhlstats.local/'
+	'url'   => 'http://nhlstats/'
 
 ];
