@@ -8,17 +8,21 @@
 <meta name="robots" content="index,nofollow" />
 <meta name="Author" content="Maxime Pelletier" />
 <meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 <link rel="stylesheet" media="all" type="text/css" href="{{ asset('css/general.css') }}" />
 <script type="text/javascript" src="{{ asset('javascript/DataTables/media/jquery.js') }}"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ asset('javascript/DataTables/media/jquery.dataTables.min.js') }}"></script>
 @show
 </head>
 <body>
+<div class="container">
 <div align="center"><a href="{{ route('index') }}">
 	<img src="{{ asset('images/banner.png') }}" alt="NhlStats" border="0" width="550" /></a>
 </div>
 @include('layouts/menu')
 @yield('body')
+</div>
 </body>
 </html>
