@@ -6,12 +6,7 @@ class TeamRepository {
 
 	public function getWithShortNameAndCity()
 	{
-		$all_teams = Team::orderBy('city', 'ASC')->get();
-		foreach ($all_teams as $team)
-		{
-			$team_list[$team->short_name] = $team->city;
-		}
-		return $team_list;
+		return Team::orderBy('city', 'ASC')->remember(60)->lists('city', 'short_name');
 	}
 
 }
