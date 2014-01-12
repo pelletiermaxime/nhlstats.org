@@ -104,15 +104,26 @@ class FetchPlayers extends Command {
 			$newPlayerTeam = str_replace($replace, $replace_to, $newPlayerTeam);
 			#echo $newPlayerTeam;
 			$playerTeamID = Team::whereShortName($newPlayerTeam)->pluck('id');
-			$player = Player::firstOrNew([
+
+			$playerDB = Player::firstOrNew([
 				'full_name' => $fullName,
 				'team_id'   => $playerTeamID,
 			]);
-			$player->first_name = $firstName;
-			$player->name       = $name;
-			$player->position   = $position;
-			$player->year       = '1314';
-			$player->save();
+			$playerDB->first_name = $firstName;
+			$playerDB->name       = $name;
+			$playerDB->position   = $position;
+			$playerDB->year       = '1314';
+			$playerDB->save();
+
+			$player_stats = PlayersStatsYear::firstOrNew([
+				'player_id' => $playerDB->id
+			]);
+			$player_stats->games   = $player['GP'];
+			$player_stats->goals   = $player['G'];
+			$player_stats->assists = $player['A'];
+			$player_stats->points  = $player['P'];
+			$player_stats->plusminus = $player['+/-'];
+			$player_stats->save();
 		}
 	}
 
