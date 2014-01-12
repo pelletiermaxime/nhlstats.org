@@ -45,8 +45,8 @@ class FetchPlayers extends Command {
 	{
 		$client = Goutte::getNewClient();
 		$startingPage = $this->argument('startingPage');
-		$endingPage = $this->argument('endingPage');
-		$currentPage = $startingPage;
+		$endingPage   = $this->argument('endingPage');
+		$currentPage  = $startingPage;
 
 		$params = ['Rank', 'Player', 'Team', 'GP', 'G', 'A', 'P', '+/-', 'PIM', '1', '2', '3', '4', '5', '6', '7', '8'];
 		$paramCount = count($params);
@@ -92,9 +92,9 @@ class FetchPlayers extends Command {
 		foreach ($players as $player)
 		{
 			if (empty($player['Player'])) continue;
-			$fullName = $player['Player'];
+			$fullName   = $player['Player'];
 			$arrayFullName   = explode(' ', $fullName);
-			$firstName = $arrayFullName[0];
+			$firstName  = $arrayFullName[0];
 			$name       = $arrayFullName[1];
 			$position   = $player['Pos'];
 			$tabTeam    = explode('/', $player['Team']);
