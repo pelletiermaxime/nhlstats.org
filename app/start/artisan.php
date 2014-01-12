@@ -12,3 +12,4 @@
 */
 
 Artisan::add(new FetchStandings);
+Artisan::add(new FetchPlayers);

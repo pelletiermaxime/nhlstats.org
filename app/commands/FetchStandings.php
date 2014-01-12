@@ -18,7 +18,7 @@ class FetchStandings extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description.';
+	protected $description = 'Fetch the nhl standing info from espn.';
 
 	/**
 	 * Create a new command instance.
