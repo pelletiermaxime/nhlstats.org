@@ -36,7 +36,7 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 	<td>{{ $p['player']['full_name'] }}</td>
 	<td>{{ $p['player']['position'] }}</td>
 	<td>
-		<img height="35" src="{{ asset('images/SVG') }}/{{ $p['player']['team']['short_name'] }}.svg"
+		<img height="35" src="images/SVG/{{ $p['player']['team']['short_name'] }}.svg"
 			alt="{{ $p['player']['team']['city'] }} {{ $p['player']['team']['name'] }}" />
 	</td>
 	<td>{{ $p['games'] }}</td>
