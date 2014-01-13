@@ -54,8 +54,7 @@ class PlayerController extends BaseController {
 
 		/* -------- PLAYER STATS -------- */
 		$playersStatsYear = PlayersStatsYear::take($data['count'])->with('player.team.division')->get();
-		$data['playersStatsYear'] = $playersStatsYear;
-		// var_dump($data);
+		$data['playersStatsYear'] = $playersStatsYear->toArray();
 
 		return View::make('players', $data);
 	}

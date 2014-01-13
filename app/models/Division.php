@@ -2,6 +2,7 @@
 
 class Division extends Eloquent
 {
+
 }
 
 ?>
