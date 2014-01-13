@@ -23,7 +23,7 @@ class PlayerController extends BaseController {
 		$data['all_counts'] = $all_counts;
 
 		//Default to 50 if not a possible count
-		if (!isset($all_counts[$data['count']]))
+		if (!isset($data['count']) || !isset($all_counts[$data['count']]))
 		{
 			$data['count'] = head($all_counts);
 		}
@@ -32,7 +32,7 @@ class PlayerController extends BaseController {
 		$data['all_teams'] = $this->team->getWithShortNameAndCity();
 
 		//Default to first team if invalid is passed
-		if (!isset($data['all_teams'][$data['team']]))
+		if (!isset($data['team']) || !isset($data['all_teams'][$data['team']]))
 		{
 			$data['team'] = key($data['all_teams']);
 		}
@@ -47,7 +47,7 @@ class PlayerController extends BaseController {
 			'D'   => 'Defense'
 		];
 		$data['all_positions'] = $positions;
-		if (!isset($positions[$data['position']]))
+		if (!isset($data['position']) || !isset($positions[$data['position']]))
 		{
 			$data['position'] = head($positions);
 		}
