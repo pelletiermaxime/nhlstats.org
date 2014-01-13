@@ -11,12 +11,7 @@ class PlayerController extends BaseController {
 
 	public function getListFiltered()
 	{
-		$data = [
-			'name'     => Input::get('name'),
-			'team'     => Input::get('team'),
-			'position' => Input::get('position'),
-			'count'    => Input::get('count'),
-		];
+		$data = Input::all();
 
 		/* ----------- COUNTS ----------- */
 		$all_counts = [
@@ -30,7 +25,7 @@ class PlayerController extends BaseController {
 		//Default to 50 if not a possible count
 		if (!isset($all_counts[$data['count']]))
 		{
-			$data['count'] = '50';
+			$data['count'] = head($all_counts);
 		}
 
 		/* ----------- TEAMS ----------- */
@@ -41,6 +36,26 @@ class PlayerController extends BaseController {
 		{
 			$data['team'] = key($data['all_teams']);
 		}
+
+		/* ---------- POSITION ---------- */
+		$positions = [
+			'All' => 'All',
+			'F'   => 'Forward',
+			'L'   => 'Left',
+			'C'   => 'Center',
+			'R'   => 'Right',
+			'D'   => 'Defense'
+		];
+		$data['all_positions'] = $positions;
+		if (!isset($positions[$data['position']]))
+		{
+			$data['position'] = head($positions);
+		}
+
+		/* -------- PLAYER STATS -------- */
+		$playersStatsYear = PlayersStatsYear::take(50)->with('player.team.division')->get();
+		$data['playersStatsYear'] = $playersStatsYear;
+		// var_dump($data);
 
 		return View::make('players', $data);
 	}
