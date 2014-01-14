@@ -53,7 +53,7 @@ class PlayerController extends BaseController {
 		}
 
 		/* -------- PLAYER STATS -------- */
-		$data['playersStatsYear'] = Cache::remember('playersStatsYear', 60, function() use ($data)
+		$data['playersStatsYear'] = Cache::remember('playersStatsYear-'.$data['count'], 60, function() use ($data)
 		{
 			return PlayersStatsYear::take($data['count'])->with('player.team.division')->get()->toArray();
 		});
