@@ -141,7 +141,7 @@ class FetchGoalers extends Command {
 	{
 		return array(
 			array('startingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 1),
-			array('endingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 20),
+			array('endingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 3),
 		);
 	}
 
