@@ -28,22 +28,22 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 <tbody>
 @foreach ($playersStatsYear as $position => $p)
 <tr>
-	@if ($p['player']['team']['division']['conference'] == 'EAST')
+	@if ($p->conference == 'EAST')
 	<td style="background:#b9112d;color:white;font-size:1.8em;">{{ ++$position }}</td>
 	@else
 	<td style="background:#003872;color:white;font-size:1.8em;">{{ ++$position }}</td>
 	@endif
-	<td>{{ $p['player']['full_name'] }}</td>
-	<td>{{ $p['player']['position'] }}</td>
+	<td>{{ $p->full_name }}</td>
+	<td>{{ $p->position }}</td>
 	<td>
-		<img height="35" src="images/SVG/{{ $p['player']['team']['short_name'] }}.svg"
-			alt="{{ $p['player']['team']['city'] }} {{ $p['player']['team']['name'] }}" />
+		<img height="35" src="images/SVG/{{ $p->short_name }}.svg" alt="{{ $p->city }} {{ $p->name }}"
+			title="{{ $p->city }} {{ $p->name }}" />
 	</td>
-	<td>{{ $p['games'] }}</td>
-	<td>{{ $p['goals'] }}</td>
-	<td>{{ $p['assists'] }}</td>
-	<td>{{ $p['points'] }}</td>
-	<td>{{ $p['plusminus'] }}</td>
+	<td>{{ $p->games }}</td>
+	<td>{{ $p->goals }}</td>
+	<td>{{ $p->assists }}</td>
+	<td>{{ $p->points }}</td>
+	<td>{{ $p->plusminus }}</td>
 </tr>
 @endforeach
 </tbody>
