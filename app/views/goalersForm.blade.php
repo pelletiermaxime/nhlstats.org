@@ -3,7 +3,7 @@
 	<li>{{ $message }}</li>
 @endforeach
 </ul>
-{{ Form::open(array('route' => 'players_filtered', 'method' => 'GET')) }}
+{{ Form::open(array('route' => 'goalers', 'method' => 'GET')) }}
 <div class="row">
 	<ul class="errors">
 	@foreach($errors->get('name') as $message)
@@ -25,21 +25,9 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-4 col-xs-offset-2 text-right">Position :</div>
-	<div class="col-xs-6">
-		{{ Form::select('position', $all_positions, $position, array('style'=>"width:155px")) }}
-	</div>
-</div>
--->
-<div class="row">
-	<div class="col-xs-4 col-xs-offset-2 text-right">Number to show :</div>
-	<div class="col-xs-6">
-		{{ Form::select('count', $all_counts, $count, array('style'=>"width:155px")) }}
-	</div>
-</div>
-<div class="row">
 	<div class="col-xs-7 col-xs-offset-5">
 	<button type="submit" class="btn btn-default btn-lg">Search</button>
 	</div>
 </div>
+-->
 {{ Form::close() }}

@@ -2,7 +2,7 @@
 <?php
 $menu = array(
 	'Players'         => route('index'),
-	// GARDIENS          => P_GARDIENS,
+	'Goalers'         => route('goalers'),
 	// 'Scores'          => P_EQUIPES,
 	'Standings'       => route('standings'),
 	//NOUVELLES         => P_NOUVELLES,

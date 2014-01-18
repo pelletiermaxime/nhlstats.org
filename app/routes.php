@@ -12,9 +12,14 @@ Route::get('/', [
 	'after' => 'cache:300',
 ]);
 
-Route::get('filter', [
+Route::get('player', [
 	'as'   => 'players_filtered',
 	'uses' => 'PlayerController@getListFiltered',
+]);
+
+Route::get('goalers', [
+	'as'   => 'goalers',
+	'uses' => 'GoalerController@getListFiltered',
 ]);
 
 Route::get('standings', [
