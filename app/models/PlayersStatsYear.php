@@ -18,7 +18,7 @@ class PlayersStatsYear extends Eloquent {
 				->join('divisions', 'divisions.id', '=', 'teams.division_id')
 				->take($count)
 				->select('players_stats_years.*', 'divisions.conference', 'teams.name as team_name',
-					'players.*', 'teams.short_name')
+					'players.*', 'teams.short_name', 'teams.city')
 				->orderBy('points', 'desc')
 				->orderBy('goals' , 'desc')
 				->orderBy('games' , 'asc')

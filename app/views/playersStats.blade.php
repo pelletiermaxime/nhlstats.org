@@ -36,8 +36,10 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 	<td>{{ $p->full_name }}</td>
 	<td>{{ $p->position }}</td>
 	<td>
-		<img height="35" src="images/SVG/{{ $p->short_name }}.svg" alt="{{ $p->city }} {{ $p->name }}"
-			title="{{ $p->city }} {{ $p->name }}" />
+		<a href="{{ route('players_filtered') }}?team={{ $p->short_name }}&amp;count=all">
+		<img height="35" src="{{ $asset_path }}/images/SVG/{{ $p->short_name }}.svg" alt="{{ $p->city }} {{ $p->team_name }}"
+			title="{{ $p->city }} {{ $p->team_name }}" />
+		</a>
 	</td>
 	<td>{{ $p->games }}</td>
 	<td>{{ $p->goals }}</td>
