@@ -20,6 +20,7 @@ Route::get('player', [
 Route::get('goalers', [
 	'as'   => 'goalers',
 	'uses' => 'GoalerController@getListFiltered',
+	'after' => 'cache:300',
 ]);
 
 Route::get('standings', [
