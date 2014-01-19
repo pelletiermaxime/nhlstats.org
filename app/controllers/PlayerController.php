@@ -63,6 +63,10 @@ class PlayerController extends BaseController {
 				->select('players_stats_years.*', 'divisions.conference', 'teams.name as team_name',
 					'players.*', 'teams.short_name')
 				->orderBy('points', 'desc')
+				->orderBy('goals' , 'desc')
+				->orderBy('games' , 'asc')
+				->orderBy('plusminus', 'desc')
+				->orderBy('players.name', 'asc')
 				->get();
 		});
 
