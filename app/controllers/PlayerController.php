@@ -4,9 +4,10 @@ use Nhlstats\Repositories\TeamRepository as Team;
 
 class PlayerController extends BaseController {
 
-	public function __construct(Team $team)
+	public function __construct(Team $team, PlayersStatsYear $players_stats_year)
 	{
 		$this->team = $team;
+		$this->players_stats_year = $players_stats_year;
 	}
 
 	public function getListFiltered()
@@ -29,12 +30,12 @@ class PlayerController extends BaseController {
 		}
 
 		/* ----------- TEAMS ----------- */
-		$data['all_teams'] = $this->team->getWithShortNameAndCity();
+		$data['all_teams'] = ['all' => '---------------'] + $this->team->getWithShortNameAndCity();
 
 		//Default to first team if invalid is passed
 		if (!isset($data['team']) || !isset($data['all_teams'][$data['team']]))
 		{
-			$data['team'] = key($data['all_teams']);
+			$data['team'] = 'all';
 		}
 
 		/* ---------- POSITION ---------- */
@@ -53,22 +54,13 @@ class PlayerController extends BaseController {
 		}
 
 		/* -------- PLAYER STATS -------- */
+		$filter['teams.short_name'] = ['=', $data['team']];
 		$data['playersStatsYear'] = Cache::remember('playersStatsYear-'.$data['count'], 60, function() use ($data)
 		{
-			return DB::table('players_stats_years')
-				->join('players'  , 'players.id'  , '=', 'players_stats_years.player_id')
-				->join('teams'    , 'teams.id'    , '=', 'players.team_id')
-				->join('divisions', 'divisions.id', '=', 'teams.division_id')
-				->take($data['count'])
-				->select('players_stats_years.*', 'divisions.conference', 'teams.name as team_name',
-					'players.*', 'teams.short_name')
-				->orderBy('points', 'desc')
-				->orderBy('goals' , 'desc')
-				->orderBy('games' , 'asc')
-				->orderBy('plusminus', 'desc')
-				->orderBy('players.name', 'asc')
-				->get();
+			return $this->players_stats_year->topPlayersByPoints($data['count']);
 		});
+
+		$data['playersStatsYear'] = $this->players_stats_year->topPlayersByPoints($data['count'], $filter);
 
 		return View::make('players', $data);
 	}

@@ -18,12 +18,14 @@
 		{{ Form::text('name', Input::get('name'), array('style'=>"width:155px")) }}
 	</div>
 </div>
+-->
 <div class="row">
 	<div class="col-xs-4 col-xs-offset-2 text-right">Team :</div>
 	<div class="col-xs-6">
 		{{ Form::select('team', $all_teams, $team, array('style'=>"width:155px")) }}
 	</div>
 </div>
+<!--
 <div class="row">
 	<div class="col-xs-4 col-xs-offset-2 text-right">Position :</div>
 	<div class="col-xs-6">
