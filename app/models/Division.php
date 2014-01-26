@@ -4,5 +4,3 @@ class Division extends Eloquent
 {
 
 }
-
-?>

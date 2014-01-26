@@ -7,5 +7,3 @@ class Team extends Eloquent
 		return $this->belongsTo('Division');
 	}
 }
-
-?>
