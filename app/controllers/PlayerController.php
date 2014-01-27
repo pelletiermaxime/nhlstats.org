@@ -16,8 +16,6 @@ class PlayerController extends BaseController {
 
 	public function getListFiltered()
 	{
-		$data = Input::all();
-
 		/* ----------- COUNTS ----------- */
 		$all_counts = [
 			'50'  => '50',
@@ -25,25 +23,26 @@ class PlayerController extends BaseController {
 			'500' => '500',
 			'All' => 'All'
 		];
-		$data['all_counts'] = $all_counts;
 
+		$count = Input::get('count', head($all_counts));
 		//Default to 50 if not a possible count
-		if (!isset($data['count']) || !isset($all_counts[$data['count']]))
+		if (!isset($all_counts[$count]))
 		{
-			$data['count'] = head($all_counts);
+			$count = head($all_counts);
 		}
 
 		/* ----------- TEAMS ----------- */
-		$data['all_teams'] = ['all' => '---------------'] + $this->team->getWithShortNameAndCity();
+		$all_teams = ['all' => '---------------'] + $this->team->getWithShortNameAndCity();
 
+		$team = Input::get('team', 'all');
 		//Default to first team if invalid is passed
-		if (!isset($data['team']) || !isset($data['all_teams'][$data['team']]))
+		if (!isset($all_teams[$team]))
 		{
-			$data['team'] = 'all';
+			$team = 'all';
 		}
 
 		/* ---------- POSITION ---------- */
-		$positions = [
+		$all_positions = [
 			'All' => 'All',
 			'F'   => 'Forward',
 			'L'   => 'Left',
@@ -51,35 +50,47 @@ class PlayerController extends BaseController {
 			'R'   => 'Right',
 			'D'   => 'Defense'
 		];
-		$data['all_positions'] = $positions;
-		if (!isset($data['position']) || !isset($positions[$data['position']]))
+
+		$position = Input::get('position', head($all_positions));
+		if (!isset($all_positions[$position]))
 		{
-			$data['position'] = head($positions);
+			$position = head($all_positions);
 		}
 
 		/* -------- PLAYER STATS -------- */
-		$filter['teams.short_name'] = ['=', $data['team']];
-		$data['playersStatsYear'] = Cache::remember(
-			"playersStatsYear-{$data['count']}-{$data['team']}",
+		$filter['teams.short_name'] = ['=', $team];
+		$playersStatsYear = Cache::remember(
+			"playersStatsYear-{$count}-{$team}",
 			60,
-			function() use ($data, $filter) {
-				return $this->players_stats_year->topPlayersByPoints($data['count'], $filter);
+			function() use ($count, $filter) {
+				return $this->players_stats_year->topPlayersByPoints($count, $filter);
 			}
 		);
 
-		/* -------- PLAYER STATS BY DAY -------- */
-		$data['playersStatsDay'] = Cache::remember(
-			"playersStatsDay-{$data['team']}",
+		$playersStatsDay = $this->playersStatsDay($count, $filter);
+
+		return View::make('players')
+			->with('playersStatsDay', $playersStatsDay)
+			->with('playersStatsYear', $playersStatsYear)
+			->with('all_teams', $all_teams)
+			->with('team', $team)
+			->with('all_positions', $all_positions)
+			->with('position', $position)
+			->with('all_counts', $all_counts)
+			->with('count', $count)
+			->with('asset_path', asset(''))
+		;
+	}
+
+	private function playersStatsDay($count, $filter)
+	{
+		$filter_string = implode('-', $filter['teams.short_name']);
+		return Cache::remember(
+			"playersStatsDay-{$filter_string}",
 			60,
-			function() use ($data, $filter) {
-				return $this->players_stats_day->topPlayersByPoints($data['count'], $filter);
+			function() use ($count, $filter) {
+				return $this->players_stats_day->topPlayersByPoints($count, $filter);
 			}
 		);
-
-		// $data['playersStatsDay'] = $this->players_stats_day->topPlayersByPoints($data['count'], $filter);
-
-		$data['asset_path'] = asset('');
-
-		return View::make('players', $data);
 	}
 }
