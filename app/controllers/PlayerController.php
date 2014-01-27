@@ -56,14 +56,13 @@ class PlayerController extends BaseController {
 		/* -------- PLAYER STATS -------- */
 		$filter['teams.short_name'] = ['=', $data['team']];
 		$data['playersStatsYear'] = Cache::remember(
-			'playersStatsYear-'.$data['count'],
+			"playersStatsYear-{$data['count']}-{$data['team']}",
 			60,
 			function() use ($data, $filter) {
 				return $this->players_stats_year->topPlayersByPoints($data['count'], $filter);
 			}
 		);
 
-		$data['playersStatsYear'] = $this->players_stats_year->topPlayersByPoints($data['count'], $filter);
 		$data['asset_path'] = asset('');
 
 		return View::make('players', $data);
