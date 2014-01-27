@@ -3,6 +3,7 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Carbon\Carbon;
 
 class FetchPlayers extends Command {
 
@@ -56,8 +57,8 @@ class FetchPlayers extends Command {
 		while ($currentPage <= $endingPage)
 		{
 			$fetchCount = ($currentPage-1) * 40 + 1;
-			$regularSeasonUrl = "http://espn.go.com/nhl/statistics/player/_/stat/points/sort/points/seasontype/2/count/$fetchCount";
-			$crawler = $client->request('GET', $regularSeasonUrl);
+			$regularSeasonUrl = "http://espn.go.com/nhl/statistics/player/_/stat/points/sort/points/seasontype/2/count/";
+			$crawler = $client->request('GET', $regularSeasonUrl . $fetchCount);
 			$cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
 
 			$noParametre = 0;
@@ -118,6 +119,15 @@ class FetchPlayers extends Command {
 			$player_stats = PlayersStatsYear::firstOrNew([
 				'player_id' => $playerDB->id
 			]);
+
+			//Don't update needlessly if the player hasn't played a new game
+			if ($player_stats->exists() && $player_stats->games == $player['GP'])
+			{
+				continue;
+			}
+
+			$this->savePlayerStatsDay($playerDB, $player_stats, $player);
+
 			$player_stats->games   = $player['GP'];
 			$player_stats->goals   = $player['G'];
 			$player_stats->assists = $player['A'];
@@ -125,6 +135,20 @@ class FetchPlayers extends Command {
 			$player_stats->plusminus = $player['+/-'];
 			$player_stats->save();
 		}
+	}
+
+	public function savePlayerStatsDay($playerDB, $player_stats, $player)
+	{
+		$player_stats_day = PlayersStatsDays::firstOrNew([
+			'player_id' => $playerDB->id,
+			'day'       => Carbon::today(),
+		]);
+
+		$player_stats_day->goals   = $player['G'] - $player_stats->goals;
+		$player_stats_day->assists = $player['A'] - $player_stats->assists;
+		$player_stats_day->points  = $player['P'] - $player_stats->points;
+		$player_stats_day->plusminus = $player['+/-'] - $player_stats->plusminus;
+		$player_stats_day->save();
 	}
 
 	/**
@@ -151,5 +175,4 @@ class FetchPlayers extends Command {
 			// array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
 		);
 	}
-
 }
