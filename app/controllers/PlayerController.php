@@ -4,10 +4,14 @@ use Nhlstats\Repositories\TeamRepository as Team;
 
 class PlayerController extends BaseController {
 
-	public function __construct(Team $team, PlayersStatsYear $players_stats_year)
-	{
+	public function __construct(
+		Team $team,
+		PlayersStatsYear $players_stats_year,
+		PlayersStatsDays $players_stats_day
+	) {
 		$this->team = $team;
 		$this->players_stats_year = $players_stats_year;
+		$this->players_stats_day  = $players_stats_day;
 	}
 
 	public function getListFiltered()
@@ -62,6 +66,17 @@ class PlayerController extends BaseController {
 				return $this->players_stats_year->topPlayersByPoints($data['count'], $filter);
 			}
 		);
+
+		/* -------- PLAYER STATS BY DAY -------- */
+		$data['playersStatsDay'] = Cache::remember(
+			"playersStatsDay-{$data['team']}",
+			60,
+			function() use ($data, $filter) {
+				return $this->players_stats_day->topPlayersByPoints($data['count'], $filter);
+			}
+		);
+
+		// $data['playersStatsDay'] = $this->players_stats_day->topPlayersByPoints($data['count'], $filter);
 
 		$data['asset_path'] = asset('');
 
