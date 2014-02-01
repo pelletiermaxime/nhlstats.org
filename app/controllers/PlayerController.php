@@ -1,6 +1,7 @@
 <?php
 
 use Nhlstats\Repositories\TeamRepository as Team;
+use Carbon\Carbon;
 
 class PlayerController extends BaseController {
 
@@ -67,6 +68,7 @@ class PlayerController extends BaseController {
 			}
 		);
 
+		$filter['day'] = ['=', Carbon::today()];
 		$playersStatsDay = $this->playersStatsDay($count, $filter);
 
 		return View::make('players')
@@ -84,7 +86,7 @@ class PlayerController extends BaseController {
 
 	private function playersStatsDay($count, $filter)
 	{
-		$filter_string = implode('-', $filter['teams.short_name']);
+		$filter_string = implode('', array_flatten($filter));
 		return Cache::remember(
 			"playersStatsDay-{$filter_string}",
 			60,
