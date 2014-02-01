@@ -6,6 +6,8 @@ body
 	color:black;
 	/*background:#BCBCBC;
 	color:white;*/
+	width: 98%;
+	margin: auto;
 }
 
 table.table
@@ -78,4 +80,37 @@ table tr.odd td
 	background: #dddddd;
 	margin-top: 1em;
 	padding-bottom: 0em;
+}
+
+.flex-container
+{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: flex-start;
+	align-items: flex-start;
+}
+
+.flex-item:nth-child(1)
+{
+	order: 0;
+	flex: 1 1 60%;
+	align-self: auto;
+	padding: 0 10px;
+}
+
+.flex-item:nth-child(2)
+{
+	order: 1;
+	flex: 1 1 40%;
+	align-self: auto;
+	padding: 0 10px;
+}
+
+@media all and (max-width: 1000px) {
+
+	.flex-container {
+		flex-direction: column;
+	}
 }

@@ -1,10 +1,12 @@
 @extends('layouts.base')
 @section('body')
 @include('playersForm')
-<div style="float:left">
-@include('playersStats')
-</div>
-<div style="float:left">
-@include('playersStatsDay')
+<div class="flex-container">
+	<div class="flex-item">
+	@include('playersStats')
+	</div>
+	<div class="flex-item">
+	@include('playersStatsDay')
+	</div>
 </div>
 @stop

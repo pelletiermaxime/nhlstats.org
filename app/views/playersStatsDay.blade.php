@@ -12,7 +12,7 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 	"sWrapper": "dataTables_wrapper form-inline table-responsive"
 } );
 </script>
-<table width="100%" id="tablePlayersStatsDay" class="table table-condensed" style="max-width:500px">
+<table id="tablePlayersStatsDay" class="table table-condensed">
 <thead>
 <tr>
 	<th>Name</th>

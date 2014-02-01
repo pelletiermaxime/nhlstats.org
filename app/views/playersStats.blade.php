@@ -11,7 +11,7 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 	"sWrapper": "dataTables_wrapper form-inline table-responsive"
 } );
 </script>
-<table width="80%" id="tableOverall" class="table table-condensed" style="max-width:600px">
+<table id="tableOverall" class="table table-condensed">
 <thead>
 <tr>
 	<th>#</th>

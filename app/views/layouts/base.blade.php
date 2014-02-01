@@ -22,7 +22,7 @@
 	<img src="{{ asset('images/banner.png') }}" alt="NhlStats" border="0" width="550" /></a>
 </div>
 @include('layouts/menu')
-@yield('body')
 </div>
+@yield('body')
 </body>
 </html>
