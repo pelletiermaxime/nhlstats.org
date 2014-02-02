@@ -1,7 +1,17 @@
+<div style="width:80%; margin:auto;">
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a href="#" id="overall_sort" data-toggle="tab">Overall</a>
+	</li>
+	<li>
+		<a href="#" id="division_sort" data-toggle="tab">Sort by division</a>
+	</li>
+</ul>
+</div>
 <table width="80%" id="tableOverall" class="table table-condensed">
 <thead>
 <tr>
-	<th colspan="11">&nbsp;</th>
+	<th colspan="12">&nbsp;</th>
 	<th colspan="3" style="border:1px solid black;border-bottom:none;">Powerplay</th>
 	<th colspan="3" style="border:1px solid black;border-bottom:none;">Penalty kill</th>
 	<th colspan="4">&nbsp;</th>
@@ -10,6 +20,7 @@
 	<th>Position</th>
 	<th>Team</th>
 	<th>Division</th>
+	<th>Conference</th>
 	<th>GP</th>
 	<th>W</th>
 	<th>L</th>
@@ -42,6 +53,7 @@
 		<img height="35" src="{{ asset('images/SVG') }}/{{ $s->team->short_name }}.svg" alt="{{ $s->team->city }} {{ $s->team->name }}" />
 	</td>
 	<td>{{ $s->team->division->division }}</td>
+	<td>{{ $s->team->division->conference }}</td>
 	<td>{{ $s->gp }}</td>
 	<td>{{ $s->w }}</td>
 	<td>{{ $s->l }}</td>
