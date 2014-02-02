@@ -84,6 +84,7 @@ table tr.odd td
 
 .flex-container
 {
+	display: -webkit-flex;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -96,6 +97,7 @@ table tr.odd td
 {
 	order: 0;
 	flex: 1 1 60%;
+	-webkit-flex: 1 1 60%;
 	align-self: auto;
 	padding: 0 10px;
 }
@@ -104,6 +106,7 @@ table tr.odd td
 {
 	order: 1;
 	flex: 1 1 40%;
+	-webkit-flex: 1 1 40%;
 	align-self: auto;
 	padding: 0 10px;
 }
