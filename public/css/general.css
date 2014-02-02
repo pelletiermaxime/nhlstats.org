@@ -86,6 +86,7 @@ table tr.odd td
 {
 	display: -webkit-flex;
 	display: flex;
+	-webkit-flex-direction: row;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -95,6 +96,7 @@ table tr.odd td
 
 .flex-item:nth-child(1)
 {
+	-webkit-order: 0;
 	order: 0;
 	flex: 1 1 60%;
 	-webkit-flex: 1 1 60%;
@@ -104,6 +106,7 @@ table tr.odd td
 
 .flex-item:nth-child(2)
 {
+	-webkit-order: 1;
 	order: 1;
 	flex: 1 1 40%;
 	-webkit-flex: 1 1 40%;
@@ -114,6 +117,7 @@ table tr.odd td
 @media all and (max-width: 1000px) {
 
 	.flex-container {
+		-webkit-flex-direction: column;
 		flex-direction: column;
 	}
 }
