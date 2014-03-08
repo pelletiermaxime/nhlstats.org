@@ -1,11 +1,4 @@
 <?php
-// Route::get('/', function()
-// {
-// 	return View::make('hello');
-// });
-
-// Route::get('index', 'HomeController@showWelcome');
-
 Route::get('/', [
 	'as'    => 'index',
 	'uses'  => 'PlayerController@getListFiltered',
@@ -29,4 +22,8 @@ Route::get('standings', [
 	'after' => 'cache:300',
 ]);
 
-// Route::controller('/', 'PlayerController');
+Route::get('scores', [
+	'as'    => 'scores',
+	'uses'  => 'ScoresController@index',
+	'after' => 'cache:30',
+]);
