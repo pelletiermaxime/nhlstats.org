@@ -121,3 +121,36 @@ table tr.odd td
 		flex-direction: column;
 	}
 }
+
+.scores_page
+{
+	width: 85%;
+	margin: auto;
+}
+
+.scores_page .game
+{
+	border: 1px solid black;
+	width: 300px;
+	float: left;
+	margin: 10px 20px;
+	padding: 15px;
+}
+
+.scores_page div
+{
+	min-width: 40px;
+	float: left;
+	line-height: 50px;
+}
+
+.scores_page .team_name
+{
+	width: 100px;
+}
+
+.scores_page .game_header div
+{
+	font-size: 18px;
+	line-height: 35px;
+}

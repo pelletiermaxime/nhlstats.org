@@ -1,14 +1,14 @@
 <h2 align="center">
 <?php
-$menu = array(
+$menu = [
 	'Players'         => route('index'),
 	'Goalers'         => route('goalers'),
-	// 'Scores'          => P_EQUIPES,
+	'Scores'          => route('scores'),
 	'Standings'       => route('standings'),
 	//NOUVELLES         => P_NOUVELLES,
 	// 'Playoff Bracket' => P_POBRACKET,
 	// 'Pool Players' => 'index.php?q=Pool/showPlayers',
-	);
+];
 // if (LOGGED)
 // {
 // 	$menu['Pool'] = "Pool";
@@ -19,15 +19,12 @@ $menu = array(
 // 	$menu['Login'] = 'Login';
 // }
 $current_page = URL::current();
-foreach ($menu as $titre => $adresse)
-{
-	if ($current_page != $adresse) :
-	?>
-		<a href="{{ $adresse }}"><?=$titre?></a>
-	<?php else :?>
-		<?=$titre?>
-	<?php
-	endif;
-}
 ?>
+@foreach ($menu as $titre => $adresse)
+	@if ($current_page != $adresse)
+		<a href="{{ $adresse }}">{{ $titre }}</a>
+	@else
+		{{ $titre }}
+	@endif
+@endforeach
 </h2>

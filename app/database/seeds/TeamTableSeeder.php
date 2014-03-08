@@ -37,7 +37,7 @@ class TeamTableSeeder extends Seeder {
 				'created_at' => $timestamp, 'updated_at' => $timestamp, 'division_id' => $metropolitan_division],
 			['short_name' => 'PIT', 'city' => 'Pittsburgh', 'name' => 'Penguins', 'year' => '1314',
 				'created_at' => $timestamp, 'updated_at' => $timestamp, 'division_id' => $metropolitan_division],
-			['short_name' => 'TBL', 'city' => 'Tampa Bay', 'name' => 'Lightnings', 'year' => '1314',
+			['short_name' => 'TBL', 'city' => 'Tampa Bay', 'name' => 'Lightning', 'year' => '1314',
 				'created_at' => $timestamp, 'updated_at' => $timestamp, 'division_id' => $atlantic_division],
 			['short_name' => 'STL', 'city' => 'St Louis', 'name' => 'Blues', 'year' => '1314',
 				'created_at' => $timestamp, 'updated_at' => $timestamp, 'division_id' => $central_division],
