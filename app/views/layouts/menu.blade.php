@@ -5,8 +5,7 @@ $menu = [
 	'Goalers'         => route('goalers'),
 	'Scores'          => route('scores'),
 	'Standings'       => route('standings'),
-	//NOUVELLES         => P_NOUVELLES,
-	// 'Playoff Bracket' => P_POBRACKET,
+	'Playoff Bracket' => route('playoff_bracket'),
 	// 'Pool Players' => 'index.php?q=Pool/showPlayers',
 ];
 // if (LOGGED)
