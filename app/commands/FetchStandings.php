@@ -48,7 +48,6 @@ class FetchStandings extends Command {
 			}
 			else
 			{
-				$team['Team'] = str_replace('St. Louis', 'St Louis', $team['Team']);
 				$team_id = Team::whereCity($team['Team'])->pluck('id');
 			}
 			Standings::create([
