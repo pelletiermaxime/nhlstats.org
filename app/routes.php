@@ -18,7 +18,19 @@ Route::get('goalers', [
 
 Route::get('standings', [
 	'as'    => 'standings',
-	'uses'  => 'StandingsController@index',
+	'uses'  => 'StandingsController@overall',
+	'after' => 'cache:300',
+]);
+
+Route::get('standings/overall', [
+	'as'    => 'standings_overall',
+	'uses'  => 'StandingsController@overall',
+	'after' => 'cache:300',
+]);
+
+Route::get('standings/division', [
+	'as'    => 'standings_division',
+	'uses'  => 'StandingsController@division',
 	'after' => 'cache:300',
 ]);
 

@@ -11,12 +11,7 @@ $(document).ready(function(){
 		"aoColumnDefs": [
 			{ "bVisible": false, "aTargets": [ 3 ] },
 		],
-	});
-	$('#division_sort').click(function(){
-		tableOverall.fnSort( [ [3,'asc'], [2,'asc'], [8,'desc'], [4,'asc'], [5,'desc'] ] );
-	});
-	$('#overall_sort').click(function(){
-		tableOverall.fnSort( [ [8,'desc'], [4,'asc'], [5,'desc'] ] );
+		"aaSorting": []
 	});
 });
 $.extend( $.fn.dataTableExt.oStdClasses, {
@@ -24,6 +19,27 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 } );
 </script>
 
-@include('standingsOverall')
+<?php
+$standingPages = [
+	route('standings_overall')  => 'Overall',
+	route('standings_division') => 'Sort by division',
+];
+$currentPage = URL::current();
+?>
+<div style="width:80%; margin:auto;">
+<ul class="nav nav-tabs">
+	@foreach ($standingPages as $page => $pageName)
+	@if ($page == $currentPage)
+	<li class="active">
+	@else
+	<li>
+	@endif
+		<a href="{{ $page }}" data-toggle="tab">{{ $pageName }}</a>
+	</li>
+	@endforeach
+</ul>
+</div>
+
+@yield('standings')
 
 @stop
