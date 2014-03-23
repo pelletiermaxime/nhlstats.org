@@ -48,7 +48,13 @@ class FetchStandings extends Command {
 			}
 			else
 			{
-				$team_id = Team::whereCity($team['Team'])->pluck('id');
+				$tabTeam = explode('-', $team['Team']);
+				if (isset($tabTeam[1])) {
+					$teamName = trim($tabTeam[1]);
+				} else {
+					$teamName = $team['Team'];
+				}
+				$team_id = Team::whereCity($teamName)->pluck('id');
 			}
 			Standings::create([
 				'team_id' => $team_id,
