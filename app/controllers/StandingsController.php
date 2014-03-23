@@ -24,4 +24,12 @@ class StandingsController extends BaseController {
 			->withStandings($standings)
 		;
 	}
+
+	public function wildcard()
+	{
+		$standings = $this->standings->byWildcard();
+		return View::make('standings.wildcard')
+			->withStandings($standings)
+		;
+	}
 }

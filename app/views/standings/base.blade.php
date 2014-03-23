@@ -22,7 +22,8 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 <?php
 $standingPages = [
 	route('standings_overall')  => 'Overall',
-	route('standings_division') => 'Sort by division',
+	route('standings_division') => 'Division',
+	route('standings_wildcard') => 'Wildcard',
 ];
 $currentPage = URL::current();
 ?>
