@@ -123,8 +123,7 @@ class FetchStandings extends Command {
 				$noTeam++;
 			}
 		}
-		var_dump($team);
-		die;
+
 		return $team;
 	}
 
