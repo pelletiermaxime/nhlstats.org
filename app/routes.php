@@ -48,3 +48,9 @@ Route::get('scores', [
 	'uses'  => 'ScoresController@index',
 	'after' => 'cache:30',
 ]);
+
+Route::get('playoff-bracket', [
+	'as'    => 'playoff_bracket',
+	'uses'  => 'PlayoffBracketController@index',
+	'after' => 'cache:30',
+]);

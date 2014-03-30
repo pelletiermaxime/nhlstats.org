@@ -2,23 +2,100 @@
 
 class PlayoffBracketController extends BaseController {
 
-	public function index()
+	private $standings;
+	private $wildcard;
+
+	public function __construct(Standings $standings)
 	{
-		$teamsEast = $this->getTeamsBracket('East');
-		$teamsWest = $this->getTeamsBracket('West');
-		$scores = GameScores::with(['team1', 'team2'])->get();
-		return View::make('playoffBracket', $data);
+		$this->standings = $standings;
+		$this->wildcard = $this->standings->byWildcard();
 	}
 
-	private function getTeamsBracket($conference)
+	public function index()
 	{
-		$standings = Standings::orderBy('PTS', 'DESC')
-			->orderBy('gp', 'ASC')
-			->orderBy('w', 'DESC')
-			->with(['team', 'team.division'])
-			->where('division.conference', '=', $conference)
-		->remember(60)->get();
+		$gamesEast = $this->getPlayoffGamesEast();
+		$gamesWest = $this->getPlayoffGamesWest();
+		// $scores = GameScores::with(['team1', 'team2'])->get();
+		// Debugbar::info($gamesEast);
+		// Debugbar::info($gamesWest);
+		return View::make('playoffBracket')
+			->withGamesEast($gamesEast)
+			->withGamesWest($gamesWest)
+		;
+	}
 
-		return $standings;
+	private function getPlayoffGamesEast()
+	{
+		$wildcard = $this->wildcard;
+		$wildcardEast = $wildcard['wildcard']['EAST'];
+
+		//The strongest team plays against the 2nd wildcard
+		if ($wildcard['conference']['ATLANTIC'][0]->pts >
+			$wildcard['conference']['METROPOLITAN'][0]->pts)
+		{
+			$team2Atlantic     = $wildcardEast[1];
+			$team2Metropolitan = $wildcardEast[0];
+		}
+		else
+		{
+			$team2Atlantic     = $wildcardEast[0];
+			$team2Metropolitan = $wildcardEast[1];
+		}
+
+		$playoffGames['ATLANTIC'][] = [
+			'team1' => $wildcard['conference']['ATLANTIC'][0],
+			'team2' => $team2Atlantic,
+		];
+		$playoffGames['ATLANTIC'][] = [
+			'team1' => $wildcard['conference']['ATLANTIC'][1],
+			'team2' => $wildcard['conference']['ATLANTIC'][2],
+		];
+		$playoffGames['METROPOLITAN'][] = [
+			'team1' => $wildcard['conference']['METROPOLITAN'][0],
+			'team2' => $team2Metropolitan,
+		];
+		$playoffGames['METROPOLITAN'][] = [
+			'team1' => $wildcard['conference']['METROPOLITAN'][1],
+			'team2' => $wildcard['conference']['METROPOLITAN'][2],
+		];
+
+		return $playoffGames;
+	}
+
+	private function getPlayoffGamesWest()
+	{
+		$wildcard = $this->wildcard;
+		$wildcardWest = $wildcard['wildcard']['WEST'];
+		//The strongest team plays against the 2nd wildcard
+		if ($wildcard['conference']['CENTRAL'][0]->pts >
+			$wildcard['conference']['PACIFIC'][0]->pts)
+		{
+			$team2Central = $wildcardWest[1];
+			$team2Pacific = $wildcardWest[0];
+		}
+		else
+		{
+			$team2Central = $wildcardWest[0];
+			$team2Pacific = $wildcardWest[1];
+		}
+
+		$playoffGames['CENTRAL'][] = [
+			'team1' => $wildcard['conference']['CENTRAL'][0],
+			'team2' => $wildcard['wildcard']['WEST'][1],
+		];
+		$playoffGames['CENTRAL'][] = [
+			'team1' => $wildcard['conference']['CENTRAL'][1],
+			'team2' => $wildcard['conference']['CENTRAL'][2],
+		];
+		$playoffGames['PACIFIC'][] = [
+			'team1' => $wildcard['conference']['PACIFIC'][0],
+			'team2' => $wildcard['wildcard']['WEST'][0],
+		];
+		$playoffGames['PACIFIC'][] = [
+			'team1' => $wildcard['conference']['PACIFIC'][1],
+			'team2' => $wildcard['conference']['PACIFIC'][2],
+		];
+
+		return $playoffGames;
 	}
 }
