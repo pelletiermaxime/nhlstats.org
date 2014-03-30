@@ -4,7 +4,7 @@ class TeamTableSeeder extends Seeder {
 
 	public function run()
 	{
-		Team::whereYear('1314')->delete();
+		Team::where('year', '1314')->delete();
 
 		$team = new Team();
 		$timestamp = $team->freshTimestamp();

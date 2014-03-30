@@ -1,13 +1,5 @@
-<div style="width:80%; margin:auto;">
-<ul class="nav nav-tabs">
-	<li class="active">
-		<a href="#" id="overall_sort" data-toggle="tab">Overall</a>
-	</li>
-	<li>
-		<a href="#" id="division_sort" data-toggle="tab">Sort by division</a>
-	</li>
-</ul>
-</div>
+@extends('standings.base')
+@section('standings')
 <table width="80%" id="tableOverall" class="table table-condensed">
 <thead>
 <tr>
@@ -44,16 +36,17 @@
 <tbody>
 @foreach ($standings as $position => $s)
 <tr>
-	@if ($s->team->division->conference == 'EAST')
+	@if ($s->conference == 'EAST')
 	<td style="background:#b9112d;color:white;font-size:1.8em;">{{ ++$position }}</td>
 	@else
 	<td style="background:#003872;color:white;font-size:1.8em;">{{ ++$position }}</td>
 	@endif
 	<td>
-		<img height="35" src="{{ asset('images/SVG') }}/{{ $s->team->short_name }}.svg" alt="{{ $s->team->city }} {{ $s->team->name }}" />
+		<img height="35" src="{{ asset('images/SVG') }}/{{ $s->short_name }}.svg"
+			alt="{{ $s->city }} {{ $s->name }}" />
 	</td>
-	<td>{{ $s->team->division->division }}</td>
-	<td>{{ $s->team->division->conference }}</td>
+	<td>{{ $s->division }}</td>
+	<td>{{ $s->conference }}</td>
 	<td>{{ $s->gp }}</td>
 	<td>{{ $s->w }}</td>
 	<td>{{ $s->l }}</td>
@@ -76,3 +69,4 @@
 @endforeach
 </tbody>
 </table>
+@stop

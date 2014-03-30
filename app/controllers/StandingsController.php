@@ -2,13 +2,34 @@
 
 class StandingsController extends BaseController {
 
-	public function index()
+	private $standings;
+
+	public function __construct(Standings $standings)
 	{
-		$standings = Standings::orderBy('PTS', 'DESC')
-			->orderBy('gp', 'ASC')
-			->orderBy('w', 'DESC')
-			->with('team.division')->remember(60)->get();
-		$data['standings'] = $standings;
-		return View::make('standings', $data);
+		$this->standings = $standings;
+	}
+
+	public function overall()
+	{
+		$standings = $this->standings->byOverall();
+		return View::make('standings.overall')
+			->withStandings($standings)
+		;
+	}
+
+	public function division()
+	{
+		$standings = $this->standings->byDivision();
+		return View::make('standings.division')
+			->withStandings($standings)
+		;
+	}
+
+	public function wildcard()
+	{
+		$standings = $this->standings->byWildcard();
+		return View::make('standings.wildcard')
+			->withStandings($standings)
+		;
 	}
 }
