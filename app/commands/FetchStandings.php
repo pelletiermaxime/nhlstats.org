@@ -38,7 +38,7 @@ class FetchStandings extends Command {
 	public function fire()
 	{
 		$teams = $this->getTeamsArray();
-		Standings::whereYear('1314')->delete();
+		Standings::where('year', '1314')->delete();
 		foreach($teams as $team)
 		{
 			if (strpos($team['Team'], 'NY') !== false)
