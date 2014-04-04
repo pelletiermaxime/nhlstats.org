@@ -41,19 +41,19 @@ class FetchStandings extends Command {
 		Standings::where('year', '1314')->delete();
 		foreach($teams as $team)
 		{
+			$tabTeam = explode('-', $team['Team']);
+			if (isset($tabTeam[1])) {
+				$teamName = trim($tabTeam[1]);
+			} else {
+				$teamName = $team['Team'];
+			}
 			if (strpos($team['Team'], 'NY') !== false)
 			{
-				$teamNY = str_replace('NY ', '', $team['Team']);
+				$teamNY = str_replace('NY ', '', $teamName);
 				$team_id = Team::whereName($teamNY)->pluck('id');
 			}
 			else
 			{
-				$tabTeam = explode('-', $team['Team']);
-				if (isset($tabTeam[1])) {
-					$teamName = trim($tabTeam[1]);
-				} else {
-					$teamName = $team['Team'];
-				}
 				$team_id = Team::whereCity($teamName)->pluck('id');
 			}
 			Standings::create([
