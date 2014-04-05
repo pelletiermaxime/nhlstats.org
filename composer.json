@@ -9,7 +9,6 @@
 		"elvedia/goutte": "dev-master",
 		"barryvdh/laravel-debugbar": "dev-master",
 		"barryvdh/laravel-ide-helper": "1.*",
-		"barryvdh/laravel-httpcache": "*",
 		"zizaco/confide": "3.2.x"
 	},
 	"require-dev": {
@@ -46,5 +45,5 @@
 	"config": {
 		"preferred-install": "dist"
 	},
-	"minimum-stability": "dev"
+	"minimum-stability": "stable"
 }
