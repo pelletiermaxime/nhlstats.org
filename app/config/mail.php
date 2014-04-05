@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'pelletiermaxime@gmail.com', 'name' => 'Maxime Pelletier'),
+	'from' => array('address' => 'pelletiermaxime@gmail.com', 'name' => 'Nhlstats.org'),
 
 	/*
 	|--------------------------------------------------------------------------
