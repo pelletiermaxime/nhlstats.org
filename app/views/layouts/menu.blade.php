@@ -6,17 +6,19 @@ $menu = [
 	'Scores'          => route('scores'),
 	'Standings'       => route('standings'),
 	'Playoff Bracket' => route('playoff_bracket'),
-	// 'Pool Players' => 'index.php?q=Pool/showPlayers',
 ];
-// if (LOGGED)
-// {
-// 	$menu['Pool'] = "Pool";
-// 	$menu['Logout'] = 'index.php?q=Login/logout';
-// }
-// else
-// {
-// 	$menu['Login'] = 'Login';
-// }
+
+if (Confide::user()) //Logged-in
+{
+	$menu['Pool choices'] = route('pool/me');
+	$menu['Logout']       = url('user/logout');
+}
+else
+{
+	$menu['Login']  = url('user/login');
+	$menu['Signup'] = url('user/create');
+}
+
 $current_page = URL::current();
 ?>
 @foreach ($menu as $titre => $adresse)

@@ -112,6 +112,7 @@ return array(
 		'Barryvdh\Debugbar\ServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Barryvdh\HttpCache\ServiceProvider',
+		'Zizaco\Confide\ConfideServiceProvider',
 	),
 
 	/*
@@ -180,6 +181,7 @@ return array(
 
 		'Goutte'          => 'Elvedia\Goutte\Facades\Laravel\GoutteFacade',
 		'Debugbar'        => 'Barryvdh\Debugbar\Facade',
+		'Confide'         => 'Zizaco\Confide\ConfideFacade',
 	),
 
 );
