@@ -10,7 +10,7 @@ $menu = [
 
 if (Confide::user()) //Logged-in
 {
-	// $menu['Pool choices'] = route('pool/me');
+	$menu['Pool choices'] = route('pool/me');
 	$menu['Logout']       = url('user/logout');
 }
 else

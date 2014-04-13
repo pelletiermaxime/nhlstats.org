@@ -4,6 +4,8 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+use Nhlstats\Repositories\PlayoffRepository as Playoff;
+
 class FetchStandings extends Command {
 
 	/**
@@ -25,8 +27,9 @@ class FetchStandings extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(Playoff $playoff)
 	{
+		$this->playoff = $playoff;
 		parent::__construct();
 	}
 
@@ -38,6 +41,12 @@ class FetchStandings extends Command {
 	public function fire()
 	{
 		$teams = $this->getTeamsArray();
+		$this->saveStandings($teams);
+		$this->generatePlayoffTeams();
+	}
+
+	private function saveStandings($teams)
+	{
 		Standings::where('year', '1314')->delete();
 		foreach($teams as $team)
 		{
@@ -79,8 +88,6 @@ class FetchStandings extends Command {
 				'streak'  => $team['Streak'],
 			]);
 		}
-
-		// var_dump($teams);
 	}
 
 	private function getTeamsArray()
@@ -125,6 +132,36 @@ class FetchStandings extends Command {
 		}
 
 		return $team;
+	}
+
+	private function generatePlayoffTeams()
+	{
+		$gamesEast = $this->playoff->getPlayoffGamesEast();
+		$this->savePlayoffTeams($gamesEast, 'EAST');
+		$gamesWest = $this->playoff->getPlayoffGamesWest();
+		$this->savePlayoffTeams($gamesWest, 'WEST');
+
+	}
+
+	private function savePlayoffTeams($games, $conference)
+	{
+		foreach ($games as $division)
+		{
+			foreach ($division as $game)
+			{
+				$team1 = $game['team1']->team_id;
+				$team2 = $game['team2']->team_id;
+				$conference = $conference;
+				$round = 1;
+				$playoffTeams = PlayoffTeams::firstOrNew([
+					'team1_id'   => $team1,
+					'team2_id'   => $team2,
+					'conference' => $conference,
+					'round'      => $round,
+				]);
+				$playoffTeams->save();
+			}
+		}
 	}
 
 	/**
