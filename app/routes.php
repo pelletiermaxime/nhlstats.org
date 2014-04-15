@@ -40,9 +40,13 @@ Route::group(['prefix' => 'standings'], function()
 Route::group(['prefix' => 'pool'], function()
 {
 	Route::get('me', [
-		'as'    => 'pool/me',
-		'uses'  => 'StandingsController@wildcard',
-		'after' => 'cache:300',
+		'as'    => 'pool_me',
+		'uses'  => 'PoolController@edit',
+	]);
+
+	Route::post('me', [
+		'as'    => 'pool_save',
+		'uses'  => 'PoolController@store',
 	]);
 });
 

@@ -14,6 +14,4 @@ class PlayoffTeams extends Eloquent {
 		return $this->belongsTo('Team');
 	}
 
-
-
 }
