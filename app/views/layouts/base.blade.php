@@ -24,7 +24,9 @@
 @include('layouts/menu')
 </div>
 @yield('body')
+{{--
 <script src="{{ asset('javascript')}}/instantclick.min.js" data-no-instant></script>
 <script data-no-instant>InstantClick.init(50);</script>
+--}}
 </body>
 </html>

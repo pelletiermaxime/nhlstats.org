@@ -1,6 +1,15 @@
 @extends('layouts.base')
 @section('body')
 
+<?php
+$standingPages = [
+	route('standings_overall')  => 'Overall',
+	route('standings_division') => 'Division',
+	route('standings_wildcard') => 'Wildcard',
+];
+$currentPage = URL::current();
+?>
+@if ($currentPage == route('standings_overall'))
 <script type="text/javascript">
 $(document).ready(function(){
 	tableOverall = $('#tableOverall').dataTable({
@@ -18,15 +27,7 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 	"sWrapper": "dataTables_wrapper form-inline table-responsive"
 } );
 </script>
-
-<?php
-$standingPages = [
-	route('standings_overall')  => 'Overall',
-	route('standings_division') => 'Division',
-	route('standings_wildcard') => 'Wildcard',
-];
-$currentPage = URL::current();
-?>
+@endif
 <div style="width:80%; margin:auto;">
 <ul class="nav nav-tabs">
 	@foreach ($standingPages as $page => $pageName)
@@ -35,7 +36,7 @@ $currentPage = URL::current();
 	@else
 	<li>
 	@endif
-		<a href="{{ $page }}" data-toggle="tab">{{ $pageName }}</a>
+		<a href="{{ $page }}">{{ $pageName }}</a>
 	</li>
 	@endforeach
 </ul>
