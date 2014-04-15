@@ -3,13 +3,14 @@
 
 <?php
 $standingPages = [
-	route('standings_overall')  => 'Overall',
+	route('standings')  => 'Overall',
 	route('standings_division') => 'Division',
 	route('standings_wildcard') => 'Wildcard',
 ];
 $currentPage = URL::current();
+$routeName = Route::currentRouteName();
 ?>
-@if ($currentPage == route('standings_overall'))
+@if ($routeName == 'standings')
 <script type="text/javascript">
 $(document).ready(function(){
 	tableOverall = $('#tableOverall').dataTable({
@@ -30,15 +31,15 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 @endif
 <div style="width:80%; margin:auto;">
 <ul class="nav nav-tabs">
-	@foreach ($standingPages as $page => $pageName)
-	@if ($page == $currentPage)
+@foreach ($standingPages as $page => $pageName)
+	@if ($page == $currentPage )
 	<li class="active">
 	@else
 	<li>
 	@endif
 		<a href="{{ $page }}">{{ $pageName }}</a>
 	</li>
-	@endforeach
+@endforeach
 </ul>
 </div>
 

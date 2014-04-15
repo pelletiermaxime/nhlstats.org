@@ -18,14 +18,8 @@ Route::get('goalers', [
 
 Route::group(['prefix' => 'standings'], function()
 {
-	Route::get('/', [
-		'as'    => 'standings',
-		'uses'  => 'StandingsController@overall',
-		'after' => 'cache:300',
-	]);
-
 	Route::get('overall', [
-		'as'    => 'standings_overall',
+		'as'    => 'standings',
 		'uses'  => 'StandingsController@overall',
 		'after' => 'cache:300',
 	]);

@@ -20,12 +20,14 @@ else
 }
 
 $current_page = URL::current();
+$route_name = Route::currentRouteName();
 ?>
-@foreach ($menu as $titre => $adresse)
-	@if ($current_page != $adresse)
-		<a href="{{ $adresse }}">{{ $titre }}</a>
+@foreach ($menu as $title => $adresse)
+	{{-- Don't show link for active pages/subpages --}}
+	@if (!str_contains($current_page, $adresse) || ($route_name != 'index' && $title == 'Players'))
+		<a href="{{ $adresse }}">{{ $title }}</a>
 	@else
-		{{ $titre }}
+		{{ $title }}
 	@endif
 @endforeach
 </h2>
