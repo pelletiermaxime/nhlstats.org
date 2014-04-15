@@ -47,8 +47,8 @@ return array(
     |
     |
     */
-    'login_form' =>             'confide::login',
-    'signup_form' =>            'confide::signup',
+    'login_form' =>             'user.login',
+    'signup_form' =>            'user.signup',
     'forgot_password_form' =>   'confide::forgot_password',
     'reset_password_form' =>    'confide::reset_password',
 
@@ -88,7 +88,7 @@ return array(
     |
     */
     'signup_cache' => 120,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Signup E-mail and confirmation (true or false)
@@ -106,7 +106,7 @@ return array(
     | signup_confirm:
     | is to decide of a member needs to be confirmed before he is able to login
     | so when you set this to true, then a member has to be confirmed before
-    | he is able to login, so if you want to use an IPN for confirmation, be 
+    | he is able to login, so if you want to use an IPN for confirmation, be
     | sure that the ipn process also changes the confirmed flag in the member
     | table, otherwise they will not be able to login after the payment.
     |
