@@ -1,12 +1,3 @@
-@extends('layouts.base')
-@section('body')
-
-@if(Session::has('success'))
-<div class="alert-success text-center">
-<h3>{{ Session::get('success') }}</h3>
-</div>
-@endif
-
 {{ Form::open(array('route' => 'pool_save')) }}
 <div align="center">
 	@foreach ($playoffTeams as $game)
@@ -32,5 +23,3 @@
 	</div>
 </div>
 {{ Form::close() }}
-
-@stop

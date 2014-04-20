@@ -6,6 +6,7 @@ $menu = [
 	'Scores'          => route('scores'),
 	'Standings'       => route('standings'),
 	'Playoff Bracket' => route('playoff_bracket'),
+	'Pool Players'    => route('pool_index'),
 ];
 
 if (Confide::user()) //Logged-in
@@ -24,7 +25,7 @@ $route_name = Route::currentRouteName();
 ?>
 @foreach ($menu as $title => $adresse)
 	{{-- Don't show link for active pages/subpages --}}
-	@if (!str_contains($current_page, $adresse) || ($route_name != 'index' && $title == 'Players'))
+	@if ($current_page != $adresse)
 		<a href="{{ $adresse }}">{{ $title }}</a>
 	@else
 		{{ $title }}
