@@ -9,7 +9,18 @@ class PoolController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$query = DB::table('playoff_choices')
+			->join('playoff_teams', 'playoff_teams.id', '=', 'playoff_choices.playoff_team_id')
+			->join('teams', 'teams.id', '=', 'playoff_choices.winning_team_id')
+			->join('users', 'users.id', '=', 'playoff_choices.user_id')
+			// ->remember(60 * 60)
+		;
+		$playoffChoices = $query->get();
+		// var_dump($playoffChoices);
+		// die;
+		return View::make('pool/list')
+			->with('playoffChoices', $playoffChoices)
+		;
 	}
 
 	/**

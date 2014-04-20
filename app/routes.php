@@ -48,6 +48,11 @@ Route::group(['prefix' => 'pool'], function()
 		'as'    => 'pool_save',
 		'uses'  => 'PoolController@store',
 	]);
+
+	Route::get('', [
+		'as'    => 'pool_index',
+		'uses'  => 'PoolController@index',
+	]);
 });
 
 Route::get('scores', [
