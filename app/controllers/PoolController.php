@@ -36,11 +36,25 @@ class PoolController extends \BaseController {
 
 	/**
 	 * Show an user's pool choices
-	 * @return type
+	 * @return bool Was there choices to show ?
 	 */
-	public function show()
+	public function show($user_id, $round)
 	{
-
+		$query = DB::table('playoff_choices')
+			->join('playoff_teams', 'playoff_teams.id', '=', 'playoff_choices.playoff_team_id')
+			->join('teams', 'teams.id', '=', 'playoff_choices.winning_team_id')
+			->whereUserId($user_id)
+			->whereRound($round)
+			->remember(60 * 60)
+		;
+		$playoffChoices = $query->get();
+		if (count($playoffChoices))
+		{
+			return View::make('pool/show')
+				->with('playoffChoices', $playoffChoices)
+			;
+		}
+		return false;
 	}
 
 	/**
@@ -52,33 +66,34 @@ class PoolController extends \BaseController {
 	public function edit()
 	{
 		$user_id = Confide::user()->id;
+		$view = '';
 
-		$playoffChoices = PlayoffChoices::whereUserId($user_id)
-			->get();
-		if (count($playoffChoices) > 0)
+		for ($round = 1; $round <= 4; $round++)
 		{
-			$this->show();
+			$resultView = $this->show($user_id, $round);
+			$view .= $resultView;
+			if ($resultView !== false)
+			{
+				continue;
+			}
+
+			$playoffTeams = PlayoffTeams::with('Team1')
+				->with('Team2')
+				->whereRound($round)
+				->remember(60 * 60)
+				->get()
+				->toArray();
+			// Debugbar::log($playoffTeams);
+			if (count($playoffTeams) > 0)
+			{
+				$view .= View::make('pool/me')
+					->with('playoffTeams', $playoffTeams)
+				;
+			}
 		}
-
-		$playoffTeams = PlayoffTeams::with('Team1')
-			->with('Team2')
-			->get()
-			->toArray();
-		Debugbar::log($playoffTeams);
-		return View::make('pool/me')
-			->with('playoffTeams', $playoffTeams)
-		;
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+		return View::make('pool/edit')
+				->with('view', $view)
+			;
 	}
 
 }
