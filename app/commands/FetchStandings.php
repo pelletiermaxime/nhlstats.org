@@ -27,9 +27,8 @@ class FetchStandings extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct(Playoff $playoff)
+	public function __construct()
 	{
-		$this->playoff = $playoff;
 		parent::__construct();
 	}
 
@@ -136,9 +135,10 @@ class FetchStandings extends Command {
 
 	private function generatePlayoffTeams()
 	{
-		$gamesEast = $this->playoff->getPlayoffGamesEast();
+		$playoff = App::make('Nhlstats\Repositories\PlayoffRepository');
+		$gamesEast = $playoff->getPlayoffGamesEast();
 		$this->savePlayoffTeams($gamesEast, 'EAST');
-		$gamesWest = $this->playoff->getPlayoffGamesWest();
+		$gamesWest = $playoff->getPlayoffGamesWest();
 		$this->savePlayoffTeams($gamesWest, 'WEST');
 
 	}

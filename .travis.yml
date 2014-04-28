@@ -1,12 +1,17 @@
 language: php
 php:
-  - 5.5
-  - 5.4
   - hhvm
 
 before_install:
   - composer install
 
 before_script:
-  - artisan migrate
-  - artisan db:seed
+  - mysql -e 'create database nhlstats'
+  - php artisan migrate
+  - php artisan db:seed
+
+services:
+  - redis-server
+
+script:
+  - hhvm vendor/bin/phpunit

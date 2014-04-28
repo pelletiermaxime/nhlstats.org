@@ -11,7 +11,7 @@
 |
 */
 
-Artisan::resolve('FetchStandings');
+Artisan::add(new FetchStandings);
 Artisan::add(new FetchPlayers);
 Artisan::add(new FetchGoalers);
 Artisan::add(new FetchGameScores);
