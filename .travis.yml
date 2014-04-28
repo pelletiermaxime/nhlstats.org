@@ -7,3 +7,6 @@ php:
 before_install:
   - composer install
 
+before_script:
+  - artisan migrate
+  - artisan db:seed
