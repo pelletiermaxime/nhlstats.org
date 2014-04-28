@@ -1,4 +1,4 @@
-<?php
+<?hh
 
 use Nhlstats\Repositories\TeamRepository as Team;
 use Carbon\Carbon;
@@ -6,14 +6,10 @@ use Carbon\Carbon;
 class PlayerController extends BaseController {
 
 	public function __construct(
-		Team $team,
-		PlayersStatsYear $players_stats_year,
-		PlayersStatsDays $players_stats_day
-	) {
-		$this->team = $team;
-		$this->players_stats_year = $players_stats_year;
-		$this->players_stats_day  = $players_stats_day;
-	}
+		private Team $team,
+		private PlayersStatsYear $players_stats_year,
+		private PlayersStatsDays $players_stats_day
+	) {}
 
 	public function getListFiltered()
 	{
