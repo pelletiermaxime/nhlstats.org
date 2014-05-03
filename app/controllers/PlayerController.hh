@@ -8,7 +8,7 @@ class PlayerController extends BaseController {
 	public function __construct(
 		private Team $team,
 		private PlayersStatsYear $players_stats_year,
-		private PlayersStatsDays $players_stats_day
+		private PlayersStatsDays $players_stats_day,
 	) {}
 
 	public function getListFiltered()
