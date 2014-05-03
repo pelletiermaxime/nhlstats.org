@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class ConfideSetupUsersTable extends Migration {
 
@@ -11,7 +12,7 @@ class ConfideSetupUsersTable extends Migration {
     public function up()
     {
         // Creates the users table
-        Schema::create('users', function($table)
+        Schema::create('users', function(Blueprint $table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -24,9 +25,9 @@ class ConfideSetupUsersTable extends Migration {
         });
 
         // Creates password reminders table
-        Schema::create('password_reminders', function($t)
+        Schema::create('password_reminders', function(Blueprint $t)
         {
-            $table->engine = 'InnoDB';
+            $t->engine = 'InnoDB';
             $t->string('email');
             $t->string('token');
             $t->timestamp('created_at');

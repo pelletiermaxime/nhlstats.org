@@ -1,13 +1,10 @@
-<?php
+<?hh
 
 use Nhlstats\Repositories\TeamRepository as Team;
 
 class GoalerController extends BaseController {
 
-	public function __construct(Team $team)
-	{
-		$this->team = $team;
-	}
+	public function __construct(private Team $team){}
 
 	public function getListFiltered()
 	{
