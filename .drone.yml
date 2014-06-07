@@ -1,0 +1,11 @@
+image: php:5.5
+env:
+  - GOPATH=/var/cache/drone
+script:
+  - phpunit
+services:
+  - redis
+notify:
+  email:
+    recipients:
+      - pelletiermaxime@gmail.com
