@@ -1,10 +1,11 @@
 image: php:5.5
-env:
-  - GOPATH=/var/cache/drone
 script:
+  - mysql -e 'create database nhlstats'
+  - php artisan migrate
+  - php artisan db:seed
   - phpunit
 services:
-  - redis
+  - mysql
 notify:
   email:
     recipients:
