@@ -17,7 +17,6 @@ class AddRememberTokenToUsers extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *
