@@ -4,8 +4,8 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class FetchGameScores extends Command {
-
+class FetchGameScores extends Command
+{
 	/**
 	 * The console command name.
 	 *
@@ -21,16 +21,6 @@ class FetchGameScores extends Command {
 	protected $description = 'Fetch game scores from espn.';
 
 	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-	/**
 	 * Execute the console command.
 	 *
 	 * @return mixed
@@ -43,12 +33,12 @@ class FetchGameScores extends Command {
 
 	private function getScoresArray()
 	{
-		$client = Goutte::getNewClient();
+		$client   = Goutte::getNewClient();
 		$dateESPN = Carbon::parse($this->argument('date'))->format('Ymd');
 
 		$gameDayURL = "http://scores.espn.go.com/nhl/scoreboard?date=$dateESPN";
-		$crawler = $client->request('GET', $gameDayURL);
-		$lines = $crawler->filter('.game-details tr');
+		$crawler    = $client->request('GET', $gameDayURL);
+		$lines      = $crawler->filter('.game-details tr');
 
 		$line_cells = [];
 		$lines->each(function ($line) use (&$line_cells) {
@@ -56,8 +46,8 @@ class FetchGameScores extends Command {
 		});
 
 		$noGame = 0;
-		$home = false;
-		$games = [];
+		$home   = false;
+		$games  = [];
 
 		foreach ($line_cells as $cells) {
 			//Header line of a new game
@@ -99,7 +89,6 @@ class FetchGameScores extends Command {
 				'team1_id'   => $team1_id,
 				'team2_id'   => $team2_id,
 			]);
-			// var_dump($game);
 			$gameDB->score1_1  = $game['score1_1'];
 			$gameDB->score1_2  = $game['score1_2'];
 			$gameDB->score1_3  = $game['score1_3'];
@@ -114,7 +103,7 @@ class FetchGameScores extends Command {
 			// $gameDB->score2_SO = $game['score2_SO'];
 			$gameDB->score2_T  = $game['score2_T'];
 
-			$gameDB->year      = '1314';
+			$gameDB->year      = Config::get('nhlstats.currentYear');
 			$gameDB->save();
 		}
 	}
@@ -139,8 +128,6 @@ class FetchGameScores extends Command {
 	 */
 	protected function getOptions()
 	{
-		return array(
-		// 	array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
+		return [];
 	}
 }
