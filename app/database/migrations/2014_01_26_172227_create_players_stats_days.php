@@ -27,7 +27,6 @@ class CreatePlayersStatsDays extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *

@@ -37,7 +37,6 @@ class CreatePlayersStatsYear extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *
