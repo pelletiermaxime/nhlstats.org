@@ -20,16 +20,6 @@ class FetchGoalers extends Command {
 	protected $description = 'Fetch goalers stats from espn.';
 
 	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-	/**
 	 * Execute the console command.
 	 *
 	 * @return mixed
@@ -42,15 +32,16 @@ class FetchGoalers extends Command {
 
 	private function getGoalersArray()
 	{
-		$client = Goutte::getNewClient();
+		$client       = Goutte::getNewClient();
 		$startingPage = $this->argument('startingPage');
 		$endingPage   = $this->argument('endingPage');
 		$currentPage  = $startingPage;
 
-		$params = ['Rank', 'Player', 'Team', 'GP', 'W', 'L', 'OTL', 'GAA', 'GA', 'SA', 'Sv', 'Sv%', 'SO', 'SASO', 'SVSO', 'Sv%SO'];
+		$params = ['Rank', 'Player', 'Team', 'GP', 'W', 'L', 'OTL', 'GAA', 'GA', 'SA',
+			'Sv', 'Sv%', 'SO', 'SASO', 'SVSO', 'Sv%SO'];
 		$paramCount = count($params);
-		$goaler = [];
-		$noGoaler = 1;
+		$goaler     = [];
+		$noGoaler   = 1;
 
 		while ($currentPage <= $endingPage)
 		{
@@ -109,7 +100,7 @@ class FetchGoalers extends Command {
 			$goalerDB->first_name = $firstName;
 			$goalerDB->name       = $name;
 			$goalerDB->position   = 'G';
-			$goalerDB->year       = '1314';
+			$goalerDB->year       = Config::get('nhlstats.currentYear');
 			$goalerDB->save();
 
 			$goaler_stats = GoalersStatsYear::firstOrNew([

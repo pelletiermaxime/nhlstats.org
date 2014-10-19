@@ -23,6 +23,7 @@ class GoalerController extends BaseController {
 		// $minGames = $topGames / 4;
 
 		$filter['teams.short_name'] = ['=', $team];
+		$filter['players.year'] = ['=', Config::get('nhlstats.currentYear')];
 		$goalersStatsYear = $this->goalersStatsYear($filter);
 
 		return View::make('goalers')
