@@ -5,8 +5,8 @@ $menu = [
 	'Goalers'         => route('goalers'),
 	'Scores'          => route('scores'),
 	'Standings'       => route('standings'),
-	'Playoff Bracket' => route('playoff_bracket'),
-	'Pool Players'    => route('pool_index'),
+	// 'Playoff Bracket' => route('playoff_bracket'),
+	// 'Pool Players'    => route('pool_index'),
 ];
 
 if (Confide::user()) //Logged-in
