@@ -44,7 +44,6 @@ class CreateStandings extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *

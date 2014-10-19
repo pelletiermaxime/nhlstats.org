@@ -29,7 +29,6 @@ class CreatePlayoffChoices extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *

@@ -22,7 +22,6 @@ class CreateDivisions extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *

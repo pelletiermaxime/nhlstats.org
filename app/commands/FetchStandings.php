@@ -1,10 +1,6 @@
 <?php
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
-
-use Nhlstats\Repositories\PlayoffRepository as Playoff;
 
 class FetchStandings extends Command {
 
@@ -143,6 +139,9 @@ class FetchStandings extends Command {
 
 	}
 
+	/**
+	 * @param string $conference
+	 */
 	private function savePlayoffTeams($games, $conference)
 	{
 		foreach ($games as $division)

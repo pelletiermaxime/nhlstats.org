@@ -28,7 +28,6 @@ class CreatePlayoffTeams extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *

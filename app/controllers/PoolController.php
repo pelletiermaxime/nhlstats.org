@@ -41,6 +41,7 @@ class PoolController extends \BaseController {
 
 	/**
 	 * Show an user's pool choices
+	 * @param integer $round
 	 * @return bool Was there choices to show ?
 	 */
 	public function show($user_id, $round)
@@ -65,7 +66,6 @@ class PoolController extends \BaseController {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
 	 * @return Response
 	 */
 	public function edit()

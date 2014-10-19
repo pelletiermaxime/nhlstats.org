@@ -34,7 +34,6 @@ class CreateGoalersStatsYear extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *

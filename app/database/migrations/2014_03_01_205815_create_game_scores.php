@@ -42,7 +42,6 @@ class CreateGameScores extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *

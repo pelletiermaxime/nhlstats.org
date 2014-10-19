@@ -35,7 +35,6 @@ class CreatePlayer extends Migration {
 		});
 	}
 
-
 	/**
 	 * Reverse the migrations.
 	 *
