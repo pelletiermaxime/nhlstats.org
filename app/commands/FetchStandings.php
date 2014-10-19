@@ -2,8 +2,8 @@
 
 use Illuminate\Console\Command;
 
-class FetchStandings extends Command {
-
+class FetchStandings extends Command
+{
 	/**
 	 * The console command name.
 	 *
@@ -19,16 +19,6 @@ class FetchStandings extends Command {
 	protected $description = 'Fetch the nhl standing info from espn.';
 
 	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-	/**
 	 * Execute the console command.
 	 *
 	 * @return void
@@ -42,7 +32,7 @@ class FetchStandings extends Command {
 
 	private function saveStandings($teams)
 	{
-		Standings::where('year', '1314')->delete();
+		Standings::where('year', Config::get('nhlstats.currentYear'))->delete();
 		foreach($teams as $team)
 		{
 			$tabTeam = explode('-', $team['Team']);
@@ -62,7 +52,7 @@ class FetchStandings extends Command {
 			}
 			Standings::create([
 				'team_id' => $team_id,
-				'year'    => '1314',
+				'year'    => Config::get('nhlstats.currentYear'),
 				'gp'      => $team['GP'],
 				'w'       => $team['W'],
 				'l'       => $team['L'],
@@ -89,11 +79,12 @@ class FetchStandings extends Command {
 	{
 		$client = Goutte::getNewClient();
 
-		$params = ['Team', 'GP', 'W', 'L', 'OTL', 'PTS', 'ROW', 'SOW', 'SOL', 'HOME', 'ROAD', 'GF', 'GA', 'Diff', 'L10', 'Streak'];
+		$params = ['Team', 'GP', 'W', 'L', 'OTL', 'PTS', 'ROW', 'SOW', 'SOL', 'HOME',
+			'ROAD', 'GF', 'GA', 'Diff', 'L10', 'Streak'];
 		$paramCount = count($params);
 
 		$crawler = $client->request('GET', 'http://espn.go.com/nhl/standings');
-		$cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
+		$cells   = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
 
 		$noParametre = 0;
 		$noTeam = 1;
@@ -107,14 +98,14 @@ class FetchStandings extends Command {
 			}
 		}
 
-		$params = ['Team', 'GP', 'W', 'L', 'OTL', 'PTS', 'PPG', 'PPO', 'PPP', 'PPGA', 'PPOA', 'PKP'];
+		$params     = ['Team', 'GP', 'W', 'L', 'OTL', 'PTS', 'PPG', 'PPO', 'PPP', 'PPGA', 'PPOA', 'PKP'];
 		$paramCount = count($params);
 
 		$crawler = $client->request('GET', 'http://espn.go.com/nhl/standings/_/type/expanded');
-		$cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
+		$cells   = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
 
 		$noParametre = 0;
-		$noTeam = 1;
+		$noTeam      = 1;
 		foreach($cells as $cell)
 		{
 			$team[$noTeam][$params[$noParametre]] = trim($cell);
@@ -170,9 +161,7 @@ class FetchStandings extends Command {
 	 */
 	protected function getArguments()
 	{
-		return array(
-			// array('example', InputArgument::REQUIRED, 'An example argument.'),
-		);
+		return [];
 	}
 
 	/**
@@ -182,8 +171,6 @@ class FetchStandings extends Command {
 	 */
 	protected function getOptions()
 	{
-		return array(
-			// array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
+		return [];
 	}
 }
