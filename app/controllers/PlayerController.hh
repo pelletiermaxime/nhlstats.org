@@ -20,7 +20,6 @@ class PlayerController extends BaseController {
 			'500' => '500',
 			'All' => 'All'
 		];
-
 		$count = Input::get('count', head($all_counts));
 		//Default to 50 if not a possible count
 		if (!isset($all_counts[$count]))
@@ -56,6 +55,7 @@ class PlayerController extends BaseController {
 
 		/* -------- PLAYER STATS -------- */
 		$filter['teams.short_name'] = ['=', $team];
+		$filter['players.year'] = ['=', Config::get('nhlstats.currentYear')];
 		$playersStatsYear = Cache::remember(
 			"playersStatsYear-{$count}-{$team}",
 			60,

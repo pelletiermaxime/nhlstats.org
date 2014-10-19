@@ -5,8 +5,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Carbon\Carbon;
 
-class FetchPlayers extends Command {
-
+class FetchPlayers extends Command
+{
 	/**
 	 * The console command name.
 	 *
@@ -113,7 +113,7 @@ class FetchPlayers extends Command {
 			$playerDB->first_name = $firstName;
 			$playerDB->name       = $name;
 			$playerDB->position   = $position;
-			$playerDB->year       = '1314';
+			$playerDB->year       = Config::get('nhlstats.currentYear');
 			$playerDB->save();
 
 			$player_stats = PlayersStatsYear::firstOrNew([
