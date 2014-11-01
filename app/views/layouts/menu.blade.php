@@ -1,32 +1,38 @@
 <h2 align="center">
 <?php
 $menu = [
-	'Players'         => route('index'),
-	'Goalers'         => route('goalers'),
-	'Scores'          => route('scores'),
-	'Standings'       => route('standings'),
+	'Players'         => 'index',
+	'Goalers'         => 'goalers',
+	'Scores'          => 'scores',
+	'Standings'       => 'standings',
 	// 'Playoff Bracket' => route('playoff_bracket'),
 	// 'Pool Players'    => route('pool_index'),
 ];
 
+$menuAliases = [
+	'players_filtered'   => 'index',
+	'standings_division' => 'standings',
+	'standings_wildcard' => 'standings',
+];
+
 if (Confide::user()) //Logged-in
 {
-	$menu['Pool choices'] = route('pool_me');
-	$menu['Logout']       = url('user/logout');
+	$menu['Pool choices'] = 'pool_me';
+	$menu['Logout']       = 'user_logout';
 }
 else
 {
-	$menu['Login']  = url('user/login');
-	$menu['Signup'] = url('user/create');
+	$menu['Login']  = 'user_login';
+	$menu['Signup'] = 'user_create';
 }
 
-$current_page = URL::current();
-$route_name = Route::currentRouteName();
+$currentRouteName = Route::currentRouteName();
 ?>
 @foreach ($menu as $title => $adresse)
 	{{-- Don't show link for active pages/subpages --}}
-	@if ($current_page != $adresse)
-		<a href="{{ $adresse }}">{{ $title }}</a>
+	@if ($currentRouteName != $adresse &&
+		(!isset($menuAliases[$currentRouteName]) || $menuAliases[$currentRouteName] != $adresse))
+		<a href="{{ route($adresse) }}">{{ $title }}</a>
 	@else
 		{{ $title }}
 	@endif

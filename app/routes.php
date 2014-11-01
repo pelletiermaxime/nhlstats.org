@@ -55,7 +55,7 @@ Route::group(['prefix' => 'pool'], function()
 	]);
 });
 
-Route::get('scores', [
+Route::get('scores/{date?}', [
 	'as'    => 'scores',
 	'uses'  => 'ScoresController@index',
 	'after' => 'cache:30',
@@ -68,13 +68,22 @@ Route::get('playoff-bracket', [
 ]);
 
 // Confide routes
-Route::get( 'user/create',                 'UserController@create');
+Route::get('user/create', [
+	'as'    => 'user_create',
+	'uses'  => 'UserController@create',
+]);
 Route::post('user',                        'UserController@store');
-Route::get( 'user/login',                  'UserController@login');
+Route::get('user/login', [
+	'as'    => 'user_login',
+	'uses'  => 'UserController@login',
+]);
 Route::post('user/login',                  'UserController@do_login');
 Route::get( 'user/confirm/{code}',         'UserController@confirm');
 Route::get( 'user/forgot_password',        'UserController@forgot_password');
 Route::post('user/forgot_password',        'UserController@do_forgot_password');
 Route::get( 'user/reset_password/{token}', 'UserController@reset_password');
 Route::post('user/reset_password',         'UserController@do_reset_password');
-Route::get( 'user/logout',                 'UserController@logout');
+Route::get('user/logout', [
+	'as'    => 'user_logout',
+	'uses'  => 'UserController@logout',
+]);
