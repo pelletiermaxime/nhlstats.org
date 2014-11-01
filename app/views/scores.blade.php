@@ -1,6 +1,12 @@
 @extends('layouts.base')
 @section('body')
 
+<div align="center">
+<a href="{{ route('scores', $dates['yesterday']) }}">&lt;-- {{ $dates['yesterday'] }}</a>
+&nbsp;{{ $dates['today'] }}&nbsp;
+<a href="{{ route('scores', $dates['tomorrow']) }}">{{ $dates['tomorrow'] }}--&gt;</a>
+</div>
+
 <div class="scores_page">
 @foreach ($scores as $s)
 <div class="game">
