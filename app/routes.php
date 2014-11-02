@@ -16,7 +16,19 @@ Route::get('goalers', [
 	'after' => 'cache:300',
 ]);
 
-Route::group(['prefix' => 'standings'], function()
+Route::group(['prefix' => 'team'], function ()
+{
+	Route::get('/', [
+		'as'   => 'teams',
+		'uses' => 'TeamController@index',
+	]);
+	Route::get('/{team}', [
+		'as'   => 'team',
+		'uses' => 'TeamController@show',
+	]);
+});
+
+Route::group(['prefix' => 'standings'], function ()
 {
 	Route::get('overall', [
 		'as'    => 'standings',

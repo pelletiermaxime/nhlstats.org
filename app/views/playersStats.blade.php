@@ -2,9 +2,9 @@
 $(document).ready(function(){
 	$('#tableOverall').dataTable({
 		"bPaginate": false,
-		"bFilter": false,
+		"bFilter": true,
 		"bInfo": false,
-		"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>"
+		"sDom": "<'row'<'span6'l><'span6'>r>t<'row'<'span6'i><'span6'p>>"
 	});
 });
 $.extend( $.fn.dataTableExt.oStdClasses, {
@@ -36,7 +36,7 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 	<td>{{ $p->full_name }}</td>
 	<td>{{ $p->position }}</td>
 	<td>
-		<a href="{{ route('players_filtered') }}?team={{ $p->short_name }}&amp;count=all">
+		<a href="{{ route('team', $p->short_name) }}">
 		<img height="35" src="{{ $asset_path }}/images/SVG/{{ $p->short_name }}.svg" alt="{{ $p->city }} {{ $p->team_name }}"
 			title="{{ $p->city }} {{ $p->team_name }}" />
 		</a>

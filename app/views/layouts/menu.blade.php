@@ -5,6 +5,7 @@ $menu = [
 	'Goalers'         => 'goalers',
 	'Scores'          => 'scores',
 	'Standings'       => 'standings',
+	'Teams'           => 'teams',
 	// 'Playoff Bracket' => route('playoff_bracket'),
 	// 'Pool Players'    => route('pool_index'),
 ];

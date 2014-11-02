@@ -13,7 +13,8 @@
 <link rel="stylesheet" media="all" type="text/css" href="{{ asset('css/general.css') }}" />
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js" data-no-instant></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" data-no-instant></script>
-<script type="text/javascript" src="{{ asset('javascript/DataTables/media/jquery.dataTables.min.js') }}" data-no-instant></script>
+<!-- <script type="text/javascript" src="{{ asset('javascript/DataTables/media/jquery.dataTables.min.js') }}"></script> -->
+<script type="text/javascript" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
 @show
 </head>
 <body>
@@ -28,5 +29,6 @@
 <script src="{{ asset('javascript')}}/instantclick.min.js" data-no-instant></script>
 <script data-no-instant>InstantClick.init(50);</script>
 --}}
+@yield('footer-scripts')
 </body>
 </html>
