@@ -1,16 +1,3 @@
-<script type="text/javascript">
-$(document).ready(function(){
-	$('#tableOverall').dataTable({
-		"bPaginate": false,
-		"bFilter": false,
-		"bInfo": false,
-		"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>"
-	});
-});
-$.extend( $.fn.dataTableExt.oStdClasses, {
-	"sWrapper": "dataTables_wrapper form-inline table-responsive"
-} );
-</script>
 <table width="80%" id="tableOverall" class="table table-condensed">
 <thead>
 <tr>
@@ -38,9 +25,9 @@ $.extend( $.fn.dataTableExt.oStdClasses, {
 	@endif
 	<td>{{ $p->full_name }}</td>
 	<td>
-		<a href="{{ route('goalers') }}?team={{ $p->short_name }}&amp;count=all">
-		<img height="35" src="images/SVG/{{ $p->short_name }}.svg" alt="{{ $p->city }} {{ $p->name }}"
-			title="{{ $p->city }} {{ $p->name }}" />
+	<a href="{{ route('team', $p->short_name) }}">
+		<img height="35" src="{{ asset('images/SVG') }}/{{ $p->short_name }}.svg" alt="{{ $p->city }} {{ $p->team_name }}"
+			title="{{ $p->city }} {{ $p->team_name }}" />
 		</a>
 	</td>
 	<td>{{ $p->games }}</td>

@@ -9,6 +9,7 @@
 <div class="flex-container">
 	<div class="flex-item">
 	@include('playersStats')
+	@include('goalersStats')
 	</div>
 	<div class="flex-item">
 	@include('playersStatsDay')

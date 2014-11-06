@@ -9,6 +9,7 @@ class TeamController extends BaseController
 		private Team $team,
 		private PlayersStatsYear $players_stats_year,
 		private PlayersStatsDays $players_stats_day,
+		private GoalersStatsYear $goalers_stats_year,
 	) {}
 
 	public function index()
@@ -36,6 +37,8 @@ class TeamController extends BaseController
 		Debugbar::log($pointsByPosition);
 		Debugbar::log($playersStatsYear);
 
+		$goalersStatsYear = $this->goalers_stats_year->topGoalersByGAA($filter);
+
 		$filter['day'] = ['=', Carbon::today()];
 		$playersStatsDay = $this->players_stats_day->topPlayersByPoints($count, $filter);
 
@@ -43,6 +46,7 @@ class TeamController extends BaseController
 			->with('playersStatsDay', $playersStatsDay)
 			->with('playersStatsYear', $playersStatsYear)
 			->with('pointsByPosition', $pointsByPosition)
+			->with('goalersStatsYear', $goalersStatsYear)
 			->with('team', $team)
 			->with('count', $count)
 			->with('asset_path', asset(''))
