@@ -1,23 +1,30 @@
 <script type="text/javascript">
 $(function () {
-    $('#graphPieAvD').highcharts({
-        title: {
+    $('#graphPieAvD').highcharts(
+    {
+        title:
+        {
             text: 'Points by position'
         },
-        tooltip: {
+        tooltip:
+        {
             pointFormat: '{series.name}: <b>{point.y}</b>'
         },
-        plotOptions: {
-            pie: {
+        plotOptions:
+        {
+            pie:
+            {
                 allowPointSelect: true,
                 cursor: 'pointer',
-                dataLabels: {
+                dataLabels:
+                {
                     enabled: true,
                     format: '<b>{point.name}</b>: {point.percentage:.1f} %',
                 }
             }
         },
-        series: [{
+        series: [
+        {
             name: 'Points',
             type: 'pie',
             data: [
@@ -25,13 +32,17 @@ $(function () {
                     ['{{ $points->position }}', {{ $points->points }}],
                 @endforeach
             ],
-            point: {
-                events: {
-                    select: function (event) {
+            point:
+            {
+                events:
+                {
+                    select: function (event)
+                    {
                         // Search position column in DT for the clicked point
                         $('#tableOverall').DataTable().column(2).search(this.name).draw();
                     },
-                    unselect: function (event) {
+                    unselect: function (event)
+                    {
                         var p = this.series.chart.getSelectedPoints();
                         // Reset search if unselected point was the one previously selected
                         if(p.length > 0 && p[0].x == this.x) {
