@@ -1,6 +1,5 @@
 <?hh
 
-use Nhlstats\Repositories\TeamRepository as Team;
 use Carbon\Carbon;
 
 class TeamController extends BaseController
@@ -14,7 +13,12 @@ class TeamController extends BaseController
 
 	public function index()
 	{
+		$teamsByDivision = $this->team->byDivision();
+		Debugbar::log($teamsByDivision);
 
+		return View::make('team.index')
+			->withTeams($teamsByDivision)
+			;
 	}
 
 	public function show($team)
@@ -42,7 +46,7 @@ class TeamController extends BaseController
 		$filter['day'] = ['=', Carbon::today()];
 		$playersStatsDay = $this->players_stats_day->topPlayersByPoints($count, $filter);
 
-		return View::make('team.index')
+		return View::make('team.show')
 			->with('playersStatsDay', $playersStatsDay)
 			->with('playersStatsYear', $playersStatsYear)
 			->with('pointsByPosition', $pointsByPosition)

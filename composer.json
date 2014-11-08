@@ -14,6 +14,8 @@
 		,"way/generators": "2.*"
 		,"barryvdh/laravel-ide-helper": "1.*"
 		,"barryvdh/laravel-debugbar": "1.*"
+		,"components/bootstrap": "3.2.*"
+		,"components/datatables": "1.*"
 	},
 	"autoload": {
 		"classmap": [
@@ -42,6 +44,7 @@
 	},
 	"config": {
 		"preferred-install": "dist"
+		,"component-dir": "public/components"
 	},
 	"minimum-stability": "stable"
 }

@@ -1,6 +1,5 @@
 <?hh
 
-use Nhlstats\Repositories\TeamRepository as Team;
 use Carbon\Carbon;
 
 class PlayerController extends BaseController {

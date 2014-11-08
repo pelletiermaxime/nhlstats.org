@@ -9,12 +9,8 @@
 <meta name="Author" content="Maxime Pelletier" />
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <link rel="stylesheet" media="all" type="text/css" href="{{ asset('css/general.css') }}" />
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js" data-no-instant></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" data-no-instant></script>
-<!-- <script type="text/javascript" src="{{ asset('javascript/DataTables/media/jquery.dataTables.min.js') }}"></script> -->
-<script type="text/javascript" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
 @show
 </head>
 <body>
@@ -25,10 +21,15 @@
 @include('layouts/menu')
 </div>
 @yield('body')
-{{--
-<script src="{{ asset('javascript')}}/instantclick.min.js" data-no-instant></script>
-<script data-no-instant>InstantClick.init(50);</script>
---}}
+@if (App::environment('development'))
+	<script src="{{ asset("components/jquery/jquery.min.js") }}"></script>
+	<script src="{{ asset("components/bootstrap/js/bootstrap.min.js") }}"></script>
+	<script src="{{ asset("components/datatables/media/js/jquery.dataTables.min.js") }}"></script>
+@else
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js" data-no-instant></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" data-no-instant></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+@endif
 @yield('footer-scripts')
 </body>
 </html>
