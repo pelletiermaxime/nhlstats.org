@@ -1,7 +1,7 @@
 <?php namespace Nhlstats\Repositories;
 
-class PlayoffRepository {
-
+class PlayoffRepository
+{
 	private $wildcard;
 	private $standings;
 

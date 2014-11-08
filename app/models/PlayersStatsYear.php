@@ -1,6 +1,7 @@
 <?php
 
-class PlayersStatsYear extends Eloquent {
+class PlayersStatsYear extends Eloquent
+{
 	protected $guarded = array();
 
 	public static $rules = array();

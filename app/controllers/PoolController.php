@@ -1,7 +1,7 @@
 <?php
 
-class PoolController extends \BaseController {
-
+class PoolController extends \BaseController
+{
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -100,5 +100,4 @@ class PoolController extends \BaseController {
 				->with('view', $view)
 			;
 	}
-
 }

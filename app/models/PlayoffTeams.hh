@@ -1,6 +1,7 @@
 <?hh
 
-class PlayoffTeams extends Eloquent {
+class PlayoffTeams extends Eloquent
+{
 	protected $guarded = [];
 	public static $rules = array();
 
@@ -30,5 +31,4 @@ class PlayoffTeams extends Eloquent {
 				->toArray();
 		});
 	}
-
 }

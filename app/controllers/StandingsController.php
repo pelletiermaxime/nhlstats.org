@@ -1,7 +1,7 @@
 <?php
 
-class StandingsController extends BaseController {
-
+class StandingsController extends BaseController
+{
 	private $standings;
 
 	public function __construct(Standings $standings)

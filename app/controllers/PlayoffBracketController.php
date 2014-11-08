@@ -1,7 +1,7 @@
 <?php
 
-class PlayoffBracketController extends BaseController {
-
+class PlayoffBracketController extends BaseController
+{
 	public function index()
 	{
 		$gamesEast = PlayoffTeams::byConference('EAST', $round = 1);

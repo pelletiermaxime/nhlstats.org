@@ -1,6 +1,7 @@
 <?php
 
-class PlayoffChoices extends Eloquent {
+class PlayoffChoices extends Eloquent
+{
 	protected $guarded = [];
 	public static $rules = array();
 
