@@ -111,7 +111,7 @@ class UserController extends BaseController
 			{
 				$err_msg = Lang::get('confide::confide.alerts.too_many_attempts');
 			}
-			elseif($user->checkUserExists($input) and ! $user->isConfirmed($input))
+			elseif($user->checkUserExists($input) && !$user->isConfirmed($input))
 			{
 				$err_msg = Lang::get('confide::confide.alerts.not_confirmed');
 			}
