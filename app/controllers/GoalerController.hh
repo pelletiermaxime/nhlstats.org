@@ -1,9 +1,7 @@
 <?hh
 
-use Nhlstats\Repositories\TeamRepository as Team;
-
-class GoalerController extends BaseController {
-
+class GoalerController extends BaseController
+{
 	public function __construct(
 		private Team $team,
 		private GoalersStatsYear $goalers_stats_year,
