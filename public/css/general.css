@@ -182,3 +182,7 @@ table tr.odd td
 {
 	line-height: 40px;
 }
+
+.player-form-input {
+	width:155px
+}

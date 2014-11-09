@@ -38,11 +38,11 @@ class PlayerController extends BaseController {
 
 		/* ---------- POSITION ---------- */
 		$all_positions = [
-			'All' => 'All',
+			'all' => 'All',
 			'F'   => 'Forward',
-			'L'   => 'Left',
+			'LW'   => 'Left',
 			'C'   => 'Center',
-			'R'   => 'Right',
+			'RW'   => 'Right',
 			'D'   => 'Defense'
 		];
 
@@ -54,7 +54,8 @@ class PlayerController extends BaseController {
 
 		/* -------- PLAYER STATS -------- */
 		$filter['teams.short_name'] = ['=', $team];
-		$filter['players.year'] = ['=', Config::get('nhlstats.currentYear')];
+		$filter['players.position'] = ['=', $position];
+		$filter['players.year']     = ['=', Config::get('nhlstats.currentYear')];
 		$playersStatsYear = Cache::remember(
 			"playersStatsYear-{$count}-{$team}",
 			60,
@@ -66,7 +67,7 @@ class PlayerController extends BaseController {
 		$filter['day'] = ['=', Carbon::today()];
 		$playersStatsDay = $this->playersStatsDay($count, $filter);
 
-		return View::make('players')
+		return View::make('players.index')
 			->with('playersStatsDay', $playersStatsDay)
 			->with('playersStatsYear', $playersStatsYear)
 			->with('all_teams', $all_teams)

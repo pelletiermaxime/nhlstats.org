@@ -25,15 +25,26 @@ class PlayersStatsYear extends Eloquent
 				->orderBy('games' , 'asc')
 				->orderBy('plusminus', 'desc')
 				->orderBy('players.name', 'asc');
-		foreach ($filters as $condition => $value)
-		{
-			if ($value[1] != 'all')
-			{
-				$query = $query->where($condition, $value[0], $value[1]);
-			}
-		}
+
+		$this->buildtopPlayersByPointsFilter($query, $filters);
 
 		return $query->get();
+	}
+
+	private function buildtopPlayersByPointsFilter(&$query, $filters)
+	{
+		foreach ($filters as $field => $condition)
+		{
+			list($operator, $value) = $condition;
+			if ($field === 'players.position' && $value === 'F') {
+				$operator = '!=';
+				$value    = 'D';
+			}
+			if ($value != 'all')
+			{
+				$query = $query->where($field, $operator, $value);
+			}
+		}
 	}
 
 	public function pointsByPosition($filters = [])

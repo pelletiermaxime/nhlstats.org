@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('body')
-@include('playersForm')
+@include('players.form')
 <div class="flex-container">
 	<div class="flex-item">
 	@include('playersStats')
