@@ -30,10 +30,11 @@
 	<script src="{{ asset("components/bootstrap/js/bootstrap.min.js") }}"></script>
 	<script src="{{ asset("components/datatables/media/js/jquery.dataTables.min.js") }}"></script>
 @else
-<script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js" data-no-instant></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" data-no-instant></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
 @endif
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/history.js/1.8/bundled/html5/jquery.history.js"></script>
 @yield('footer-scripts')
 </body>
 </html>
