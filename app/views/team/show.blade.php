@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('footer-scripts')
-<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="//code.highcharts.com/highcharts.js"></script>
 @stop
 @section('body')
 <div class="flex-container" id="graphPieAvD" style="width:100%; height:400px;">
