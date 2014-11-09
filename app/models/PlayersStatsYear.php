@@ -33,6 +33,7 @@ class PlayersStatsYear extends Eloquent
 
 	private function buildtopPlayersByPointsFilter(&$query, $filters)
 	{
+		Debugbar::log($filters);
 		foreach ($filters as $field => $condition)
 		{
 			list($operator, $value) = $condition;

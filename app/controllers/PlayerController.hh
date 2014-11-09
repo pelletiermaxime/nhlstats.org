@@ -17,7 +17,7 @@ class PlayerController extends BaseController {
 			'50'  => '50',
 			'100' => '100',
 			'500' => '500',
-			'All' => 'All'
+			'all' => 'All'
 		];
 		$count = Input::get('count', head($all_counts));
 		//Default to 50 if not a possible count
@@ -46,10 +46,10 @@ class PlayerController extends BaseController {
 			'D'   => 'Defense'
 		];
 
-		$position = Input::get('position', head($all_positions));
+		$position = Input::get('position', 'all');
 		if (!isset($all_positions[$position]))
 		{
-			$position = head($all_positions);
+			$position = 'all';
 		}
 
 		/* -------- PLAYER STATS -------- */
