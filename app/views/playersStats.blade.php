@@ -1,15 +1,15 @@
 <script type="text/javascript">
-$(document).ready(function(){
+$(function () {
 	$('#tableOverall').dataTable({
 		"bPaginate": false,
 		"bFilter": true,
 		"bInfo": false,
 		"sDom": "<'row'<'span6'l><'span6'>r>t<'row'<'span6'i><'span6'p>>"
 	});
+	$.extend( $.fn.dataTableExt.oStdClasses, {
+		"sWrapper": "dataTables_wrapper form-inline table-responsive"
+	});
 });
-$.extend( $.fn.dataTableExt.oStdClasses, {
-	"sWrapper": "dataTables_wrapper form-inline table-responsive"
-} );
 </script>
 <table id="tableOverall" class="table table-condensed">
 <thead>
