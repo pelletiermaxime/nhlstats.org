@@ -110,7 +110,6 @@ return array(
 
 		'Elvedia\Goutte\Providers\GoutteServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
-		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Zizaco\Confide\ConfideServiceProvider',
 	),
 
