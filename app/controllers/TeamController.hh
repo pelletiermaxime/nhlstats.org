@@ -23,15 +23,17 @@ class TeamController extends BaseController
 
 	public function show($team)
 	{
-		$count = 'All';
+		$count  = 'All';
+		$filter = [];
 
 		/* -------- PLAYER STATS -------- */
+		$position = Input::get('position', 'all');
 		$filter['teams.short_name'] = ['=', $team];
 		$filter['players.year'] = ['=', Config::get('nhlstats.currentYear')];
 		$playersStatsYear = Cache::remember(
 			"playersStatsYear-{$count}-{$team}",
 			60,
-			function () use ($count, $filter) {
+			() ==> {
 				return $this->players_stats_year->topPlayersByPoints($count, $filter);
 			}
 		);
@@ -53,6 +55,7 @@ class TeamController extends BaseController
 			->with('goalersStatsYear', $goalersStatsYear)
 			->with('team', $team)
 			->with('count', $count)
+			->with('position', $position)
 			->with('asset_path', asset(''))
 		;
 	}

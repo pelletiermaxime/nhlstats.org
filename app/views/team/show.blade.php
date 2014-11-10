@@ -15,4 +15,23 @@
 	@include('playersStatsDay')
 	</div>
 </div>
+@if ($position != 'all')
+<script type="text/javascript">
+	$(function () {
+		$('#tableOverall').DataTable().column(2).search('{{ $position }}').draw();
+		<?php
+		$index = 0;
+		foreach ($pointsByPosition as $points) {
+			if ($points->position == $position) {
+				$selectedPosition = $index;
+			}
+			$index++;
+		}
+		?>
+		var chart = $('#graphPieAvD').highcharts();
+		chart.series[0].data[{{ $selectedPosition }}].select();
+		chart.series[0].data[{{ $selectedPosition }}].update();
+	});
+</script>
+@endif
 @stop

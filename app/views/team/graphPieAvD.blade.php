@@ -39,7 +39,9 @@ $(function () {
                     select: function (event)
                     {
                         // Search position column in DT for the clicked point
-                        $('#tableOverall').DataTable().column(2).search(this.name).draw();
+                        var position = this.name;
+                        $('#tableOverall').DataTable().column(2).search(position).draw();
+                        History.pushState(null, null, '?position=' + position)
                     },
                     unselect: function (event)
                     {
@@ -47,6 +49,7 @@ $(function () {
                         // Reset search if unselected point was the one previously selected
                         if(p.length > 0 && p[0].x == this.x) {
                             $('#tableOverall').DataTable().column(2).search('').draw();
+                            History.pushState(null, null, '?position=all')
                         }
                     }
                 }
