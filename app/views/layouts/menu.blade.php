@@ -18,7 +18,7 @@ $menuAliases = [
 
 if (Confide::user()) //Logged-in
 {
-	$menu['Pool choices'] = 'pool_me';
+	// $menu['Pool choices'] = 'pool_me';
 	$menu['Logout']       = 'user_logout';
 }
 else
