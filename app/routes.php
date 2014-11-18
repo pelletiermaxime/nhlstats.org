@@ -10,6 +10,13 @@ Route::get('player', [
 	'uses' => 'PlayerController@getListFiltered',
 ]);
 
+Route::get('player/{id}/{name}', [
+	'as'   => 'player_page',
+	'uses' => 'PlayerPageController@index',
+])
+->where('id', '[0-9]+');
+;
+
 Route::get('goalers', [
 	'as'    => 'goalers',
 	'uses'  => 'GoalerController@getListFiltered',

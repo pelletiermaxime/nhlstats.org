@@ -26,7 +26,11 @@ $(function () {
 <tbody>
 @foreach ($playersStatsDay as $position => $p)
 <tr>
-	<td>{{ $p->full_name }}</td>
+	<td>
+		<a href="{{ route('player_page', [$p->player_id, Str::slug($p->full_name)]) }}">
+		{{ $p->full_name }}
+		</a>
+	</td>
 	<td>
 		<a href="{{ route('players_filtered') }}?team={{ $p->short_name }}&amp;count=all">
 		<img height="35" src="{{ $asset_path }}/images/SVG/{{ $p->short_name }}.svg" alt="{{ $p->city }} {{ $p->team_name }}"

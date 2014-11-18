@@ -23,4 +23,9 @@ class PlayersStatsDays extends Eloquent
 
 		return $query->get();
 	}
+
+	public function player()
+	{
+		return $this->belongsTo('Player');
+	}
 }

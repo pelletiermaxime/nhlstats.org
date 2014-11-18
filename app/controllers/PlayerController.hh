@@ -2,8 +2,8 @@
 
 use Carbon\Carbon;
 
-class PlayerController extends BaseController {
-
+class PlayerController extends BaseController
+{
 	public function __construct(
 		private Team $team,
 		private PlayersStatsYear $players_stats_year,

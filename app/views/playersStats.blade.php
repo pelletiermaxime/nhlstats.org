@@ -33,7 +33,11 @@ $(function () {
 	@else
 	<td style="background:#003872;color:white;font-size:1.8em;">{{ ++$position }}</td>
 	@endif
-	<td>{{ $p->full_name }}</td>
+	<td>
+		<a href="{{ route('player_page', [$p->player_id, Str::slug($p->full_name)]) }}">
+		{{ $p->full_name }}
+		</a>
+	</td>
 	<td>{{ $p->position }}</td>
 	<td>
 		<a href="{{ route('team', $p->short_name) }}">
