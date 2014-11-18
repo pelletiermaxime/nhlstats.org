@@ -57,7 +57,7 @@ class PlayerController extends BaseController {
 		$filter['players.position'] = ['=', $position];
 		$filter['players.year']     = ['=', Config::get('nhlstats.currentYear')];
 		$playersStatsYear = Cache::remember(
-			"playersStatsYear-{$count}-{$team}",
+			"playersStatsYear-{$count}-{$team}-{$position}",
 			60,
 			function() use ($count, $filter) {
 				return $this->players_stats_year->topPlayersByPoints($count, $filter);
