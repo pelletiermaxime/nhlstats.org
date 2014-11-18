@@ -38,7 +38,7 @@ class PlayersStatsYear extends Eloquent
 		{
 			list($operator, $value) = $condition;
 			if ($field === 'players.position' && $value === 'F') {
-				$operator = '!=';
+				$operator = '<>';
 				$value    = 'D';
 			}
 			if ($value != 'all')

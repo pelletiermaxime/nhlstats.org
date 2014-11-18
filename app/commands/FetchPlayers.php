@@ -39,7 +39,7 @@ class FetchPlayers extends Command
 	public function fire()
 	{
 		$toi = $this->option('TOI');
-		if ($toi !== null) {
+		if ($toi === true) {
 			$players = $this->getPlayersOnIceArray();
 		} else {
 			$players = $this->getPlayersArray();
