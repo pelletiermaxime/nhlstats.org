@@ -1,6 +1,7 @@
 <?php
 
-class PlayersStatsDays extends Eloquent {
+class PlayersStatsDays extends Eloquent
+{
 	protected $guarded = [];
 	// public static $rules = array();
 
@@ -16,13 +17,9 @@ class PlayersStatsDays extends Eloquent {
 				->orderBy('goals' , 'desc')
 				->orderBy('plusminus', 'desc')
 				->orderBy('players.name', 'asc');
-		foreach ($filters as $condition => $value)
-		{
-			if ($value[1] != 'all')
-			{
-				$query = $query->where($condition, $value[0], $value[1]);
-			}
-		}
+
+		$playersStatsYear = new PlayersStatsYear;
+		$playersStatsYear->buildtopPlayersByPointsFilter($query, $filters);
 
 		return $query->get();
 	}
