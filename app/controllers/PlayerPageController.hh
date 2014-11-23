@@ -34,8 +34,6 @@ class PlayerPageController extends BaseController
 			} else {
 				$enemyTeam = $game->team1;
 			}
-			$dateYesterday = Carbon::createFromFormat('Y-m-d', $games[$id]->date_game)->subDay()->format('Y-m-d');
-			$games[$id]->date_game = $dateYesterday;
 			$enemies[$game['date_game']] = $enemyTeam;
 		}
 

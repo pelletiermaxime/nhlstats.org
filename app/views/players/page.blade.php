@@ -1,3 +1,4 @@
+<?php use Carbon\Carbon; ?>
 @extends('layouts.base')
 @section('footer-scripts')
 @stop
@@ -82,10 +83,11 @@
 	<tr>
 		<td>{{ $stats->day }}</td>
 		<td>
-		@if (isset($enemies[$stats->day]))
-			<img width="25" src="{{ asset('images/SVG') }}/{{ $enemies[$stats->day]->short_name }}.svg"
-				alt="{{ $enemies[$stats->day]->city }} {{ $enemies[$stats->day]->name }}"
-				title="{{ $enemies[$stats->day]->city }} {{ $enemies[$stats->day]->name }}" border="0" />
+		<?php $yesterday = Carbon::createFromFormat('Y-m-d', $stats->day)->subDay()->format('Y-m-d'); ?>
+		@if (isset($enemies[$yesterday]))
+			<img width="25" src="{{ asset('images/SVG') }}/{{ $enemies[$yesterday]->short_name }}.svg"
+				alt="{{ $enemies[$yesterday]->city }} {{ $enemies[$yesterday]->name }}"
+				title="{{ $enemies[$yesterday]->city }} {{ $enemies[$yesterday]->name }}" border="0" />
 		@endif
 		</td>
 		<td>{{ $stats->goals }}</td>
