@@ -2,7 +2,6 @@
 Route::get('/', [
 	'as'    => 'index',
 	'uses'  => 'PlayerController@getListFiltered',
-	'after' => 'cache:300',
 ]);
 
 Route::get('player', [
@@ -20,7 +19,6 @@ Route::get('player/{id}/{name}', [
 Route::get('goalers', [
 	'as'    => 'goalers',
 	'uses'  => 'GoalerController@getListFiltered',
-	'after' => 'cache:300',
 ]);
 
 Route::group(['prefix' => 'team'], function ()
@@ -40,19 +38,16 @@ Route::group(['prefix' => 'standings'], function ()
 	Route::get('overall', [
 		'as'    => 'standings',
 		'uses'  => 'StandingsController@overall',
-		'after' => 'cache:300',
 	]);
 
 	Route::get('division', [
 		'as'    => 'standings_division',
 		'uses'  => 'StandingsController@division',
-		'after' => 'cache:300',
 	]);
 
 	Route::get('wildcard', [
 		'as'    => 'standings_wildcard',
 		'uses'  => 'StandingsController@wildcard',
-		'after' => 'cache:300',
 	]);
 });
 
@@ -77,13 +72,11 @@ Route::group(['prefix' => 'pool'], function()
 Route::get('scores/{date?}', [
 	'as'    => 'scores',
 	'uses'  => 'ScoresController@index',
-	'after' => 'cache:30',
 ]);
 
 Route::get('playoff-bracket', [
 	'as'    => 'playoff_bracket',
 	'uses'  => 'PlayoffBracketController@index',
-	'after' => 'cache:30',
 ]);
 
 // Confide routes

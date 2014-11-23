@@ -20,9 +20,19 @@
 </div>
 -->
 <div class="form-group">
-	<div class="col-xs-4 col-xs-offset-2 text-right">Team :</div>
+	<div class="col-xs-4 col-xs-offset-2 text-right">
+	{{ Form::label('team', 'Team:') }}
+	</div>
 	<div class="col-xs-6">
 		{{ Form::select('team', $all_teams, $team, ['style'=>"width:155px", 'class' => 'form-control']) }}
+	</div>
+</div>
+<div class="form-group">
+	<div>
+	{{ Form::label('show_all', 'Show all:', ['class' => 'col-xs-4 col-xs-offset-2 text-right']) }}
+	</div>
+	<div class="col-xs-6">
+	{{ Form::checkbox('show_all', 1, $filterMinGames, ['style'=>"width:15px; height:15px;",'class' => 'form-control']) }}
 	</div>
 </div>
 <div class="row">
