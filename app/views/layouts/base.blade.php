@@ -11,12 +11,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 @if (App::environment('development'))
 <!-- <link rel="stylesheet" href="{{ asset("components/bootstrap/css/bootstrap.min.css") }}"> -->
-<link href="{{ asset("css/slate-bootstrap.min.css") }}" rel="stylesheet">
 <script src="{{ asset("components/jquery/jquery.min.js") }}"></script>
 @else
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"> -->
 <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 @endif
+<link href="{{ asset("css/slate-bootstrap.min.css") }}" rel="stylesheet">
 <link rel="stylesheet" media="all" type="text/css" href="{{ asset('css/general.css') }}" />
 @show
 </head>
