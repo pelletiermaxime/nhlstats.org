@@ -12,7 +12,7 @@ $(function () {
 	});
 });
 </script>
-<table id="tablePlayersStatsDay" class="table table-condensed">
+<table id="tablePlayersStatsDay" class="table table-condensed table-striped">
 <thead>
 <tr>
 	<th>Name</th>

@@ -11,7 +11,7 @@ $(function () {
 	});
 });
 </script>
-<table id="tableOverall" class="table table-condensed">
+<table id="tableOverall" class="table table-condensed table-striped">
 <thead>
 <tr>
 	<th>#</th>

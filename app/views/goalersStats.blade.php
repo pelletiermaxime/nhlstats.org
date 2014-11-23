@@ -1,4 +1,4 @@
-<table width="80%" id="tableOverall" class="table table-condensed">
+<table width="80%" id="tableOverall" class="table table-condensed table-striped">
 <thead>
 <tr>
 	<th>#</th>

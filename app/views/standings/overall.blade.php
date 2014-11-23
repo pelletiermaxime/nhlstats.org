@@ -1,6 +1,6 @@
 @extends('standings.base')
 @section('standings')
-<table width="80%" id="tableOverall" class="table table-condensed">
+<table width="80%" id="tableOverall" class="table table-condensed table-striped">
 <thead>
 <tr>
 	<th colspan="12">&nbsp;</th>

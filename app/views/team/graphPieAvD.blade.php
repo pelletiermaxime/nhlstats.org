@@ -4,11 +4,20 @@ $(function () {
     {
         title:
         {
-            text: 'Points by position'
+            text: 'Points by position',
+            style: {
+                color: '#fff',
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        chart: {
+            backgroundColor: null,
         },
         tooltip:
         {
-            pointFormat: '{series.name}: <b>{point.y}</b>'
+            pointFormat: '{series.name}: <b>{point.y}</b>',
         },
         plotOptions:
         {
@@ -20,6 +29,7 @@ $(function () {
                 {
                     enabled: true,
                     format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    color: 'white',
                 }
             }
         },

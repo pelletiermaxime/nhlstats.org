@@ -2,10 +2,6 @@ body
 {
 	font-family:"lucida grande", tahoma, verdana, arial, sans-serif;
 	font-size:12px;
-	background:white;
-	color:black;
-	/*background:#BCBCBC;
-	color:white;*/
 	width: 98%;
 	margin: auto;
 }
@@ -16,17 +12,9 @@ table.table
 	margin: auto;
 	border: thin solid #000000;
 }
-table thead tr
-{
-	font-weight:bold;
-	background:#A1A1A1;
-	color:white;
-}
 .thead
 {
 	font-weight:bold;
-	background:#A1A1A1;
-	color:white;
 }
 .table > thead > tr > th
 {
@@ -51,10 +39,6 @@ table.table thead .sorting_desc_disabled { background: url('/images/datatables/s
 table.table thead th
 {
 	text-align: center;
-}
-table tr.odd td
-{
-	background:#D1D1D1;
 }
 
 .alert
@@ -136,7 +120,6 @@ table tr.odd td
 	margin: 10px 20px;
 	padding: 15px;
 }
-
 
 .scores_page div
 {

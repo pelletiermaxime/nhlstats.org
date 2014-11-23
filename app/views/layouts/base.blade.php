@@ -10,7 +10,8 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 @if (App::environment('development'))
-<link rel="stylesheet" href="{{ asset("components/bootstrap/css/bootstrap.min.css") }}">
+<!-- <link rel="stylesheet" href="{{ asset("components/bootstrap/css/bootstrap.min.css") }}"> -->
+<link href="{{ asset("css/slate-bootstrap.min.css") }}" rel="stylesheet">
 <script src="{{ asset("components/jquery/jquery.min.js") }}"></script>
 @else
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
@@ -21,8 +22,11 @@
 </head>
 <body>
 <div class="container">
-<div align="center"><a href="{{ route('index') }}">
-	<img src="{{ asset('images/banner.png') }}" alt="NhlStats" border="0" width="550" /></a>
+<div align="center">
+	<a href="{{ route('index') }}">
+	<!-- <img src="{{ asset('images/banner.png') }}" alt="NhlStats" border="0" width="550" /> -->
+	<h1>Nhlstats</h1>
+	</a>
 </div>
 @include('layouts/menu')
 </div>
