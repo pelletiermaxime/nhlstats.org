@@ -4,8 +4,10 @@
 @section('body')
 <table border="1" width="65%" cellspacing="0" align="center">
 <tr>
-	<td rowspan="4" width="120">
-		<img width="120" src="images/SVG/TEAM SHORT.svg" alt="TEAM CITY TEAM NAME" border="0" />
+	<td rowspan="4" width="120" style="border:none">
+		<img width="120" src="{{ asset('images/SVG') }}/{{ $player->team->short_name }}.svg"
+			alt="{{ $player->team->city }} {{ $player->team->name }}"
+			title="{{ $player->team->city }} {{ $player->team->name }}" border="0" />
 	</td>
 	<td colspan="5" align="center" class="thead" style="font-size:20px">
 		{{ $player->full_name }}
@@ -47,7 +49,7 @@
 </tr>
 </thead>
 <tr>
-	<td colspan="2">2014-2015/td>
+	<td colspan="2">2014-2015</td>
 	<td>{{ $stats_year->games }}</td>
 	<td>{{ $stats_year->goals }}</td>
 	<td>{{ $stats_year->assists }}</td>
@@ -80,10 +82,11 @@
 	<tr>
 		<td>{{ $stats->day }}</td>
 		<td>
-		<?
-		// if ($siAdversaire)
-		?>
-			<img width="25" src="images/SVG/SHORT NOM.svg" alt="VILLE NOM EQUIPE" />
+		@if (isset($enemies[$stats->day]))
+			<img width="25" src="{{ asset('images/SVG') }}/{{ $enemies[$stats->day]->short_name }}.svg"
+				alt="{{ $enemies[$stats->day]->city }} {{ $enemies[$stats->day]->name }}"
+				title="{{ $enemies[$stats->day]->city }} {{ $enemies[$stats->day]->name }}" border="0" />
+		@endif
 		</td>
 		<td>{{ $stats->goals }}</td>
 		<td>{{ $stats->assists }}</td>
