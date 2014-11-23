@@ -1,5 +1,7 @@
 <?hh
 
+use Carbon\Carbon;
+
 class PlayerPageController extends BaseController
 {
 	/**
@@ -26,13 +28,14 @@ class PlayerPageController extends BaseController
 			->get()
 			;
 
-		foreach ($games as $game) {
+		foreach ($games as $id => $game) {
 			if ($game->team1_id == $player->team->id) {
 				$enemyTeam = $game->team2;
 			} else {
 				$enemyTeam = $game->team1;
 			}
-
+			$dateYesterday = Carbon::createFromFormat('Y-m-d', $games[$id]->date_game)->subDay()->format('Y-m-d');
+			$games[$id]->date_game = $dateYesterday;
 			$enemies[$game['date_game']] = $enemyTeam;
 		}
 
