@@ -21,15 +21,7 @@
 @show
 </head>
 <body>
-<div class="container">
-<div align="center">
-	<a href="{{ route('index') }}">
-	<!-- <img src="{{ asset('images/banner.png') }}" alt="NhlStats" border="0" width="550" /> -->
-	<h1>Nhlstats</h1>
-	</a>
-</div>
 @include('layouts/menu')
-</div>
 @yield('body')
 @if (App::environment('development'))
 	<script src="{{ asset("components/bootstrap/js/bootstrap.min.js") }}"></script>
