@@ -78,7 +78,6 @@ class FetchPlayersInfo extends Command
 			}
 			echo "Page $teamLink fetched\n";
 			sleep(2.5);
-			break;
 		}
 		return $player;
 	}
@@ -96,7 +95,6 @@ class FetchPlayersInfo extends Command
 			$birthdate = $birthdate->format('Y-m-d');
 
 			list($city, $country) = explode(', ', $player['birthplace']);
-			// $params = ['number', 'name', 'age', 'height', 'weight', 'shoots', 'birthplace', 'birthdate'];
 
 			$playerDB = Player::firstOrNew([
 				'full_name' => $fullName,
