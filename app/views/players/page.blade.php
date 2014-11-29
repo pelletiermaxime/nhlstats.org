@@ -11,7 +11,7 @@
 			title="{{ $player->team->city }} {{ $player->team->name }}" border="0" />
 	</td>
 	<td colspan="5" align="center" class="thead" style="font-size:20px">
-		{{ $player->full_name }}
+		{{ $player->full_name }} {{ $player->number }}
 	</td>
 </tr>
 <tr>
@@ -72,7 +72,7 @@
 <thead>
 <tr>
 	<td>Date</td>
-	<td>Adversaire</td>
+	<td>Opposing team</td>
 	<td>Goals</td>
 	<td>Pass</td>
 	<td>Points</td>

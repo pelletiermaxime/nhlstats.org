@@ -147,6 +147,7 @@ class FetchPlayers extends Command
 	private function savePlayers($players)
 	{
 		echo "Enregistre les informations dans la bd mysql\n";
+		$currentYear = Config::get('nhlstats.currentYear');
 		foreach ($players as $player)
 		{
 			if (empty($player['Player'])) continue;
@@ -170,7 +171,7 @@ class FetchPlayers extends Command
 			$playerDB->first_name = $firstName;
 			$playerDB->name       = $name;
 			$playerDB->position   = $position;
-			$playerDB->year       = Config::get('nhlstats.currentYear');
+			$playerDB->year       = $currentYear;
 			$playerDB->save();
 
 			$player_stats = PlayersStatsYear::firstOrNew([
