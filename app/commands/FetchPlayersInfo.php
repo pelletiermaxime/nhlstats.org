@@ -39,7 +39,6 @@ class FetchPlayersInfo extends Command
 	public function fire()
 	{
 		$playersInfo = $this->getPlayersInfo();
-		$this->savePlayers($playersInfo);
 	}
 
 	private function getPlayersInfo()
@@ -78,6 +77,8 @@ class FetchPlayersInfo extends Command
 			}
 			echo "Page $teamLink fetched\n";
 			sleep(2.5);
+			$this->savePlayers($player);
+			$player = [];
 		}
 		return $player;
 	}
@@ -94,7 +95,10 @@ class FetchPlayersInfo extends Command
 			$birthdate = Carbon::createFromFormat('m/d/y', $player['birthdate']);
 			$birthdate = $birthdate->format('Y-m-d');
 
-			list($city, $country) = explode(', ', $player['birthplace']);
+			$city = $country = '';
+			if (!empty($player['birthplace'])) {
+				list($city, $country) = explode(', ', $player['birthplace']);
+			}
 
 			$playerDB = Player::firstOrNew([
 				'full_name' => $fullName,
