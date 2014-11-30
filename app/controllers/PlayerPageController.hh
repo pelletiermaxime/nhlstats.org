@@ -13,7 +13,7 @@ class PlayerPageController extends BaseController
 	public function index(mixed $id, string $name)
 	{
 		$playerStatsDays = PlayersStatsDays::wherePlayerId($id)
-			->where('day' , '>=', '2014-10-18')
+			->where('day' , '>', '2014-10-18')
 			->orderBy('day', 'DESC')
 			->get()
 			;
