@@ -13,6 +13,7 @@ class CreatePlayersStatsYear extends Migration {
 	public function up()
 	{
 		Schema::create('players_stats_years', function(Blueprint $table) {
+			$table->engine = 'InnoDB';
 			$table->increments('id');
 			$table->integer('player_id')->unsigned()->nullable();
 

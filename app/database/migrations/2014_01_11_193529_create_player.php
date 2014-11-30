@@ -13,6 +13,7 @@ class CreatePlayer extends Migration {
 	public function up()
 	{
 		Schema::create('players', function(Blueprint $table) {
+			$table->engine = 'InnoDB';
 			$table->increments('id');
 			$table->integer('team_id')->unsigned()->nullable();
 
