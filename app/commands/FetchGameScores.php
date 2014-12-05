@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class FetchGameScores extends Command
 {
@@ -20,6 +21,8 @@ class FetchGameScores extends Command
 	 */
 	protected $description = 'Fetch game scores from espn.';
 
+	private $fetchDate = '';
+
 	/**
 	 * Execute the console command.
 	 *
@@ -27,6 +30,12 @@ class FetchGameScores extends Command
 	 */
 	public function fire()
 	{
+		if ($this->option('yesterday') === true) {
+			$this->fetchDate = Carbon::yesterday()->format("Y-m-d");
+		} else {
+			$this->fetchDate = $this->argument('date');
+		}
+
 		$games = $this->getScoresArray();
 		$this->saveGameScores($games);
 	}
@@ -34,7 +43,8 @@ class FetchGameScores extends Command
 	private function getScoresArray()
 	{
 		$client   = Goutte::getNewClient();
-		$dateESPN = Carbon::parse($this->argument('date'))->format('Ymd');
+
+		$dateESPN = Carbon::parse($this->fetchDate)->format('Ymd');
 
 		$gameDayURL = "http://scores.espn.go.com/nhl/scoreboard?date=$dateESPN";
 		$crawler    = $client->request('GET', $gameDayURL);
@@ -78,7 +88,7 @@ class FetchGameScores extends Command
 
 	private function saveGameScores($games)
 	{
-		$dateFetched = $this->argument('date');
+		$dateFetched = $this->fetchDate;
 		foreach ($games as $game)
 		{
 			$team1_id = Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team1']}'")->pluck('id');
@@ -115,10 +125,10 @@ class FetchGameScores extends Command
 	 */
 	protected function getArguments()
 	{
-		return array(
-			array('date', InputArgument::OPTIONAL, 'Date to fetch scores in format Ymd.',
-				Carbon::today()->format("Y-m-d")),
-		);
+		return [
+			['date', InputArgument::OPTIONAL, 'Date to fetch scores in format Ymd.',
+				Carbon::today()->format("Y-m-d")],
+		];
 	}
 
 	/**
@@ -128,6 +138,8 @@ class FetchGameScores extends Command
 	 */
 	protected function getOptions()
 	{
-		return [];
+		return [
+			['yesterday', null, InputOption::VALUE_NONE, 'Fetch yesterday', null],
+		];
 	}
 }
