@@ -10,7 +10,7 @@ class ScoresController extends BaseController
 
 		$scores = GameScores::whereDateGame($dates['today'])
 			->with(['team1', 'team2'])
-			->remember(60)
+			->remember(5)
 			->get()
 			;
 		return View::make('scores')
