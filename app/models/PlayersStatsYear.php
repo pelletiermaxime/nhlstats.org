@@ -11,7 +11,7 @@ class PlayersStatsYear extends Eloquent
 		return $this->belongsTo('Player');
 	}
 
-	public function topPlayersByPoints($count, $filters = [])
+	public function topPlayersByPoints($count, $filters = [], $filtersRaw = [])
 	{
 		$query = DB::table('players_stats_years')
 				->join('players'  , 'players.id'  , '=', 'players_stats_years.player_id')
@@ -26,14 +26,13 @@ class PlayersStatsYear extends Eloquent
 				->orderBy('plusminus', 'desc')
 				->orderBy('players.name', 'asc');
 
-		$this->buildtopPlayersByPointsFilter($query, $filters);
+		$this->buildtopPlayersByPointsFilter($query, $filters, $filtersRaw);
 
 		return $query->get();
 	}
 
-	public function buildtopPlayersByPointsFilter(&$query, $filters)
+	public function buildtopPlayersByPointsFilter(&$query, $filters, $filtersRaw = [])
 	{
-		Debugbar::log($filters);
 		foreach ($filters as $field => $condition)
 		{
 			list($operator, $value) = $condition;
@@ -45,6 +44,10 @@ class PlayersStatsYear extends Eloquent
 			{
 				$query = $query->where($field, $operator, $value);
 			}
+		}
+		foreach ($filtersRaw as $filter)
+		{
+			$query = $query->whereRaw($filter);
 		}
 	}
 

@@ -52,6 +52,12 @@ class PlayerController extends BaseController
 			$position = 'all';
 		}
 
+		$filtersRaw = [];
+		$name = Input::get('name', 'all');
+		if ($name !== '' && $name !== 'all') {
+			$filtersRaw = ["MATCH(full_name) AGAINST('*{$name}*' IN BOOLEAN MODE)"];
+		}
+
 		/* -------- PLAYER STATS -------- */
 		$filter['teams.short_name'] = ['=', $team];
 		$filter['players.position'] = ['=', $position];
@@ -60,7 +66,7 @@ class PlayerController extends BaseController
 			"playersStatsYear-{$count}-{$team}-{$position}",
 			60,
 			() ==> {
-				return $this->players_stats_year->topPlayersByPoints($count, $filter);
+				return $this->players_stats_year->topPlayersByPoints($count, $filter, $filtersRaw);
 			}
 		);
 
