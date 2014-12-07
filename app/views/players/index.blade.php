@@ -10,3 +10,6 @@
 	</div>
 </div>
 @stop
+@section('footer-scripts')
+<script src="{{ asset('javascript/players.js') }}"></script>
+@stop

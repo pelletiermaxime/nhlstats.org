@@ -16,6 +16,7 @@
 		,"barryvdh/laravel-ide-helper": "1.*"
 		,"components/bootstrap": "3.2.*"
 		,"components/datatables": "1.*"
+		,"drmonty/chosen": "1.2.0"
 	},
 	"autoload": {
 		"classmap": [

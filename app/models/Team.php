@@ -21,6 +21,14 @@ class Team extends Eloquent
 
 	public function getWithShortNameAndCity()
 	{
-		return Team::orderBy('city', 'ASC')->remember(60)->lists('city', 'short_name');
+		$query = DB::table('teams')
+			->select('city', 'short_name', 'name')
+			->orderBy('city', 'ASC')
+		;
+		$teams = $query->get();
+		foreach ($teams as $team) {
+			$listTeam[$team->short_name] = "{$team->city} {$team->name}";
+		}
+		return $listTeam;
 	}
 }

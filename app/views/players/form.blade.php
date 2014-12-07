@@ -11,32 +11,37 @@
 	@endforeach
 	</ul>
 </div>
-<!--
-<div class="row">
+
+<!-- <div class="form-group">
 	<div class="col-xs-4 col-xs-offset-2 text-right">{{ Form::label('name', 'Player name :') }}</div>
 	<div class="col-xs-6">
-		{{ Form::text('name', Input::get('name'), array('style'=>"width:155px")) }}
+		{{ Form::text('name', Input::get('name'), ['class'=>"form-control player-form-input-text"]) }}
 	</div>
-</div>
--->
+</div> -->
+
 <div class="form-group">
-	<div class="col-xs-4 col-xs-offset-2 text-right">Team :</div>
+	<div class="col-xs-4 col-xs-offset-2 text-right">{{ Form::label('team', 'Team :') }}</div>
 	<div class="col-xs-6">
-		{{ Form::select('team', $all_teams, $team, ['class'=>"form-control player-form-input"]) }}
+		{{
+			Form::select('team', $all_teams, $team, [
+				'class' => 'form-control player-form-input-list chosen-select',
+				'data-placeholder' => 'Filter by team...'
+			])
+		}}
 	</div>
 </div>
 
 <div class="form-group">
-	<div class="col-xs-4 col-xs-offset-2 text-right">Position :</div>
+	<div class="col-xs-4 col-xs-offset-2 text-right">{{ Form::label('position', 'Position :') }}</div>
 	<div class="col-xs-6">
-		{{ Form::select('position', $all_positions, $position, ['class'=>"form-control player-form-input"]) }}
+		{{ Form::select('position', $all_positions, $position, ['class'=>"form-control player-form-input-list"]) }}
 	</div>
 </div>
 
 <div class="form-group">
-	<div class="col-xs-4 col-xs-offset-2 text-right">Number to show :</div>
+	<div class="col-xs-4 col-xs-offset-2 text-right">{{ Form::label('count', 'Count :') }}</div>
 	<div class="col-xs-6">
-		{{ Form::select('count', $all_counts, $count, ['class'=>"form-control player-form-input"]) }}
+		{{ Form::select('count', $all_counts, $count, ['class'=>"form-control player-form-input-list"]) }}
 	</div>
 </div>
 

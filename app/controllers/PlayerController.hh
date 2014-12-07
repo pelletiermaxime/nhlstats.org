@@ -27,7 +27,7 @@ class PlayerController extends BaseController
 		}
 
 		/* ----------- TEAMS ----------- */
-		$all_teams = ['all' => '---------------'] + $this->team->getWithShortNameAndCity();
+		$all_teams = ['all' => ''] + $this->team->getWithShortNameAndCity();
 
 		$team = Input::get('team', 'all');
 		//Default to first team if invalid is passed
@@ -59,7 +59,7 @@ class PlayerController extends BaseController
 		$playersStatsYear = Cache::remember(
 			"playersStatsYear-{$count}-{$team}-{$position}",
 			60,
-			function() use ($count, $filter) {
+			() ==> {
 				return $this->players_stats_year->topPlayersByPoints($count, $filter);
 			}
 		);
@@ -86,7 +86,7 @@ class PlayerController extends BaseController
 		return Cache::remember(
 			"playersStatsDay-{$filter_string}",
 			60,
-			function() use ($count, $filter) {
+			() ==> {
 				return $this->players_stats_day->topPlayersByPoints($count, $filter);
 			}
 		);
