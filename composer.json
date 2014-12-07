@@ -9,6 +9,7 @@
 		,"elvedia/goutte": "dev-master"
 		,"zizaco/confide": "3.2.x"
 		,"barryvdh/laravel-debugbar": "1.*"
+		,"drmonty/chosen": "1.2.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "4.*"
@@ -16,7 +17,6 @@
 		,"barryvdh/laravel-ide-helper": "1.*"
 		,"components/bootstrap": "3.2.*"
 		,"components/datatables": "1.*"
-		,"drmonty/chosen": "1.2.0"
 	},
 	"autoload": {
 		"classmap": [
