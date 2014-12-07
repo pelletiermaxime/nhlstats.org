@@ -27,7 +27,7 @@ class PlayerController extends BaseController
 		}
 
 		/* ----------- TEAMS ----------- */
-		$all_teams = ['all' => ''] + $this->team->getWithShortNameAndCity();
+		$all_teams = ['all' => 'All'] + $this->team->getWithShortNameAndCity();
 
 		$team = Input::get('team', 'all');
 		//Default to first team if invalid is passed
@@ -62,8 +62,9 @@ class PlayerController extends BaseController
 		$filter['teams.short_name'] = ['=', $team];
 		$filter['players.position'] = ['=', $position];
 		$filter['players.year']     = ['=', Config::get('nhlstats.currentYear')];
+		$filter_string = implode('', array_flatten($filter)) . "=$name";
 		$playersStatsYear = Cache::remember(
-			"playersStatsYear-{$count}-{$team}-{$position}",
+			"playersStatsYear-{$filter_string}",
 			60,
 			() ==> {
 				return $this->players_stats_year->topPlayersByPoints($count, $filter, $filtersRaw);
