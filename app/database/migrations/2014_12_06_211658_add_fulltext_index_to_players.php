@@ -12,7 +12,6 @@ class AddFulltextIndexToPlayers extends Migration {
 	 */
 	public function up()
 	{
-		 // (`full_name`)
 		DB::statement('ALTER TABLE players ADD FULLTEXT full_name(full_name)');
 	}
 
