@@ -146,7 +146,7 @@ return [
 		'App\Providers\RouteServiceProvider',
 
 		'Illuminate\Html\HtmlServiceProvider',
-		'Zizaco\Confide\ServiceProvider',
+		// 'Zizaco\Confide\ServiceProvider',
 	],
 
 	/*
@@ -197,7 +197,7 @@ return [
 
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'Html'      => 'Illuminate\Html\HtmlFacade',
-		'Confide'    => 'Zizaco\Confide\Facade',
+		// 'Confide'   => 'Zizaco\Confide\Facade',
 	],
 
 ];

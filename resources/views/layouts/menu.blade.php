@@ -15,16 +15,16 @@ $menuAliases = [
 	'standings_wildcard' => 'standings',
 ];
 
-if (\Confide::user()) //Logged-in
-{
-	// $menu['Pool choices'] = 'pool_me';
-	$menu['Logout']       = 'user_logout';
-}
-else
-{
-	$menu['Login']  = 'user_login';
-	$menu['Signup'] = 'user_create';
-}
+// if (\Confide::user()) //Logged-in
+// {
+// 	// $menu['Pool choices'] = 'pool_me';
+// 	$menu['Logout']       = 'user_logout';
+// }
+// else
+// {
+// 	$menu['Login']  = 'user_login';
+// 	$menu['Signup'] = 'user_create';
+// }
 
 $currentRouteName = Route::currentRouteName();
 ?>
