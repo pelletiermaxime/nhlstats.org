@@ -146,6 +146,7 @@ return [
 		'App\Providers\RouteServiceProvider',
 
 		'Illuminate\Html\HtmlServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 		// 'Zizaco\Confide\ServiceProvider',
 	],
 
@@ -197,6 +198,7 @@ return [
 
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'Html'      => 'Illuminate\Html\HtmlFacade',
+		'Debugbar' => 'Barryvdh\Debugbar\Facade',
 		// 'Confide'   => 'Zizaco\Confide\Facade',
 	],
 
