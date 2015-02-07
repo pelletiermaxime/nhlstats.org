@@ -9,3 +9,6 @@ _ide_helper_models.php
 adminer.php
 public/components/
 app/config/development/*
+
+/node_modules
+.env
