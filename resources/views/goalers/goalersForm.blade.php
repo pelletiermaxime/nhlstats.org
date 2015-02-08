@@ -24,7 +24,12 @@
 	{!! Form::label('team', 'Team:') !!}
 	</div>
 	<div class="col-xs-6">
-		{!! Form::select('team', $all_teams, $team, ['style'=>"width:155px", 'class' => 'form-control']) !!}
+		{!!
+			Form::select('team', $all_teams, $team, [
+				'class' => 'form-control player-form-input-list chosen-select',
+				'data-placeholder' => 'Filter by team...'
+			])
+		!!}
 	</div>
 </div>
 <div class="form-group">
