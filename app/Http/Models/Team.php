@@ -13,7 +13,6 @@ class Team extends Eloquent
 			->join('divisions', 'divisions.id', '=', 'teams.division_id')
 			->orderBy('conference', 'ASC')
 			->orderBy('division', 'ASC')
-			->remember(60)
 		;
 		$teams = $query->get();
 		return $teams;

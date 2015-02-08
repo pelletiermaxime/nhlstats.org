@@ -51,7 +51,6 @@ class PoolController extends \Controller
 			->join('teams', 'teams.id', '=', 'playoff_choices.winning_team_id')
 			->whereUserId($user_id)
 			->whereRound($round)
-			->remember(60 * 60)
 		;
 		$playoffChoices = $query->get();
 		if (count($playoffChoices))
@@ -85,7 +84,6 @@ class PoolController extends \Controller
 			$playoffTeams = PlayoffTeams::with('Team1')
 				->with('Team2')
 				->whereRound($round)
-				->remember(60 * 60)
 				->get()
 				->toArray();
 			// Debugbar::log($playoffTeams);

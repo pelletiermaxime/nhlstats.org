@@ -36,7 +36,7 @@ class GoalerController extends \Controller
 		$filter['players.year'] = ['=', Config::get('nhlstats.currentYear')];
 		$goalersStatsYear = $this->goalers_stats_year->topGoalersByGAA($filter);
 
-		return View::make('goalers')
+		return View::make('goalers/goalers')
 			->with('goalersStatsYear', $goalersStatsYear)
 			->with('all_teams', $all_teams)
 			->with('filterMinGames', $filterMinGames)

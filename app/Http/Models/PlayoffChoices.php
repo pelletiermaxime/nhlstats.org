@@ -26,7 +26,6 @@ class PlayoffChoices extends Eloquent
 			->join('playoff_teams', 'playoff_teams.id', '=', 'playoff_choices.playoff_team_id')
 			->join('teams', 'teams.id', '=', 'playoff_choices.winning_team_id')
 			->join('users', 'users.id', '=', 'playoff_choices.user_id')
-			->remember(60 * 60)
 		;
 		$playoffChoices = $query->get();
 		foreach ($playoffChoices as $choice)

@@ -20,7 +20,6 @@ class Standings extends Eloquent
 			->orderBy('gp', 'ASC')
 			->orderBy('w', 'DESC')
 			->where('standings.year', Config::get('nhlstats.currentYear'))
-			->remember(60)
 		;
 		$standings = $query->get();
 		return $standings;
@@ -37,7 +36,6 @@ class Standings extends Eloquent
 			->orderBy('gp', 'ASC')
 			->orderBy('w', 'DESC')
 			->where('standings.year', Config::get('nhlstats.currentYear'))
-			->remember(60)
 		;
 		$standings = $query->get();
 		return $standings;
@@ -53,7 +51,6 @@ class Standings extends Eloquent
 			->orderBy('gp', 'ASC')
 			->orderBy('w', 'DESC')
 			->where('standings.year', Config::get('nhlstats.currentYear'))
-			->remember(60)
 		;
 		$standings = $query->get();
 		return $standings;

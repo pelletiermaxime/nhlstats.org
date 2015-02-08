@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('body')
-@include('goalersForm')
-@include('goalersStats')
+@include('goalers/goalersForm')
+@include('goalers/goalersStats')
 @stop
 @section('footer-scripts')
 <script src="{{ asset('javascript/goalers.js') }}"></script>
