@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c02e2d583f4cf7b547265bb51cb4f34d",
+    "hash": "b7f45e31c10e2673346cbe6fdb44f633",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -320,16 +320,16 @@
         },
         {
             "name": "drmonty/chosen",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drmonty/chosen.git",
-                "reference": "919d4fc6d0e67f9abcb0ed9871be9f667ffd0ada"
+                "reference": "b5b5bc9e3d52c0ccf053297611b4f36701b06fa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drmonty/chosen/zipball/919d4fc6d0e67f9abcb0ed9871be9f667ffd0ada",
-                "reference": "919d4fc6d0e67f9abcb0ed9871be9f667ffd0ada",
+                "url": "https://api.github.com/repos/drmonty/chosen/zipball/b5b5bc9e3d52c0ccf053297611b4f36701b06fa5",
+                "reference": "b5b5bc9e3d52c0ccf053297611b4f36701b06fa5",
                 "shasum": ""
             },
             "require": {
@@ -368,7 +368,7 @@
                 "select",
                 "ui"
             ],
-            "time": "2014-10-06 10:42:43"
+            "time": "2014-12-18 10:38:26"
         },
         {
             "name": "illuminate/html",
@@ -2096,20 +2096,20 @@
     "packages-dev": [
         {
             "name": "components/bootstrap",
-            "version": "3.2.0",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/components/bootstrap.git",
-                "reference": "09948b04f780173eb0b9ec522d53554f3f408055"
+                "reference": "bffd83f39eb2679850482410b9bdd39a8cc456e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/components/bootstrap/zipball/09948b04f780173eb0b9ec522d53554f3f408055",
-                "reference": "09948b04f780173eb0b9ec522d53554f3f408055",
+                "url": "https://api.github.com/repos/components/bootstrap/zipball/bffd83f39eb2679850482410b9bdd39a8cc456e5",
+                "reference": "bffd83f39eb2679850482410b9bdd39a8cc456e5",
                 "shasum": ""
             },
             "require": {
-                "components/jquery": ">=1.9"
+                "components/jquery": ">=1.9.1"
             },
             "suggest": {
                 "components/bootstrap-default": "Provide a theme for Bootstrap as components/bootstrap only provides the CSS as file assets"
@@ -2121,8 +2121,9 @@
                         "js/bootstrap.js"
                     ],
                     "files": [
-                        "js/bootstrap.min.js",
+                        "js/*.js",
                         "css/*.css",
+                        "css/*.map",
                         "fonts/*",
                         "less/mixins/*.less",
                         "less/*.less"
@@ -2136,20 +2137,30 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "Apache-2.0"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Twitter, Inc"
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
                 }
             ],
-            "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
             "homepage": "http://getbootstrap.com",
             "keywords": [
-                "bootstrap",
-                "css"
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
             ],
-            "time": "2014-09-03 07:11:25"
+            "time": "2015-01-22 12:14:01"
         },
         {
             "name": "components/datatables",
