@@ -12,3 +12,4 @@ app/config/development/*
 
 /node_modules
 .env
+.rocketeer/logs

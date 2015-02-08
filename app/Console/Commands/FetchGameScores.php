@@ -1,6 +1,7 @@
-<?php
+<?php namespace App\Console\Commands;
 
 use Carbon\Carbon;
+use Goutte\Client;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -24,12 +25,18 @@ class FetchGameScores extends Command
 	private $fetchDate = '';
 
 	/**
+	 * @var Client $client Goutte client
+	 */
+	private $client;
+
+	/**
 	 * Execute the console command.
 	 *
 	 * @return mixed
 	 */
 	public function fire()
 	{
+		$this->client = new Client();
 		if ($this->option('yesterday') === true) {
 			$this->fetchDate = Carbon::yesterday()->format("Y-m-d");
 		} else {
@@ -42,12 +49,10 @@ class FetchGameScores extends Command
 
 	private function getScoresArray()
 	{
-		$client   = Goutte::getNewClient();
-
 		$dateESPN = Carbon::parse($this->fetchDate)->format('Ymd');
 
 		$gameDayURL = "http://scores.espn.go.com/nhl/scoreboard?date=$dateESPN";
-		$crawler    = $client->request('GET', $gameDayURL);
+		$crawler    = $this->client->request('GET', $gameDayURL);
 		$lines      = $crawler->filter('.game-details tr');
 
 		$line_cells = [];
@@ -91,10 +96,10 @@ class FetchGameScores extends Command
 		$dateFetched = $this->fetchDate;
 		foreach ($games as $game)
 		{
-			$team1_id = Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team1']}'")->pluck('id');
-			$team2_id = Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team2']}'")->pluck('id');
+			$team1_id = \Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team1']}'")->pluck('id');
+			$team2_id = \Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team2']}'")->pluck('id');
 
-			$gameDB = GameScores::firstOrNew([
+			$gameDB = \GameScores::firstOrNew([
 				'date_game'  => $dateFetched,
 				'team1_id'   => $team1_id,
 				'team2_id'   => $team2_id,
@@ -113,7 +118,7 @@ class FetchGameScores extends Command
 			// $gameDB->score2_SO = $game['score2_SO'];
 			$gameDB->score2_T  = $game['score2_T'];
 
-			$gameDB->year      = Config::get('nhlstats.currentYear');
+			$gameDB->year      = \Config::get('nhlstats.currentYear');
 			$gameDB->save();
 		}
 	}

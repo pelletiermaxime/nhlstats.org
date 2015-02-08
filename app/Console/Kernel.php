@@ -11,12 +11,11 @@ class Kernel extends ConsoleKernel {
 	 * @var array
 	 */
 	protected $commands = [
-		'App\Console\Commands\Inspire',
-		'FetchStandings',
-		'FetchPlayers',
-		'FetchGoalers',
-		'FetchGameScores',
-		'FetchPlayersInfo',
+		'App\Console\Commands\FetchStandings',
+		'App\Console\Commands\FetchPlayers',
+		'App\Console\Commands\FetchGoalers',
+		'App\Console\Commands\FetchGameScores',
+		'App\Console\Commands\FetchPlayersInfo',
 	];
 
 	/**

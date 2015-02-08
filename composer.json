@@ -11,6 +11,7 @@
 		,"zizaco/confide": "~4.3@dev"
 		,"predis/predis": "~1.0"
 		,"barryvdh/laravel-debugbar": "~2.0"
+		,"fabpot/goutte": "~2.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
@@ -21,7 +22,6 @@
 	"autoload": {
 		"classmap": [
 			"database",
-			"app/Console/Commands",
 			"app/Http/Controllers",
 			"app/Http/Models",
 			"app/Http/Repositories"

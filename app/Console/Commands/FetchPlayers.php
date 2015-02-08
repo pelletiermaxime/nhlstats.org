@@ -1,6 +1,7 @@
-<?php
+<?php namespace App\Console\Commands;
 
 use Carbon\Carbon;
+use Goutte\Client;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -22,14 +23,9 @@ class FetchPlayers extends Command
 	protected $description = 'Fetch player stats from espn.';
 
 	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
+	 * @var Client $client Goutte client
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+	private $client;
 
 	/**
 	 * Execute the console command.
@@ -38,6 +34,7 @@ class FetchPlayers extends Command
 	 */
 	public function fire()
 	{
+		$this->client = new Client();
 		$toi = $this->option('TOI');
 		if ($toi === true) {
 			$players = $this->getPlayersOnIceArray();
@@ -49,7 +46,6 @@ class FetchPlayers extends Command
 
 	private function getPlayersArray()
 	{
-		$client = Goutte::getNewClient();
 		$startingPage = $this->argument('startingPage');
 		$endingPage   = $this->argument('endingPage');
 		$currentPage  = $startingPage;
@@ -63,7 +59,7 @@ class FetchPlayers extends Command
 		{
 			$fetchCount = ($currentPage-1) * 40 + 1;
 			$regularSeasonUrl = "http://espn.go.com/nhl/statistics/player/_/stat/points/sort/points/seasontype/2/count/";
-			$crawler = $client->request('GET', $regularSeasonUrl . $fetchCount);
+			$crawler = $this->client->request('GET', $regularSeasonUrl . $fetchCount);
 			$cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
 
 			$noParametre = 0;
@@ -97,7 +93,6 @@ class FetchPlayers extends Command
 
 	private function getPlayersOnIceArray()
 	{
-		$client = Goutte::getNewClient();
 		$startingPage = $this->argument('startingPage');
 		$endingPage   = $this->argument('endingPage');
 		$currentPage  = $startingPage;
@@ -112,7 +107,7 @@ class FetchPlayers extends Command
 		{
 			$fetchCount = ($currentPage-1) * 40 + 1;
 			$regularSeasonUrl = "http://espn.go.com/nhl/statistics/player/_/stat/timeonice/sort/avgTimeOnIce/count/";
-			$crawler = $client->request('GET', $regularSeasonUrl . $fetchCount);
+			$crawler = $this->client->request('GET', $regularSeasonUrl . $fetchCount);
 			$cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
 
 			$noParametre = 0;
@@ -147,7 +142,7 @@ class FetchPlayers extends Command
 	private function savePlayers($players)
 	{
 		echo "Enregistre les informations dans la bd mysql\n";
-		$currentYear = Config::get('nhlstats.currentYear');
+		$currentYear = \Config::get('nhlstats.currentYear');
 		foreach ($players as $player)
 		{
 			if (empty($player['Player'])) continue;
@@ -162,9 +157,9 @@ class FetchPlayers extends Command
 			$replace_to = ['LAK', 'SJS', 'TBL', 'NJD'];
 			$newPlayerTeam = str_replace($replace, $replace_to, $newPlayerTeam);
 			#echo $newPlayerTeam;
-			$playerTeamID = Team::whereShortName($newPlayerTeam)->pluck('id');
+			$playerTeamID = \Team::whereShortName($newPlayerTeam)->pluck('id');
 
-			$playerDB = Player::firstOrNew([
+			$playerDB = \Player::firstOrNew([
 				'full_name' => $fullName,
 				'team_id'   => $playerTeamID,
 			]);
@@ -174,7 +169,7 @@ class FetchPlayers extends Command
 			$playerDB->year       = $currentYear;
 			$playerDB->save();
 
-			$player_stats = PlayersStatsYear::firstOrNew([
+			$player_stats = \PlayersStatsYear::firstOrNew([
 				'player_id' => $playerDB->id
 			]);
 
@@ -197,7 +192,7 @@ class FetchPlayers extends Command
 
 	public function savePlayerStatsDay($playerDB, $player_stats, $player)
 	{
-		$player_stats_day = PlayersStatsDays::firstOrNew([
+		$player_stats_day = \PlayersStatsDays::firstOrNew([
 			'player_id' => $playerDB->id,
 			'day'       => Carbon::today(),
 		]);

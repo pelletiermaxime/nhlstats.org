@@ -1,5 +1,6 @@
-<?php
+<?php namespace App\Console\Commands;
 
+use Goutte\Client;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -20,19 +21,24 @@ class FetchGoalers extends Command {
 	protected $description = 'Fetch goalers stats from espn.';
 
 	/**
+	 * @var Client $client Goutte client
+	 */
+	private $client;
+
+	/**
 	 * Execute the console command.
 	 *
 	 * @return mixed
 	 */
 	public function fire()
 	{
+		$this->client = new Client();
 		$goalers = $this->getGoalersArray();
 		$this->savePlayers($goalers);
 	}
 
 	private function getGoalersArray()
 	{
-		$client       = Goutte::getNewClient();
 		$startingPage = $this->argument('startingPage');
 		$endingPage   = $this->argument('endingPage');
 		$currentPage  = $startingPage;
@@ -47,7 +53,7 @@ class FetchGoalers extends Command {
 		{
 			$fetchCount = ($currentPage-1) * 40 + 1;
 			$regularSeasonUrl = "http://espn.go.com/nhl/statistics/player/_/stat/goaltending/qualified/false/count/$fetchCount";
-			$crawler = $client->request('GET', $regularSeasonUrl);
+			$crawler = $this->client->request('GET', $regularSeasonUrl);
 			$cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
 
 			$noParametre = 0;
@@ -91,19 +97,19 @@ class FetchGoalers extends Command {
 			$replace_to = ['LAK', 'SJS', 'TBL', 'NJD'];
 			$newPlayerTeam = str_replace($replace, $replace_to, $newPlayerTeam);
 			#echo $newPlayerTeam;
-			$goalerTeamID = Team::whereShortName($newPlayerTeam)->pluck('id');
+			$goalerTeamID = \Team::whereShortName($newPlayerTeam)->pluck('id');
 
-			$goalerDB = Player::firstOrNew([
+			$goalerDB = \Player::firstOrNew([
 				'full_name' => $fullName,
 				'team_id'   => $goalerTeamID,
 			]);
 			$goalerDB->first_name = $firstName;
 			$goalerDB->name       = $name;
 			$goalerDB->position   = 'G';
-			$goalerDB->year       = Config::get('nhlstats.currentYear');
+			$goalerDB->year       = \Config::get('nhlstats.currentYear');
 			$goalerDB->save();
 
-			$goaler_stats = GoalersStatsYear::firstOrNew([
+			$goaler_stats = \GoalersStatsYear::firstOrNew([
 				'player_id' => $goalerDB->id
 			]);
 			$goaler_stats->games   = $goaler['GP'];
@@ -129,10 +135,10 @@ class FetchGoalers extends Command {
 	 */
 	protected function getArguments()
 	{
-		return array(
-			array('startingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 1),
-			array('endingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 3),
-		);
+		return [
+			['startingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 1],
+			['endingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 3],
+		];
 	}
 
 	/**
@@ -142,9 +148,7 @@ class FetchGoalers extends Command {
 	 */
 	protected function getOptions()
 	{
-		return array(
-			// array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
+		return [];
 	}
 
 }

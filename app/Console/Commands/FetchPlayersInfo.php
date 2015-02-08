@@ -1,6 +1,7 @@
-<?php
+<?php namespace App\Console\Commands;
 
 use Carbon\Carbon;
+use Goutte\Client;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -22,14 +23,9 @@ class FetchPlayersInfo extends Command
 	protected $description = 'Fetch player info from espn.';
 
 	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
+	 * @var Client $client Goutte client
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+	private $client;
 
 	/**
 	 * Execute the console command.
@@ -38,26 +34,25 @@ class FetchPlayersInfo extends Command
 	 */
 	public function fire()
 	{
+		$this->client = new Client();
 		$playersInfo = $this->getPlayersInfo();
 	}
 
 	private function getPlayersInfo()
 	{
-		$client = Goutte::getNewClient();
-
 		$params = ['number', 'name', 'age', 'height', 'weight', 'shoots', 'birthplace', 'birthdate'];
 		$paramCount = count($params);
 		$player = [];
 		$noPlayer = 1;
 
 		$teamsPage = 'http://espn.go.com/nhl/players';
-		$crawler = $client->request('GET', $teamsPage);
+		$crawler = $this->client->request('GET', $teamsPage);
 		$teamsLinks = $crawler->filter('ul.small-logos li div a')->extract(['href']);
 
 		foreach ($teamsLinks as $teamLink)
 		{
 			$teamPage = "http://espn.go.com$teamLink";
-			$crawler = $client->request('GET', $teamPage);
+			$crawler = $this->client->request('GET', $teamPage);
 			$cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
 
 			$noParametre = 0;
@@ -85,7 +80,7 @@ class FetchPlayersInfo extends Command
 
 	private function savePlayers($players)
 	{
-		$currentYear = Config::get('nhlstats.currentYear');
+		$currentYear = \Config::get('nhlstats.currentYear');
 		echo "Enregistre les informations dans la bd mysql\n";
 		foreach ($players as $player)
 		{
@@ -100,7 +95,7 @@ class FetchPlayersInfo extends Command
 				list($city, $country) = explode(', ', $player['birthplace']);
 			}
 
-			$playerDB = Player::firstOrNew([
+			$playerDB = \Player::firstOrNew([
 				'full_name' => $fullName,
 				'year'      => $currentYear,
 			]);

@@ -1,5 +1,6 @@
-<?php
+<?php namespace App\Console\Commands;
 
+use Goutte\Client;
 use Illuminate\Console\Command;
 
 class FetchStandings extends Command
@@ -19,12 +20,18 @@ class FetchStandings extends Command
 	protected $description = 'Fetch the nhl standing info from espn.';
 
 	/**
+	 * @var Client $client Goutte client
+	 */
+	private $client;
+
+	/**
 	 * Execute the console command.
 	 *
 	 * @return void
 	 */
 	public function fire()
 	{
+		$this->client = new Client();
 		$teams = $this->getTeamsArray();
 		$this->saveStandings($teams);
 		$this->generatePlayoffTeams();
@@ -32,7 +39,7 @@ class FetchStandings extends Command
 
 	private function saveStandings($teams)
 	{
-		Standings::where('year', Config::get('nhlstats.currentYear'))->delete();
+		\Standings::where('year', \Config::get('nhlstats.currentYear'))->delete();
 		foreach($teams as $team)
 		{
 			$tabTeam = explode('-', $team['Team']);
@@ -44,15 +51,15 @@ class FetchStandings extends Command
 			if (strpos($team['Team'], 'NY') !== false)
 			{
 				$teamNY = str_replace('NY ', '', $teamName);
-				$team_id = Team::whereName($teamNY)->pluck('id');
+				$team_id = \Team::whereName($teamNY)->pluck('id');
 			}
 			else
 			{
-				$team_id = Team::whereCity($teamName)->pluck('id');
+				$team_id = \Team::whereCity($teamName)->pluck('id');
 			}
-			Standings::create([
+			\Standings::create([
 				'team_id' => $team_id,
-				'year'    => Config::get('nhlstats.currentYear'),
+				'year'    => \Config::get('nhlstats.currentYear'),
 				'gp'      => $team['GP'],
 				'w'       => $team['W'],
 				'l'       => $team['L'],
@@ -77,13 +84,11 @@ class FetchStandings extends Command
 
 	private function getTeamsArray()
 	{
-		$client = Goutte::getNewClient();
-
 		$params = ['Team', 'GP', 'W', 'L', 'OTL', 'PTS', 'ROW', 'SOW', 'SOL', 'HOME',
 			'ROAD', 'GF', 'GA', 'Diff', 'L10', 'Streak'];
 		$paramCount = count($params);
 
-		$crawler = $client->request('GET', 'http://espn.go.com/nhl/standings');
+		$crawler = $this->client->request('GET', 'http://espn.go.com/nhl/standings');
 		$cells   = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
 
 		$noParametre = 0;
@@ -101,7 +106,7 @@ class FetchStandings extends Command
 		$params     = ['Team', 'GP', 'W', 'L', 'OTL', 'PTS', 'PPG', 'PPO', 'PPP', 'PPGA', 'PPOA', 'PKP'];
 		$paramCount = count($params);
 
-		$crawler = $client->request('GET', 'http://espn.go.com/nhl/standings/_/type/expanded');
+		$crawler = $this->client->request('GET', 'http://espn.go.com/nhl/standings/_/type/expanded');
 		$cells   = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
 
 		$noParametre = 0;
@@ -122,12 +127,11 @@ class FetchStandings extends Command
 
 	private function generatePlayoffTeams()
 	{
-		$playoff = App::make('Nhlstats\Repositories\PlayoffRepository');
+		$playoff = \App::make('Nhlstats\Repositories\PlayoffRepository');
 		$gamesEast = $playoff->getPlayoffGamesEast();
 		$this->savePlayoffTeams($gamesEast, 'EAST');
 		$gamesWest = $playoff->getPlayoffGamesWest();
 		$this->savePlayoffTeams($gamesWest, 'WEST');
-
 	}
 
 	/**
@@ -143,7 +147,7 @@ class FetchStandings extends Command
 				$team2 = $game['team2']->team_id;
 				$conference = $conference;
 				$round = 1;
-				$playoffTeams = PlayoffTeams::firstOrNew([
+				$playoffTeams = \PlayoffTeams::firstOrNew([
 					'team1_id'   => $team1,
 					'team2_id'   => $team2,
 					'conference' => $conference,

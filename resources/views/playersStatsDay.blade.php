@@ -27,7 +27,7 @@ $(function () {
 @foreach ($playersStatsDay as $position => $p)
 <tr>
 	<td>
-		<a href="{{ route('player_page', [$p->player_id, Str::slug($p->full_name)]) }}">
+		<a href="{{ route('player_page', [$p->player_id, str_slug($p->full_name)]) }}">
 		{{ $p->full_name }}
 		</a>
 	</td>
