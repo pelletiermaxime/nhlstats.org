@@ -9,12 +9,12 @@
 		,"elvedia/goutte": "dev-master"
 		,"zizaco/confide": "3.2.x"
 		,"barryvdh/laravel-debugbar": "1.*"
+		,"robloach/component-installer": "*"
 		,"drmonty/chosen": "1.2.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "4.*"
 		,"way/generators": "2.*"
-		,"barryvdh/laravel-ide-helper": "1.*"
 		,"components/bootstrap": "3.2.*"
 		,"components/datatables": "1.*"
 	},
@@ -35,8 +35,6 @@
 		],
 		"post-update-cmd": [
 			"php artisan clear-compiled",
-			"php artisan ide-helper:generate",
-			"php artisan ide-helper:models --nowrite",
 			"php artisan optimize"
 		],
 		"post-create-project-cmd": [
