@@ -1,6 +1,6 @@
 /bootstrap/compiled.php
 /vendor
-app/storage/debugbar/
+storage/debugbar/
 public/packages/barryvdh
 
 *.sqlite
@@ -9,3 +9,7 @@ _ide_helper_models.php
 adminer.php
 public/components/
 app/config/development/*
+
+/node_modules
+.env
+.rocketeer/logs
