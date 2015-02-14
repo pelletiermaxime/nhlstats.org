@@ -30,9 +30,9 @@ return array(
 	// Use this to list folders that need to keep their state, like
 	// user uploaded data, file-based databases, etc.
 	'shared'         => array(
-		'app/storage/logs',
-		'app/storage/sessions',
-		'app/config/database.php',
+		'storage/logs',
+		'storage/sessions',
+		'.env',
 	),
 
 	// Execution
@@ -54,7 +54,9 @@ return array(
 		// You can pass paths in brackets, so {path.public} will return
 		// the correct path to the public folder
 		'files'    => array(
-			'app/storage',
+			'storage',
+			'storage/framework',
+			'storage/logs',
 		),
 
 		// Here you can configure what actions will be executed to set
