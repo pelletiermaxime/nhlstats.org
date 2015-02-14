@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5b5f3ed458df18492afc69e958a155d9",
+    "hash": "3956954be2d26229529b0616ab98a8e3",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -119,6 +119,115 @@
                 "preload"
             ],
             "time": "2015-01-26 22:06:19"
+        },
+        {
+            "name": "components/bootstrap",
+            "version": "3.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/bootstrap.git",
+                "reference": "bffd83f39eb2679850482410b9bdd39a8cc456e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/bootstrap/zipball/bffd83f39eb2679850482410b9bdd39a8cc456e5",
+                "reference": "bffd83f39eb2679850482410b9bdd39a8cc456e5",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": ">=1.9.1"
+            },
+            "suggest": {
+                "components/bootstrap-default": "Provide a theme for Bootstrap as components/bootstrap only provides the CSS as file assets"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "js/bootstrap.js"
+                    ],
+                    "files": [
+                        "js/*.js",
+                        "css/*.css",
+                        "css/*.map",
+                        "fonts/*",
+                        "less/mixins/*.less",
+                        "less/*.less"
+                    ],
+                    "shim": {
+                        "deps": [
+                            "jquery"
+                        ]
+                    }
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "http://getbootstrap.com",
+            "keywords": [
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ],
+            "time": "2015-01-22 12:14:01"
+        },
+        {
+            "name": "components/datatables",
+            "version": "1.10.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SamMousa/datatables.git",
+                "reference": "d37d8a1baabd859aeefe00655d15d8ef72aece82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SamMousa/datatables/zipball/d37d8a1baabd859aeefe00655d15d8ef72aece82",
+                "reference": "d37d8a1baabd859aeefe00655d15d8ef72aece82",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": "*",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "media/js/jquery.dataTables.js"
+                    ],
+                    "styles": [
+                        "media/css/jquery.dataTables.css"
+                    ],
+                    "files": [
+                        "media/js/jquery.dataTables.min.js",
+                        "media/css/jquery.dataTables.min.css",
+                        "media/css/jquery.dataTables_themeroller.css",
+                        "media/images/*"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2014-11-06 12:09:07"
         },
         {
             "name": "components/jquery",
@@ -2472,115 +2581,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "components/bootstrap",
-            "version": "3.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/components/bootstrap.git",
-                "reference": "bffd83f39eb2679850482410b9bdd39a8cc456e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/components/bootstrap/zipball/bffd83f39eb2679850482410b9bdd39a8cc456e5",
-                "reference": "bffd83f39eb2679850482410b9bdd39a8cc456e5",
-                "shasum": ""
-            },
-            "require": {
-                "components/jquery": ">=1.9.1"
-            },
-            "suggest": {
-                "components/bootstrap-default": "Provide a theme for Bootstrap as components/bootstrap only provides the CSS as file assets"
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "scripts": [
-                        "js/bootstrap.js"
-                    ],
-                    "files": [
-                        "js/*.js",
-                        "css/*.css",
-                        "css/*.map",
-                        "fonts/*",
-                        "less/mixins/*.less",
-                        "less/*.less"
-                    ],
-                    "shim": {
-                        "deps": [
-                            "jquery"
-                        ]
-                    }
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jacob Thornton",
-                    "email": "jacobthornton@gmail.com"
-                },
-                {
-                    "name": "Mark Otto",
-                    "email": "markdotto@gmail.com"
-                }
-            ],
-            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-            "homepage": "http://getbootstrap.com",
-            "keywords": [
-                "css",
-                "framework",
-                "front-end",
-                "less",
-                "mobile-first",
-                "responsive",
-                "web"
-            ],
-            "time": "2015-01-22 12:14:01"
-        },
-        {
-            "name": "components/datatables",
-            "version": "1.10.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SamMousa/datatables.git",
-                "reference": "d37d8a1baabd859aeefe00655d15d8ef72aece82"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SamMousa/datatables/zipball/d37d8a1baabd859aeefe00655d15d8ef72aece82",
-                "reference": "d37d8a1baabd859aeefe00655d15d8ef72aece82",
-                "shasum": ""
-            },
-            "require": {
-                "components/jquery": "*",
-                "robloach/component-installer": "*"
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "scripts": [
-                        "media/js/jquery.dataTables.js"
-                    ],
-                    "styles": [
-                        "media/css/jquery.dataTables.css"
-                    ],
-                    "files": [
-                        "media/js/jquery.dataTables.min.js",
-                        "media/css/jquery.dataTables.min.css",
-                        "media/css/jquery.dataTables_themeroller.css",
-                        "media/images/*"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "time": "2014-11-06 12:09:07"
-        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.4",
