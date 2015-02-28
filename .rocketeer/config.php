@@ -20,7 +20,7 @@ return array(
 
 	// The schema to use to name log files
 	'logs'             => function (ConnectionsHandler $connections) {
-		return sprintf('%s-%s-%s.log', $connections->getConnection(), $connections->getStage(), date('Ymd'));
+		return sprintf('%s-%s.log', $connections->getCurrentConnection(), date('Ymd'));
 	},
 
 	// Remote access

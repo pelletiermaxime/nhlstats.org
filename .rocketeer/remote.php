@@ -69,7 +69,5 @@ return array(
 				sprintf('setfacl -m u:www-data:rwx,u:deploy:rwx %s', $file),
 			);
 		},
-
 	),
-
 );
