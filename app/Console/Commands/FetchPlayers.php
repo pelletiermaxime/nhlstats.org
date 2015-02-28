@@ -155,8 +155,9 @@ class FetchPlayers extends Command
 			$newPlayerTeam = $tabTeam[0];
 			$replace    = ['LA', 'SJ', 'TB', 'NJ'];
 			$replace_to = ['LAK', 'SJS', 'TBL', 'NJD'];
-			$newPlayerTeam = str_replace($replace, $replace_to, $newPlayerTeam);
-			#echo $newPlayerTeam;
+			if ($newPlayerTeam != 'FLA') {
+				$newPlayerTeam = str_replace($replace, $replace_to, $newPlayerTeam);
+			}
 			$playerTeamID = \Team::whereShortName($newPlayerTeam)->pluck('id');
 
 			$playerDB = \Player::firstOrNew([
