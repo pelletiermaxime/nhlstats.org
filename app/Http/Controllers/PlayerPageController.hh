@@ -1,8 +1,9 @@
-<?hh
+<?hh namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
-class PlayerPageController extends \Controller
+class PlayerPageController extends Controller
 {
 	/**
 	 * Show info and daily stats for a player

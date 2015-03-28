@@ -147,6 +147,7 @@ return [
 
 		'Illuminate\Html\HtmlServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
+		'Laravel\Socialite\SocialiteServiceProvider',
 		// 'Zizaco\Confide\ServiceProvider',
 	],
 
@@ -198,7 +199,8 @@ return [
 
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'Html'      => 'Illuminate\Html\HtmlFacade',
-		'Debugbar' => 'Barryvdh\Debugbar\Facade',
+		'Debugbar'  => 'Barryvdh\Debugbar\Facade',
+		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 		// 'Confide'   => 'Zizaco\Confide\Facade',
 	],
 

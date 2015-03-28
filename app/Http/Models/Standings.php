@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Models;
 
-class Standings extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Standings extends Model
 {
 	protected $guarded = array();
 
@@ -13,13 +15,13 @@ class Standings extends Eloquent
 
 	public function byOverall()
 	{
-		$query = DB::table('standings')
+		$query = \DB::table('standings')
 			->join('teams'    , 'teams.id'    , '=', 'standings.team_id')
 			->join('divisions', 'divisions.id', '=', 'teams.division_id')
 			->orderBy('PTS', 'DESC')
 			->orderBy('gp', 'ASC')
 			->orderBy('w', 'DESC')
-			->where('standings.year', Config::get('nhlstats.currentYear'))
+			->where('standings.year', \Config::get('nhlstats.currentYear'))
 		;
 		$standings = $query->get();
 		return $standings;
@@ -27,7 +29,7 @@ class Standings extends Eloquent
 
 	public function byDivision()
 	{
-		$query = DB::table('standings')
+		$query = \DB::table('standings')
 			->join('teams'    , 'teams.id'    , '=', 'standings.team_id')
 			->join('divisions', 'divisions.id', '=', 'teams.division_id')
 			->orderBy('conference', 'ASC')
@@ -35,7 +37,7 @@ class Standings extends Eloquent
 			->orderBy('PTS', 'DESC')
 			->orderBy('gp', 'ASC')
 			->orderBy('w', 'DESC')
-			->where('standings.year', Config::get('nhlstats.currentYear'))
+			->where('standings.year', \Config::get('nhlstats.currentYear'))
 		;
 		$standings = $query->get();
 		return $standings;
@@ -43,14 +45,14 @@ class Standings extends Eloquent
 
 	public function byConference()
 	{
-		$query = DB::table('standings')
+		$query = \DB::table('standings')
 			->join('teams'    , 'teams.id'    , '=', 'standings.team_id')
 			->join('divisions', 'divisions.id', '=', 'teams.division_id')
 			->orderBy('conference', 'ASC')
 			->orderBy('PTS', 'DESC')
 			->orderBy('gp', 'ASC')
 			->orderBy('w', 'DESC')
-			->where('standings.year', Config::get('nhlstats.currentYear'))
+			->where('standings.year', \Config::get('nhlstats.currentYear'))
 		;
 		$standings = $query->get();
 		return $standings;

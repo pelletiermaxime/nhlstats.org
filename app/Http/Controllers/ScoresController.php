@@ -1,8 +1,9 @@
-<?php
+<?php namespace App\Http\Controllers;
 
+use App\Http\Models\GameScores;
 use Carbon\Carbon;
 
-class ScoresController extends \Controller
+class ScoresController extends Controller
 {
 	public function index($date = null)
 	{
@@ -12,7 +13,7 @@ class ScoresController extends \Controller
 			->with(['team1', 'team2'])
 			->get()
 			;
-		return View::make('scores')
+		return view('scores')
 			->withScores($scores)
 			->withDates($dates)
 		;

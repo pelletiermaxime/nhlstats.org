@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Models;
 
-class Team extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Team extends Model
 {
 	public function division()
 	{
@@ -9,7 +11,7 @@ class Team extends Eloquent
 
 	public function byDivision()
 	{
-		$query = DB::table('teams')
+		$query = \DB::table('teams')
 			->join('divisions', 'divisions.id', '=', 'teams.division_id')
 			->orderBy('conference', 'ASC')
 			->orderBy('division', 'ASC')
@@ -20,7 +22,7 @@ class Team extends Eloquent
 
 	public function getWithShortNameAndCity()
 	{
-		$query = DB::table('teams')
+		$query = \DB::table('teams')
 			->select('city', 'short_name', 'name')
 			->orderBy('city', 'ASC')
 		;

@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Models;
 
-class GameScores extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class GameScores extends Model
 {
 	protected $guarded = array();
 

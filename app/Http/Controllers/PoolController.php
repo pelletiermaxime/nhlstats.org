@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-class PoolController extends \Controller
+use App\Http\Controllers\Controller;
+
+class PoolController extends Controller
 {
 	/**
 	 * Display a listing of the resource.

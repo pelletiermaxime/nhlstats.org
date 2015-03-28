@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Models;
 
-class PlayersStatsYear extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class PlayersStatsYear extends Model
 {
 	protected $guarded = array();
 
@@ -13,7 +15,7 @@ class PlayersStatsYear extends Eloquent
 
 	public function topPlayersByPoints($count, $filters = [], $filtersRaw = [])
 	{
-		$query = DB::table('players_stats_years')
+		$query = \DB::table('players_stats_years')
 				->join('players'  , 'players.id'  , '=', 'players_stats_years.player_id')
 				->join('teams'    , 'teams.id'    , '=', 'players.team_id')
 				->join('divisions', 'divisions.id', '=', 'teams.division_id')
@@ -53,7 +55,7 @@ class PlayersStatsYear extends Eloquent
 
 	public function pointsByPosition($filters = [])
 	{
-		$query = DB::table('players_stats_years')
+		$query = \DB::table('players_stats_years')
 				->join('players'  , 'players.id'  , '=', 'players_stats_years.player_id')
 				->join('teams'    , 'teams.id'    , '=', 'players.team_id')
 				->select(DB::raw('SUM(players_stats_years.points) AS points'), 'players.position')

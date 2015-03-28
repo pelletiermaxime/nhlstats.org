@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Models;
 
-class PlayoffChoices extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class PlayoffChoices extends Model
 {
 	protected $guarded = [];
 	public static $rules = array();

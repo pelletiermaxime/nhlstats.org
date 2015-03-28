@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Models;
 
-class Division extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Division extends Model
 {
 
 }

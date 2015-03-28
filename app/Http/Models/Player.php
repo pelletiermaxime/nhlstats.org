@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Models;
 
-class Player extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Player extends Model
 {
 	protected $guarded = array();
 

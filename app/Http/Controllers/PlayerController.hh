@@ -1,13 +1,15 @@
-<?hh
+<?hh namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Http\Models;
 use Carbon\Carbon;
 
-class PlayerController extends \Controller
+class PlayerController extends Controller
 {
 	public function __construct(
-		private Team $team,
-		private PlayersStatsYear $players_stats_year,
-		private PlayersStatsDays $players_stats_day,
+		private Models\Team $team,
+		private Models\PlayersStatsYear $players_stats_year,
+		private Models\PlayersStatsDays $players_stats_day,
 	) {}
 
 	public function getListFiltered()
@@ -19,7 +21,7 @@ class PlayerController extends \Controller
 			'500' => '500',
 			'all' => 'All'
 		];
-		$count = Input::get('count', head($all_counts));
+		$count = \Input::get('count', head($all_counts));
 		//Default to 50 if not a possible count
 		if (!isset($all_counts[$count]))
 		{
@@ -29,7 +31,7 @@ class PlayerController extends \Controller
 		/* ----------- TEAMS ----------- */
 		$all_teams = ['all' => 'All'] + $this->team->getWithShortNameAndCity();
 
-		$team = Input::get('team', 'all');
+		$team = \Input::get('team', 'all');
 		//Default to first team if invalid is passed
 		if (!isset($all_teams[$team]))
 		{
@@ -46,14 +48,14 @@ class PlayerController extends \Controller
 			'D'   => 'Defense'
 		];
 
-		$position = Input::get('position', 'all');
+		$position = \Input::get('position', 'all');
 		if (!isset($all_positions[$position]))
 		{
 			$position = 'all';
 		}
 
 		$filtersRaw = [];
-		$name = Input::get('name', 'all');
+		$name = \Input::get('name', 'all');
 		if ($name !== '' && $name !== 'all') {
 			$filtersRaw = ["MATCH(full_name) AGAINST('*{$name}*' IN BOOLEAN MODE)"];
 		}
@@ -61,9 +63,9 @@ class PlayerController extends \Controller
 		/* -------- PLAYER STATS -------- */
 		$filter['teams.short_name'] = ['=', $team];
 		$filter['players.position'] = ['=', $position];
-		$filter['players.year']     = ['=', Config::get('nhlstats.currentYear')];
+		$filter['players.year']     = ['=', \Config::get('nhlstats.currentYear')];
 		$filter_string = implode('', array_flatten($filter)) . "=$name";
-		$playersStatsYear = Cache::remember(
+		$playersStatsYear = \Cache::remember(
 			"playersStatsYear-{$filter_string}",
 			60,
 			() ==> {
@@ -74,7 +76,7 @@ class PlayerController extends \Controller
 		$filter['day'] = ['=', Carbon::today()];
 		$playersStatsDay = $this->playersStatsDay($count, $filter);
 
-		return View::make('players.index')
+		return view('players.index')
 			->with('playersStatsDay', $playersStatsDay)
 			->with('playersStatsYear', $playersStatsYear)
 			->with('all_teams', $all_teams)
@@ -90,7 +92,7 @@ class PlayerController extends \Controller
 	private function playersStatsDay($count, $filter)
 	{
 		$filter_string = implode('', array_flatten($filter));
-		return Cache::remember(
+		return \Cache::remember(
 			"playersStatsDay-{$filter_string}",
 			60,
 			() ==> {

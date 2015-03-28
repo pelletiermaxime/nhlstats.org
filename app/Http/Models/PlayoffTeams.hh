@@ -1,6 +1,8 @@
-<?hh
+<?hh namespace App\Http\Models;
 
-class PlayoffTeams extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class PlayoffTeams extends Model
 {
 	protected $guarded = [];
 	public static $rules = array();

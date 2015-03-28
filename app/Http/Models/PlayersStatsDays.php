@@ -1,13 +1,15 @@
-<?php
+<?php namespace App\Http\Models;
 
-class PlayersStatsDays extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class PlayersStatsDays extends Model
 {
 	protected $guarded = [];
 	// public static $rules = array();
 
 	public function topPlayersByPoints($count, $filters = [])
 	{
-		$query = DB::table('players_stats_days')
+		$query = \DB::table('players_stats_days')
 				->join('players'  , 'players.id'  , '=', 'players_stats_days.player_id')
 				->join('teams'    , 'teams.id'    , '=', 'players.team_id')
 				->take($count)

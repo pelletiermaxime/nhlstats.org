@@ -1,6 +1,9 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-class StandingsController extends \Controller
+use App\Http\Controllers\Controller;
+use App\Http\Models\Standings;
+
+class StandingsController extends Controller
 {
 	private $standings;
 
@@ -12,7 +15,7 @@ class StandingsController extends \Controller
 	public function overall()
 	{
 		$standings = $this->standings->byOverall();
-		return View::make('standings.overall')
+		return view('standings.overall')
 			->withStandings($standings)
 		;
 	}
@@ -20,7 +23,7 @@ class StandingsController extends \Controller
 	public function division()
 	{
 		$standings = $this->standings->byDivision();
-		return View::make('standings.division')
+		return view('standings.division')
 			->withStandings($standings)
 		;
 	}
@@ -28,7 +31,7 @@ class StandingsController extends \Controller
 	public function wildcard()
 	{
 		$standings = $this->standings->byWildcard();
-		return View::make('standings.wildcard')
+		return view('standings.wildcard')
 			->withStandings($standings)
 		;
 	}

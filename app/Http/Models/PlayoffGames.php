@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Models;
 
-class PlayoffGames extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class PlayoffGames extends Model
 {
 	/**
 	 * Return all playoff games for a conference and a round

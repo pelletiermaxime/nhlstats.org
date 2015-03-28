@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-class PlayoffBracketController extends \Controller
+use App\Http\Controllers\Controller;
+
+class PlayoffBracketController extends Controller
 {
 	public function index()
 	{

@@ -1,4 +1,6 @@
-<?php
+<?php namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
 | Confide Controller Template
@@ -9,7 +11,7 @@
 |
 */
 
-class UserController extends \Controller
+class UserController extends Controller
 {
 	/**
 	 * Displays the form for account creation

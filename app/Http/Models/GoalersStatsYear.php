@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Http\Models;
 
-class GoalersStatsYear extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class GoalersStatsYear extends Model
 {
 	protected $guarded = array();
 
@@ -14,8 +16,8 @@ class GoalersStatsYear extends Eloquent
 	public function topGoalersByGAA($filters)
 	{
 		$filter_string = implode('', array_flatten($filters));
-		return Cache::remember("goalersStatsYear-{$filter_string}", 60, function() use ($filters) {
-			$query = DB::table('goalers_stats_years AS goaler')
+		return \Cache::remember("goalersStatsYear-{$filter_string}", 60, function() use ($filters) {
+			$query = \DB::table('goalers_stats_years AS goaler')
 				->join('players'  , 'players.id'  , '=', 'goaler.player_id')
 				->join('teams'    , 'teams.id'    , '=', 'players.team_id')
 				->join('divisions', 'divisions.id', '=', 'teams.division_id')
