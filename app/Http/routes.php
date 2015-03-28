@@ -105,7 +105,12 @@ Route::get('login', [
 	'uses'  => 'SocialLoginController@login',
 ]);
 
-Route::get('logged-in', [
+Route::get('login/{type}', [
+	'as'    => 'do_login',
+	'uses'  => 'SocialLoginController@doLogin',
+]);
+
+Route::get('logged-in/{type}', [
 	'as'    => 'user_logged',
 	'uses'  => 'SocialLoginController@logged_in',
 ]);

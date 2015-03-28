@@ -7,17 +7,25 @@ class SocialLoginController extends Controller
 {
 	public function login()
 	{
-		return \Socialize::with('github')->redirect();
+		return view('login/select');
 	}
 
-	public function logged_in()
+	public function doLogin($type)
 	{
-		$userData = \Socialize::with('github')->user();
+		return \Socialize::with($type)->redirect();
+	}
 
+	public function logged_in($type)
+	{
+		$userData = \Socialize::with($type)->user();
+		$username = $userData->nickname;
+		if (empty($username)) {
+			$username = $userData->email;
+		}
 		$user = User::firstOrNew([
-			'username' => $userData->nickname,
+			'username' => $username,
+			'email'    => $userData->email,
 		]);
-		$user->email = $userData->email;
 		$user->save();
 
 		\Auth::login($user);
