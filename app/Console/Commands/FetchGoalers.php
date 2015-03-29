@@ -1,5 +1,6 @@
 <?php namespace App\Console\Commands;
 
+use App\Http\Models;
 use Goutte\Client;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -97,9 +98,9 @@ class FetchGoalers extends Command {
 			$replace_to = ['LAK', 'SJS', 'TBL', 'NJD'];
 			$newPlayerTeam = str_replace($replace, $replace_to, $newPlayerTeam);
 			#echo $newPlayerTeam;
-			$goalerTeamID = \Team::whereShortName($newPlayerTeam)->pluck('id');
+			$goalerTeamID = Models\Team::whereShortName($newPlayerTeam)->pluck('id');
 
-			$goalerDB = \Player::firstOrNew([
+			$goalerDB = Models\Player::firstOrNew([
 				'full_name' => $fullName,
 				'team_id'   => $goalerTeamID,
 			]);
@@ -109,7 +110,7 @@ class FetchGoalers extends Command {
 			$goalerDB->year       = \Config::get('nhlstats.currentYear');
 			$goalerDB->save();
 
-			$goaler_stats = \GoalersStatsYear::firstOrNew([
+			$goaler_stats = Models\GoalersStatsYear::firstOrNew([
 				'player_id' => $goalerDB->id
 			]);
 			$goaler_stats->games   = $goaler['GP'];

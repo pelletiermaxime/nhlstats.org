@@ -1,5 +1,6 @@
 <?php namespace App\Console\Commands;
 
+use App\Http\Models;
 use Carbon\Carbon;
 use Goutte\Client;
 use Illuminate\Console\Command;
@@ -96,10 +97,10 @@ class FetchGameScores extends Command
 		$dateFetched = $this->fetchDate;
 		foreach ($games as $game)
 		{
-			$team1_id = \Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team1']}'")->pluck('id');
-			$team2_id = \Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team2']}'")->pluck('id');
+			$team1_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team1']}'")->pluck('id');
+			$team2_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team2']}'")->pluck('id');
 
-			$gameDB = \GameScores::firstOrNew([
+			$gameDB = Models\GameScores::firstOrNew([
 				'date_game'  => $dateFetched,
 				'team1_id'   => $team1_id,
 				'team2_id'   => $team2_id,
@@ -131,8 +132,7 @@ class FetchGameScores extends Command
 	protected function getArguments()
 	{
 		return [
-			['date', InputArgument::OPTIONAL, 'Date to fetch scores in format Ymd.',
-				Carbon::today()->format("Y-m-d")],
+			['date', InputArgument::OPTIONAL, 'Date to fetch scores in format Ymd.', Carbon::today()->format("Y-m-d")]
 		];
 	}
 

@@ -10,11 +10,11 @@ class GameScores extends Model
 
 	public function team1()
 	{
-		return $this->belongsTo('Team');
+		return $this->belongsTo('App\Http\Models\Team');
 	}
 
 	public function team2()
 	{
-		return $this->belongsTo('Team');
+		return $this->belongsTo('App\Http\Models\Team');
 	}
 }
