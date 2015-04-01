@@ -128,7 +128,7 @@ class FetchStandings extends Command
 
 	private function generatePlayoffTeams()
 	{
-		$playoff = \App::make('Nhlstats\Repositories\PlayoffRepository');
+		$playoff = \App::make('App\Http\Repositories\PlayoffRepository');
 		$gamesEast = $playoff->getPlayoffGamesEast();
 		$this->savePlayoffTeams($gamesEast, 'EAST');
 		$gamesWest = $playoff->getPlayoffGamesWest();

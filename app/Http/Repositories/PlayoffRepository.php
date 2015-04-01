@@ -1,4 +1,4 @@
-<?php namespace Nhlstats\Repositories;
+<?php namespace App\Http\Repositories;
 
 use App\Http\Models;
 
