@@ -1,11 +1,13 @@
 <?php namespace Nhlstats\Repositories;
 
+use App\Http\Models;
+
 class PlayoffRepository
 {
 	private $wildcard;
 	private $standings;
 
-	public function __construct(\Standings $standings)
+	public function __construct(Models\Standings $standings)
 	{
 		$this->standings = $standings;
 		$this->wildcard  = $this->standings->byWildcard();

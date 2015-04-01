@@ -1,5 +1,6 @@
 <?php namespace App\Console\Commands;
 
+use App\Http\Models;
 use Goutte\Client;
 use Illuminate\Console\Command;
 
@@ -39,7 +40,7 @@ class FetchStandings extends Command
 
 	private function saveStandings($teams)
 	{
-		\Standings::where('year', \Config::get('nhlstats.currentYear'))->delete();
+		Models\Standings::where('year', \Config::get('nhlstats.currentYear'))->delete();
 		foreach($teams as $team)
 		{
 			$tabTeam = explode('-', $team['Team']);
@@ -51,13 +52,13 @@ class FetchStandings extends Command
 			if (strpos($team['Team'], 'NY') !== false)
 			{
 				$teamNY = str_replace('NY ', '', $teamName);
-				$team_id = \Team::whereName($teamNY)->pluck('id');
+				$team_id = Models\Team::whereName($teamNY)->pluck('id');
 			}
 			else
 			{
-				$team_id = \Team::whereCity($teamName)->pluck('id');
+				$team_id = Models\Team::whereCity($teamName)->pluck('id');
 			}
-			\Standings::create([
+			Models\Standings::create([
 				'team_id' => $team_id,
 				'year'    => \Config::get('nhlstats.currentYear'),
 				'gp'      => $team['GP'],
@@ -147,7 +148,7 @@ class FetchStandings extends Command
 				$team2 = $game['team2']->team_id;
 				$conference = $conference;
 				$round = 1;
-				$playoffTeams = \PlayoffTeams::firstOrNew([
+				$playoffTeams = Models\PlayoffTeams::firstOrNew([
 					'team1_id'   => $team1,
 					'team2_id'   => $team2,
 					'conference' => $conference,
