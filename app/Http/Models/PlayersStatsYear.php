@@ -10,7 +10,7 @@ class PlayersStatsYear extends Model
 
 	public function player()
 	{
-		return $this->belongsTo('Player');
+		return $this->belongsTo('App\Http\Models\Player');
 	}
 
 	public function topPlayersByPoints($count, $filters = [], $filtersRaw = [])

@@ -10,6 +10,6 @@ class Player extends Model
 
 	public function team()
 	{
-		return $this->belongsTo('Team');
+		return $this->belongsTo('App\Http\Models\Team');
 	}
 }

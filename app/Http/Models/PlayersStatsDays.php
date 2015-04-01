@@ -1,5 +1,6 @@
 <?php namespace App\Http\Models;
 
+use App\Http\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class PlayersStatsDays extends Model
@@ -20,7 +21,7 @@ class PlayersStatsDays extends Model
 				->orderBy('plusminus', 'desc')
 				->orderBy('players.name', 'asc');
 
-		$playersStatsYear = new PlayersStatsYear;
+		$playersStatsYear = new Models\PlayersStatsYear;
 		$playersStatsYear->buildtopPlayersByPointsFilter($query, $filters);
 
 		return $query->get();
@@ -28,6 +29,6 @@ class PlayersStatsDays extends Model
 
 	public function player()
 	{
-		return $this->belongsTo('Player');
+		return $this->belongsTo('App\Http\Models\Player');
 	}
 }

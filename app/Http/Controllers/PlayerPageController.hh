@@ -1,6 +1,7 @@
 <?hh namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Models;
 use Carbon\Carbon;
 
 class PlayerPageController extends Controller
@@ -13,19 +14,19 @@ class PlayerPageController extends Controller
 	 */
 	public function index(mixed $id, string $name)
 	{
-		$playerStatsDays = PlayersStatsDays::wherePlayerId($id)
+		$playerStatsDays = Models\PlayersStatsDays::wherePlayerId($id)
 			->where('day' , '>', '2014-10-18')
 			->orderBy('day', 'DESC')
 			->get()
 			;
 
-		$playerStatsYear = PlayersStatsYear::wherePlayerId($id)
+		$playerStatsYear = Models\PlayersStatsYear::wherePlayerId($id)
 			->first()
 			;
 
-		$player = Player::find($id);
+		$player = Models\Player::find($id);
 
-		$games = GameScores::whereRaw("team1_id = {$player->team->id} OR team2_id = {$player->team->id}")
+		$games = Models\GameScores::whereRaw("team1_id = {$player->team->id} OR team2_id = {$player->team->id}")
 			->with(['team1', 'team2'])
 			->get()
 			;
@@ -39,11 +40,11 @@ class PlayerPageController extends Controller
 			$enemies[$game['date_game']] = $enemyTeam;
 		}
 
-		return View::make('players.page')
+		return view('players.page')
 			->withStatsDays($playerStatsDays)
 			->withStatsYear($playerStatsYear)
 			->withPlayer($player)
 			->withEnemies($enemies)
-			;
+		;
 	}
 }

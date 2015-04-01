@@ -1,5 +1,6 @@
 <?php namespace App\Console\Commands;
 
+use App\Http\Models;
 use Carbon\Carbon;
 use Goutte\Client;
 use Illuminate\Console\Command;
@@ -158,9 +159,9 @@ class FetchPlayers extends Command
 			if ($newPlayerTeam != 'FLA') {
 				$newPlayerTeam = str_replace($replace, $replace_to, $newPlayerTeam);
 			}
-			$playerTeamID = \Team::whereShortName($newPlayerTeam)->pluck('id');
+			$playerTeamID = Models\Team::whereShortName($newPlayerTeam)->pluck('id');
 
-			$playerDB = \Player::firstOrNew([
+			$playerDB = Models\Player::firstOrNew([
 				'full_name' => $fullName,
 				'team_id'   => $playerTeamID,
 			]);
@@ -170,7 +171,7 @@ class FetchPlayers extends Command
 			$playerDB->year       = $currentYear;
 			$playerDB->save();
 
-			$player_stats = \PlayersStatsYear::firstOrNew([
+			$player_stats = Models\PlayersStatsYear::firstOrNew([
 				'player_id' => $playerDB->id
 			]);
 
@@ -193,7 +194,7 @@ class FetchPlayers extends Command
 
 	public function savePlayerStatsDay($playerDB, $player_stats, $player)
 	{
-		$player_stats_day = \PlayersStatsDays::firstOrNew([
+		$player_stats_day = Models\PlayersStatsDays::firstOrNew([
 			'player_id' => $playerDB->id,
 			'day'       => Carbon::today(),
 		]);
