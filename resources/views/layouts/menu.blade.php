@@ -5,8 +5,8 @@ $menu = [
 	'Scores'          => 'scores',
 	'Standings'       => 'standings',
 	'Teams'           => 'teams',
-	// 'Playoff Bracket' => route('playoff_bracket'),
-	// 'Pool Players'    => route('pool_index'),
+	'Playoff Bracket' => 'playoff_bracket',
+	// 'Pool Players'    => 'pool_index',
 ];
 
 $menuAliases = [
