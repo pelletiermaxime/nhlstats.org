@@ -153,6 +153,7 @@ class FetchStandings extends Command
 					'team2_id'   => $team2,
 					'conference' => $conference,
 					'round'      => $round,
+					'year'       => \Config::get('nhlstats.currentYear'),
 				]);
 				$playoffTeams->save();
 			}

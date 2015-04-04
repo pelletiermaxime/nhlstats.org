@@ -1,6 +1,7 @@
 <?hh namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Models;
 
 class PlayoffTeams extends Model
 {
@@ -27,6 +28,7 @@ class PlayoffTeams extends Model
 	{
 		return \Cache::remember("playoffGames_".$conference, 60*60, () ==> {
 			return Models\PlayoffTeams::whereConference($conference)
+				->where('year', '=', \Config::get('nhlstats.currentYear'))
 				->with('Team1')
 				->with('Team2')
 				->get()
