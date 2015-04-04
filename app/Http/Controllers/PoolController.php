@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Models;
 
 class PoolController extends Controller
 {
@@ -11,10 +12,10 @@ class PoolController extends Controller
 	 */
 	public function index()
 	{
-		$choicesByUsers = PlayoffChoices::getChoicesByUsers();
+		$choicesByUsers = Models\PlayoffChoices::getChoicesByUsers();
 		// var_dump($playoffChoices);
 		// die;
-		return View::make('pool/list')
+		return view('pool/list')
 			->with('choicesByUsers', $choicesByUsers)
 		;
 	}
@@ -26,8 +27,8 @@ class PoolController extends Controller
 	 */
 	public function store()
 	{
-		$playoffTeams = Input::get('WinningTeamId');
-		$games        = Input::get('NbGames');
+		$playoffTeams = \Input::get('WinningTeamId');
+		$games        = \Input::get('NbGames');
 		foreach ($playoffTeams as $playoff_team_id => $winning_team_id)
 		{
 			$playoffChoices = PlayoffChoices::firstOrNew([

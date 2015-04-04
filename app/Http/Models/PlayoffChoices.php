@@ -24,7 +24,7 @@ class PlayoffChoices extends Model
 
 	public function getChoicesByUsers()
 	{
-		$query = DB::table('playoff_choices')
+		$query = \DB::table('playoff_choices')
 			->join('playoff_teams', 'playoff_teams.id', '=', 'playoff_choices.playoff_team_id')
 			->join('teams', 'teams.id', '=', 'playoff_choices.winning_team_id')
 			->join('users', 'users.id', '=', 'playoff_choices.user_id')
