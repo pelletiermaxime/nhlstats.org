@@ -28,7 +28,7 @@ class SocialLoginController extends Controller
 		]);
 		$user->save();
 
-		\Auth::login($user);
+		\Auth::login($user, true);
 		return \Redirect::to('/');
 	}
 
