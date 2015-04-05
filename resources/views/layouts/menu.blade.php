@@ -6,7 +6,7 @@ $menu = [
 	'Standings'       => 'standings',
 	'Teams'           => 'teams',
 	'Playoff Bracket' => 'playoff_bracket',
-	'Pool Players'    => 'pool_index',
+	// 'Pool Players'    => 'pool_index',
 ];
 
 $menuAliases = [
@@ -17,7 +17,7 @@ $menuAliases = [
 
 if (\Auth::user()) //Logged-in
 {
-	$menu['Pool choices'] = 'pool_me';
+	// $menu['Pool choices'] = 'pool_me';
 	$menu['Logout']       = 'user_logout';
 }
 else
