@@ -66,6 +66,7 @@ class FetchStandings extends Command
 				'l'       => $team['L'],
 				'otl'     => $team['OTL'],
 				'pts'     => $team['PTS'],
+				'row'     => $team['ROW'],
 				'gf'      => $team['GF'],
 				'ga'      => $team['GA'],
 				'diff'    => $team['Diff'],
@@ -128,9 +129,11 @@ class FetchStandings extends Command
 
 	private function generatePlayoffTeams()
 	{
-		$playoff = \App::make('App\Http\Repositories\PlayoffRepository');
+		$playoff = app('App\Http\Repositories\PlayoffRepository');
+
 		$gamesEast = $playoff->getPlayoffGamesEast();
 		$this->savePlayoffTeams($gamesEast, 'EAST');
+
 		$gamesWest = $playoff->getPlayoffGamesWest();
 		$this->savePlayoffTeams($gamesWest, 'WEST');
 	}
@@ -140,6 +143,9 @@ class FetchStandings extends Command
 	 */
 	private function savePlayoffTeams($games, $conference)
 	{
+		Models\PlayoffTeams::where('year', \Config::get('nhlstats.currentYear'))
+			->where('conference', $conference)
+			->delete();
 		foreach ($games as $division)
 		{
 			foreach ($division as $game)

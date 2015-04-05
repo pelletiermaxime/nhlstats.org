@@ -70,7 +70,7 @@ class PlayoffRepository
 
 		$playoffGames['CENTRAL'][] = [
 			'team1' => $wildcard['conference']['CENTRAL'][0],
-			'team2' => $wildcard['wildcard']['WEST'][1],
+			'team2' => $team2Central,
 		];
 		$playoffGames['CENTRAL'][] = [
 			'team1' => $wildcard['conference']['CENTRAL'][1],
@@ -78,7 +78,7 @@ class PlayoffRepository
 		];
 		$playoffGames['PACIFIC'][] = [
 			'team1' => $wildcard['conference']['PACIFIC'][0],
-			'team2' => $wildcard['wildcard']['WEST'][0],
+			'team2' => $team2Pacific,
 		];
 		$playoffGames['PACIFIC'][] = [
 			'team1' => $wildcard['conference']['PACIFIC'][1],
