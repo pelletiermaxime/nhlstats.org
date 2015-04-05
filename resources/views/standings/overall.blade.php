@@ -3,7 +3,7 @@
 <table width="80%" id="tableOverall" class="table table-condensed table-striped">
 <thead>
 <tr>
-	<th colspan="12">&nbsp;</th>
+	<th colspan="13">&nbsp;</th>
 	<th colspan="3" style="border:1px solid black;border-bottom:none;">Powerplay</th>
 	<th colspan="3" style="border:1px solid black;border-bottom:none;">Penalty kill</th>
 	<th colspan="4">&nbsp;</th>
@@ -18,6 +18,7 @@
 	<th>L</th>
 	<th>OTL</th>
 	<th>PTS</th>
+	<th title="Regular or Overtime Wins">ROW</th>
 	<th>GF</th>
 	<th>GA</th>
 	<th>Diff</th>
@@ -54,6 +55,7 @@
 	<td>{{ $s->l }}</td>
 	<td>{{ $s->otl }}</td>
 	<td>{{ $s->pts }}</td>
+	<td>{{ $s->row }}</td>
 	<td>{{ $s->gf }}</td>
 	<td>{{ $s->ga }}</td>
 	<td>{{ $s->diff }}</td>
