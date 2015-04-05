@@ -7,7 +7,7 @@
 </div>
 @endif
 
-{{ $view }}
+{!! $view !!}
 
 
 @stop

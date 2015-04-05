@@ -1,4 +1,4 @@
-{{ Form::open(array('route' => 'pool_save')) }}
+{!! Form::open(['route' => 'pool_save']) !!}
 <div align="center">
 	@foreach ($playoffTeams as $game)
 	<div class="row" style="padding:5px;">
@@ -22,4 +22,4 @@
 		<button type="submit" class="btn btn-default btn-lg">Save</button>
 	</div>
 </div>
-{{ Form::close() }}
+{!! Form::close() !!}
