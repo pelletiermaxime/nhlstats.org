@@ -25,6 +25,7 @@ class GameScores extends Model
 				[$team1_id, $team2_id, $team2_id, $team1_id]
 			)
 			->where('year', '=', \Config::get('nhlstats.currentYear'))
+			->orderBy('date_game')
 			->with(['team1', 'team2'])
 			->get()
 		;
