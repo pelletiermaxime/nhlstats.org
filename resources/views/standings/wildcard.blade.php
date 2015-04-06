@@ -18,6 +18,7 @@
 	<th>L</th>
 	<th>OTL</th>
 	<th>PTS</th>
+	<th title="Regular or Overtime Wins">ROW</th>
 	<th>GF</th>
 	<th>GA</th>
 	<th>Diff</th>
@@ -38,12 +39,18 @@
 	$prevDivision = '';
 	$position = 1;
 ?>
-@include('standings/standingBlock', ['standings' => $standings['conference']['ATLANTIC'], 'titre' => 'Atlantic'])
-@include('standings/standingBlock', ['standings' => $standings['conference']['METROPOLITAN'], 'titre' => 'Metropolitan'])
-@include('standings/standingBlock', ['standings' => $standings['wildcard']['EAST'], 'titre' => 'Wild Card'])
-@include('standings/standingBlock', ['standings' => $standings['conference']['CENTRAL'], 'titre' => 'Central'])
-@include('standings/standingBlock', ['standings' => $standings['conference']['PACIFIC'], 'titre' => 'Pacific'])
-@include('standings/standingBlock', ['standings' => $standings['wildcard']['WEST'], 'titre' => 'Wild Card'])
+@include('standings/wildcard-header', ['titre' => 'Atlantic'])
+@include('standings/standingBlock', ['standings' => $standings['conference']['ATLANTIC']])
+@include('standings/wildcard-header', ['titre' => 'Metropolitan'])
+@include('standings/standingBlock', ['standings' => $standings['conference']['METROPOLITAN']])
+@include('standings/wildcard-header', ['titre' => 'Wild Card'])
+@include('standings/standingBlock', ['standings' => $standings['wildcard']['EAST']])
+@include('standings/wildcard-header', ['titre' => 'Central'])
+@include('standings/standingBlock', ['standings' => $standings['conference']['CENTRAL']])
+@include('standings/wildcard-header', ['titre' => 'Pacific'])
+@include('standings/standingBlock', ['standings' => $standings['conference']['PACIFIC']])
+@include('standings/wildcard-header', ['titre' => 'Wild Card'])
+@include('standings/standingBlock', ['standings' => $standings['wildcard']['WEST']])
 </tbody>
 </table>
 @stop

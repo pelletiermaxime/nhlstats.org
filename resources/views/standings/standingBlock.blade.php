@@ -1,6 +1,3 @@
-<tr align="left" style="background:grey; color:white; font-size: 18px;">
-	<td colspan="22">{{ $titre }}</td>
-</tr>
 <?php $position = 1; ?>
 @foreach ($standings as $s)
 <tr>
@@ -12,7 +9,7 @@
 	<td>
 		<a href="{{ route('team', $s->short_name) }}">
 		<img height="35" src="{{ asset('images/SVG') }}/{{ $s->short_name }}.svg"
-			alt="{{ $s->city }} {{ $s->name }}" />
+			alt="{{ $s->city }} {{ $s->name }}" title="{{ $s->city }} {{ $s->name }}" />
 		</a>
 	</td>
 	<td>{{ $s->division }}</td>
@@ -22,6 +19,7 @@
 	<td>{{ $s->l }}</td>
 	<td>{{ $s->otl }}</td>
 	<td>{{ $s->pts }}</td>
+	<td>{{ $s->row }}</td>
 	<td>{{ $s->gf }}</td>
 	<td>{{ $s->ga }}</td>
 	<td>{{ $s->diff }}</td>
