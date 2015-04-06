@@ -167,6 +167,14 @@ table.table thead th
 	line-height: 40px;
 }
 
+.teams_page .division
+{
+	border: 1px solid black;
+	width: 47%;
+	float: left;
+	margin: 5px 12px;
+}
+
 .player-form-input-text {
 	width:180px
 }

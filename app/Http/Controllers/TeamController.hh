@@ -19,7 +19,7 @@ class TeamController extends Controller
 		\Debugbar::log($teamsByDivision);
 
 		return view('team.index')
-			->withTeams($teamsByDivision)
+			->withTeamsByDivision($teamsByDivision)
 			;
 	}
 

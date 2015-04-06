@@ -17,7 +17,14 @@ class Team extends Model
 			->orderBy('division', 'ASC')
 		;
 		$teams = $query->get();
-		return $teams;
+
+		// Put in sub-arrays by division
+		$teamsByDivision = [];
+		foreach ($teams as $team) {
+			$teamsByDivision[$team->division][] = $team;
+		}
+
+		return $teamsByDivision;
 	}
 
 	public function getWithShortNameAndCity()
