@@ -35,6 +35,7 @@ class FetchStandings extends Command
 		$this->client = new Client();
 		$teams = $this->getTeamsArray();
 		$this->saveStandings($teams);
+		$this->saveStandingsPositions();
 		$this->generatePlayoffTeams();
 	}
 
@@ -81,6 +82,54 @@ class FetchStandings extends Command
 				'l10'     => $team['L10'],
 				'streak'  => $team['Streak'],
 			]);
+		}
+	}
+
+	private function saveStandingsPositions()
+	{
+		// Get overall teams positions by ordering in SQL
+		$query = \DB::table('standings')
+			->select('standings.id')
+			->orderBy('PTS', 'DESC')
+			->orderBy('gp', 'ASC')
+			->orderBy('row', 'DESC')
+			->where('standings.year', \Config::get('nhlstats.currentYear'))
+		;
+		$standings = $query->get();
+
+		foreach ($standings as $position => $row) {
+			$rowsStanding[$row->id]['positionOverall'] = ++$position;
+		}
+
+		// Get conference teams positions by ordering in SQL
+		$query = \DB::table('standings')
+			->select(['standings.id', 'conference'])
+			->join('teams'    , 'teams.id'    , '=', 'standings.team_id')
+			->join('divisions', 'divisions.id', '=', 'teams.division_id')
+			->orderBy('conference', 'ASC')
+			->orderBy('PTS', 'DESC')
+			->orderBy('gp', 'ASC')
+			->orderBy('row', 'DESC')
+			->where('standings.year', \Config::get('nhlstats.currentYear'))
+		;
+		$standings = $query->get();
+		$previousConference = '';
+		$position = 1;
+		foreach ($standings as $row) {
+			if ($row->conference != $previousConference) {
+				$position = 1;
+			}
+			$rowsStanding[$row->id]['positionConference'] = $position;
+			$position++;
+			$previousConference = $row->conference;
+		}
+
+		// Save in the DB so we don't have to do all that ordering ever again
+		foreach ($rowsStanding as $standing_id => $standing_row) {
+			$standing = Models\Standings::find($standing_id);
+			$standing->positionOverall    = $standing_row['positionOverall'];
+			$standing->positionConference = $standing_row['positionConference'];
+			$standing->save();
 		}
 	}
 
@@ -156,7 +205,9 @@ class FetchStandings extends Command
 				$round = 1;
 				$playoffTeams = Models\PlayoffTeams::firstOrNew([
 					'team1_id'   => $team1,
+					'team1_position' => $game['team1']->positionConference,
 					'team2_id'   => $team2,
+					'team2_position' => $game['team2']->positionConference,
 					'conference' => $conference,
 					'round'      => $round,
 					'year'       => \Config::get('nhlstats.currentYear'),
