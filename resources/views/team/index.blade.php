@@ -12,11 +12,13 @@
 			<div class="team_logo">
 				<a href="{{ route('team', $team->short_name) }}">
 				<img height="50" src="{{ asset('images/SVG') }}/{{ $team->short_name }}.svg"
-					alt="{{ $team->city }} {{ $team->name }}" />
+					alt="{{ $team->city }} {{ $team->name }}" title="{{ $team->city }} {{ $team->name }}" />
 				</a>
 			</div>
 			<div class="team_name">
-				{{ $team->city }} {{ $team->name }}
+				<a href="{{ route('team', $team->short_name) }}">
+					{{ $team->city }} {{ $team->name }}
+				</a>
 			</div>
 			</div>
 		@endforeach
