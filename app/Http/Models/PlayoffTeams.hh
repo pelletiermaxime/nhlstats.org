@@ -32,6 +32,7 @@ class PlayoffTeams extends Model
 				->whereRound($round)
 				->with('Team1')
 				->with('Team2')
+				->orderBy('team1_position')
 				->get()
 				->toArray();
 		});

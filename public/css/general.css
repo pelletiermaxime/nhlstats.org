@@ -204,3 +204,37 @@ table.table thead th
 	-moz-box-shadow: 0 0 8px rgba(82, 168, 236, .6);
 	box-shadow: 0 0 8px rgba(82, 168, 236, .6)
 }
+
+.playoff_bracket
+{
+	width: 25%;
+	margin: auto;
+	float: left;
+}
+
+.playoff_bracket .game
+{
+	border: 1px solid black;
+	width: 300px;
+	float: left;
+	margin: 10px 20px;
+	padding: 15px;
+}
+
+.playoff_bracket div
+{
+	min-width: 40px;
+	float: left;
+	line-height: 50px;
+}
+
+.playoff_bracket .team_name
+{
+	width: 100px;
+}
+
+.playoff_bracket .game_header div
+{
+	font-size: 18px;
+	line-height: 35px;
+}
