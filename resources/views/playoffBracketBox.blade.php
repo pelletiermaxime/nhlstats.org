@@ -1,4 +1,4 @@
-<div class="game">
+<div class="game panel">
 	<div class="game_header">
 		<div class="team_name">&nbsp;</div>
 		@for ($i = 1; $i <= count($g['regularSeasonGames']); $i++)
