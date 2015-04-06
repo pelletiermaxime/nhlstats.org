@@ -223,7 +223,7 @@ table.table thead th
 
 .playoff_bracket div
 {
-	min-width: 40px;
+	min-width: 20px;
 	float: left;
 	line-height: 50px;
 }
@@ -231,6 +231,16 @@ table.table thead th
 .playoff_bracket .team_name
 {
 	width: 100px;
+}
+
+.playoff_bracket .matches
+{
+	width: 165px;
+}
+
+.playoff_bracket .team_name img
+{
+	max-width: 75px;
 }
 
 .playoff_bracket .game_header div

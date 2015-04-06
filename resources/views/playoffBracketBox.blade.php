@@ -11,14 +11,17 @@
 			alt="{{ $g['team1']['city'] }} {{ $g['team1']['name'] }}"
 			title="{{ $g['team1']['city'] }} {{ $g['team1']['name'] }}"
 		/>
+		({{ $g['team1_position'] }})
 		</div>
+		<div class="matches">
 		@foreach ($g['regularSeasonGames'] as $game)
-		@if ($game['team1_id'] == $g['team1']['id'])
-		<div class="score1_1">{{ $game['score1_T'] }}</div>
-		@else
-		<div class="score1_1">{{ $game['score2_T'] }}</div>
-		@endif
+			@if ($game['team1_id'] == $g['team1']['id'])
+			<div>{{ $game['score1_T'] }}</div>
+			@else
+			<div>{{ $game['score2_T'] }}</div>
+			@endif
 		@endforeach
+		</div>
 	</div>
 	<div class="team2">
 		<div class="team_name">
@@ -26,13 +29,16 @@
 			alt="{{ $g['team2']['city'] }} {{ $g['team2']['name'] }}"
 			title="{{ $g['team2']['city'] }} {{ $g['team2']['name'] }}"
 		/>
+		({{ $g['team2_position'] }})
 		</div>
+		<div class="matches">
 		@foreach ($g['regularSeasonGames'] as $game)
-		@if ($game['team1_id'] == $g['team2']['id'])
-		<div class="score1_1">{{ $game['score1_T'] }}</div>
-		@else
-		<div class="score1_1">{{ $game['score2_T'] }}</div>
-		@endif
+			@if ($game['team1_id'] == $g['team2']['id'])
+			<div>{{ $game['score1_T'] }}</div>
+			@else
+			<div>{{ $game['score2_T'] }}</div>
+			@endif
 		@endforeach
+		</div>
 	</div>
 </div>
