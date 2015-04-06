@@ -12,6 +12,7 @@ class Team extends Model
 	public function byDivision()
 	{
 		$query = \DB::table('teams')
+			->where('teams.year', \Config::get('nhlstats.currentYear'))
 			->join('divisions', 'divisions.id', '=', 'teams.division_id')
 			->orderBy('conference', 'ASC')
 			->orderBy('division', 'ASC')
