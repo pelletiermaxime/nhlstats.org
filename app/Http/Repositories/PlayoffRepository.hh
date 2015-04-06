@@ -1,16 +1,13 @@
-<?php namespace App\Http\Repositories;
+<?hh namespace App\Http\Repositories;
 
 use App\Http\Models;
 
 class PlayoffRepository
 {
-	private $wildcard;
-	private $standings;
-
-	public function __construct(Models\Standings $standings)
+	public function __construct(private Models\Standings $standings)
 	{
-		$this->standings = $standings;
-		$this->wildcard  = $this->standings->byWildcard();
+		$this->wildcard   = $this->standings->byWildcard();
+		$this->conference = $this->standings->byConference();
 	}
 
 	public function getPlayoffGamesEast()
@@ -22,18 +19,18 @@ class PlayoffRepository
 		if ($wildcard['conference']['ATLANTIC'][0]->pts >
 			$wildcard['conference']['METROPOLITAN'][0]->pts)
 		{
-			$team2Atlantic     = $wildcardEast[1];
-			$team2Metropolitan = $wildcardEast[0];
+			$wildcardAtlantic     = $wildcardEast[1];
+			$wildcardMetropolitan = $wildcardEast[0];
 		}
 		else
 		{
-			$team2Atlantic     = $wildcardEast[0];
-			$team2Metropolitan = $wildcardEast[1];
+			$wildcardAtlantic     = $wildcardEast[0];
+			$wildcardMetropolitan = $wildcardEast[1];
 		}
 
 		$playoffGames['ATLANTIC'][] = [
 			'team1' => $wildcard['conference']['ATLANTIC'][0],
-			'team2' => $team2Atlantic,
+			'team2' => $wildcardAtlantic,
 		];
 		$playoffGames['ATLANTIC'][] = [
 			'team1' => $wildcard['conference']['ATLANTIC'][1],
@@ -41,7 +38,7 @@ class PlayoffRepository
 		];
 		$playoffGames['METROPOLITAN'][] = [
 			'team1' => $wildcard['conference']['METROPOLITAN'][0],
-			'team2' => $team2Metropolitan,
+			'team2' => $wildcardMetropolitan,
 		];
 		$playoffGames['METROPOLITAN'][] = [
 			'team1' => $wildcard['conference']['METROPOLITAN'][1],
