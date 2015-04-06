@@ -54,7 +54,7 @@
 	<td>
 		<a href="{{ route('team', $s->short_name) }}">
 		<img height="35" src="{{ asset('images/SVG') }}/{{ $s->short_name }}.svg"
-			alt="{{ $s->city }} {{ $s->name }}" />
+			alt="{{ $s->city }} {{ $s->name }}" title="{{ $s->city }} {{ $s->name }}" />
 		</a>
 	</td>
 	<td>{{ $s->division }}</td>
