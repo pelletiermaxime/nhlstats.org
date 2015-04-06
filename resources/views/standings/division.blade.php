@@ -18,6 +18,7 @@
 	<th>L</th>
 	<th>OTL</th>
 	<th>PTS</th>
+	<th>ROW</th>
 	<th>GF</th>
 	<th>GA</th>
 	<th>Diff</th>
@@ -64,6 +65,7 @@
 	<td>{{ $s->l }}</td>
 	<td>{{ $s->otl }}</td>
 	<td>{{ $s->pts }}</td>
+	<td>{{ $s->row }}</td>
 	<td>{{ $s->gf }}</td>
 	<td>{{ $s->ga }}</td>
 	<td>{{ $s->diff }}</td>
