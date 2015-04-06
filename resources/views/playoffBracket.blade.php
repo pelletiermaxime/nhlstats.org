@@ -1,41 +1,17 @@
 @extends('layouts.base')
 @section('body')
 
-<div class="playoff_bracket">
-<?php
-?>
-@foreach ($games_east as $game)
-	@include('playoffBracketBox', ['conference' => 'East', 'g' => $game])
-@endforeach
+<div class="row">
+	<div class="playoff_bracket col-xs-2">
+	@foreach ($games_east as $game)
+		@include('playoffBracketBox', ['conference' => 'East', 'g' => $game])
+	@endforeach
+	</div>
+	<div class="playoff_bracket col-xs-2 col-xs-offset-8">
+	@foreach ($games_west as $game)
+		@include('playoffBracketBox', ['conference' => 'West', 'g' => $game])
+	@endforeach
+	</div>
 </div>
-<div class="playoff_bracket">
-@foreach ($games_west as $game)
-	@include('playoffBracketBox', ['conference' => 'West', 'g' => $game])
-@endforeach
-<?
-?>
-</div>
-
-@foreach ($games_east as $game)
-	<img height="35" src="images/SVG/{{ $game['team1']['short_name'] }}.svg"
-		alt="{{ $game['team1']['city'] }} {{ $game['team1']['name'] }}" />
-	({{ $game['team1_position'] }})
-	vs
-	<img height="35" src="images/SVG/{{ $game['team2']['short_name'] }}.svg"
-		alt="{{ $game['team2']['city'] }} {{ $game['team2']['name'] }}" />
-	({{ $game['team2_position'] }})
-	<br />
-@endforeach
-
-@foreach ($games_west as $game)
-	<img height="35" src="images/SVG/{{ $game['team1']['short_name'] }}.svg"
-		alt="{{ $game['team1']['city'] }} {{ $game['team1']['name'] }}" />
-	({{ $game['team1_position'] }})
-	vs
-	<img height="35" src="images/SVG/{{ $game['team2']['short_name'] }}.svg"
-		alt="{{ $game['team2']['city'] }} {{ $game['team2']['name'] }}" />
-	({{ $game['team2_position'] }})
-	<br />
-@endforeach
 
 @stop
