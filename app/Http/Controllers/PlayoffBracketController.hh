@@ -8,7 +8,7 @@ class PlayoffBracketController extends Controller
 	public function index()
 	{
 		$round = 1;
-
+		$gamesEast = $game = $gamesWest = [];
 		$gamesEast = \Cache::remember("gamesEast_{$round}", 60,
 			() ==> {
 				$gamesEast = Models\PlayoffTeams::byConference('EAST', $round);
