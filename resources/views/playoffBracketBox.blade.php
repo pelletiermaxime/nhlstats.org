@@ -14,11 +14,23 @@
 		({{ $g['team1_position'] }})
 		</div>
 		<div class="matches">
-		@foreach ($g['regularSeasonGames'] as $game)
+		@foreach ($g['regularSeasonGames'] as $noGame => $game)
 			@if ($game['team1_id'] == $g['team1']['id'])
-			<div>{{ $game['score1_T'] }}</div>
+			@if ($g['regularSeasonGames'][$noGame]['score1_T'] > $g['regularSeasonGames'][$noGame]['score2_T'])
+			<div style="font-weight:bold;font-size: 14px;">
 			@else
-			<div>{{ $game['score2_T'] }}</div>
+			<div>
+			@endif
+				{{ $game['score1_T'] }}
+			</div>
+			@else
+				@if ($game['score2_T'] > $game['score1_T'])
+				<div style="font-weight:bold">
+				@else
+				<div>
+				@endif
+				{{ $game['score2_T'] }}
+			</div>
 			@endif
 		@endforeach
 		</div>
@@ -32,11 +44,23 @@
 		({{ $g['team2_position'] }})
 		</div>
 		<div class="matches">
-		@foreach ($g['regularSeasonGames'] as $game)
+		@foreach ($g['regularSeasonGames'] as $noGame => $game)
 			@if ($game['team1_id'] == $g['team2']['id'])
-			<div>{{ $game['score1_T'] }}</div>
+			@if ($g['regularSeasonGames'][$noGame]['score1_T'] > $g['regularSeasonGames'][$noGame]['score2_T'])
+			<div style="font-weight:bold;font-size: 14px;">
 			@else
-			<div>{{ $game['score2_T'] }}</div>
+			<div>
+			@endif
+				{{ $game['score1_T'] }}
+			</div>
+			@else
+			@if ($g['regularSeasonGames'][$noGame]['score2_T'] > $g['regularSeasonGames'][$noGame]['score1_T'])
+			<div style="font-weight:bold;font-size: 14px;">
+			@else
+			<div>
+			@endif
+				{{ $game['score2_T'] }}
+			</div>
 			@endif
 		@endforeach
 		</div>
