@@ -1,6 +1,6 @@
 <?php
 $today = date("Y-m-d");
-$playoffsStarted = $today > \Config::get('nhlstats.playoffsStart');
+$seasonEnded = $today > \Config::get('nhlstats.seasonEnds');
 $menu = [
 	'Players'         => 'index',
 	'Goalers'         => 'goalers',
@@ -10,7 +10,7 @@ $menu = [
 	'Playoff Bracket' => 'playoff_bracket',
 ];
 
-if ($playoffsStarted) {
+if ($seasonEnded) {
 	$menu['Pool Players'] = 'pool_index';
 }
 
@@ -22,7 +22,7 @@ $menuAliases = [
 
 if (\Auth::user()) //Logged-in
 {
-	if ($playoffsStarted) {
+	if ($seasonEnded) {
 		$menu['Pool choices'] = 'pool_me';
 	}
 	$menu['Logout'] = 'user_logout';
