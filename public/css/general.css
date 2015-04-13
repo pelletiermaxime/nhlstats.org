@@ -243,3 +243,16 @@ table.table thead th
 	font-size: 18px;
 	line-height: 35px;
 }
+
+.playoff_bracket .team1,
+.playoff_bracket .team2
+{
+	width: 100%;
+}
+
+.playoff_bracket .total_score
+{
+	background-color: black;
+	float: right;
+	text-align: center;
+}
