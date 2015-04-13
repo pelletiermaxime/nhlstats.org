@@ -13,21 +13,20 @@ class PlayoffBracketController extends Controller
 			() ==> {
 				$gamesEast = Models\PlayoffTeams::byConference('EAST', $round);
 				foreach ($gamesEast as &$game) {
-					$team1_wins = $team2_wins = 0;
+					$wins[$game['team1_id']] = $wins[$game['team2_id']] = 0;
 					$game['regularSeasonGames'] = Models\GameScores::betweenTeams(
 						$game['team1']['id'], $game['team2']['id']
 					);
 					foreach ($game['regularSeasonGames'] as $noGameScore => $gameScore) {
 						if ($gameScore['score1_T'] > $gameScore['score2_T']) {
 							$game['regularSeasonGames'][$noGameScore]['winner'] = 'team1';
-							$team1_wins++;
+							$wins[$gameScore['team1']['id']]++;
 						} else {
 							$game['regularSeasonGames'][$noGameScore]['winner'] = 'team2';
-							$team2_wins++;
+							$wins[$gameScore['team2']['id']]++;
 						}
 					}
-					$game['team1_wins'] = $team1_wins;
-					$game['team2_wins'] = $team2_wins;
+					$game['wins'] = $wins;
 				}
 				return $gamesEast;
 			}
@@ -39,21 +38,20 @@ class PlayoffBracketController extends Controller
 				$gamesWest = Models\PlayoffTeams::byConference('WEST', $round);
 
 				foreach ($gamesWest as &$game) {
-					$team1_wins = $team2_wins = 0;
+					$wins[$game['team1_id']] = $wins[$game['team2_id']] = 0;
 					$game['regularSeasonGames'] = Models\GameScores::betweenTeams(
 						$game['team1']['id'], $game['team2']['id']
 					);
 					foreach ($game['regularSeasonGames'] as $noGameScore => $gameScore) {
 						if ($gameScore['score1_T'] > $gameScore['score2_T']) {
 							$game['regularSeasonGames'][$noGameScore]['winner'] = 'team1';
-							$team1_wins++;
+							$wins[$gameScore['team1']['id']]++;
 						} else {
 							$game['regularSeasonGames'][$noGameScore]['winner'] = 'team2';
-							$team2_wins++;
+							$wins[$gameScore['team2']['id']]++;
 						}
 					}
-					$game['team1_wins'] = $team1_wins;
-					$game['team2_wins'] = $team2_wins;
+					$game['wins'] = $wins;
 				}
 				return $gamesWest;
 			}

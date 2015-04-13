@@ -35,7 +35,7 @@
 			@endif
 		@endforeach
 		</div>
-		-{{ $g['team1_wins'] }}-
+		-{{ $g['wins'][$game['team1_id']] }}-
 	</div>
 	<div class="team2">
 		<div class="team_name">
@@ -66,6 +66,6 @@
 			@endif
 		@endforeach
 		</div>
-		-{{ $g['team2_wins'] }}-
+		-{{ $g['wins'][$game['team2_id']] }}-
 	</div>
 </div>
