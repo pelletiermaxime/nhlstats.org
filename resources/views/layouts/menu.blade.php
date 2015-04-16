@@ -1,6 +1,7 @@
 <?php
 $today = date("Y-m-d");
 $seasonEnded = $today > \Config::get('nhlstats.seasonEnds');
+$round1Started = $today >= \Config::get('nhlstats.playoffStart');
 $menu = [
 	'Players'         => 'index',
 	'Goalers'         => 'goalers',
@@ -22,7 +23,7 @@ $menuAliases = [
 
 if (\Auth::user()) //Logged-in
 {
-	if ($seasonEnded) {
+	if ($seasonEnded && !$round1Started) {
 		$menu['Pool choices'] = 'pool_me';
 	}
 	$menu['Logout'] = 'user_logout';
