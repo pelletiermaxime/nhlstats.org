@@ -22,13 +22,18 @@ class PlayoffBracketController extends Controller
 	{
 		$games = [];
 
-		return \Cache::remember("games_{$conference}_{$round}", 60,
+		$nextRound = $round + 1;
+		$dateCurrentRound = \Config::get("nhlstats.round{$round}Start");
+		$dateNextRound = \Config::get("nhlstats.round{$nextRound}Start");
+		$betweenDate = "BETWEEN '$dateCurrentRound' AND '$dateNextRound'";
+
+		return \Cache::remember("games_{$conference}_{$round}_{$betweenDate}", 60,
 			() ==> {
 				$games = Models\PlayoffTeams::byConference($conference, $round);
 				foreach ($games as &$game) {
 					$wins[$game['team1_id']] = $wins[$game['team2_id']] = 0;
 					$game['regularSeasonGames'] = Models\GameScores::betweenTeams(
-						$game['team1']['id'], $game['team2']['id']
+						$game['team1']['id'], $game['team2']['id'], $betweenDate
 					);
 					foreach ($game['regularSeasonGames'] as $noGameScore => $gameScore) {
 						if ($gameScore['score1_T'] > $gameScore['score2_T']) {

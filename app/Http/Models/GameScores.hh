@@ -18,7 +18,7 @@ class GameScores extends Model
 		return $this->belongsTo('App\Http\Models\Team');
 	}
 
-	public function betweenTeams($team1_id, $team2_id)
+	public function betweenTeams($team1_id, $team2_id, $dateCondition = '')
 	{
 		$gamesScores = GameScores::whereRaw(
 				'((team1_id = ? AND team2_id = ?) OR (team1_id = ? AND team2_id = ?))',
@@ -27,8 +27,10 @@ class GameScores extends Model
 			->where('year', '=', \Config::get('nhlstats.currentYear'))
 			->orderBy('date_game')
 			->with(['team1', 'team2'])
-			->get()
 		;
-		return $gamesScores;
+		if ($dateCondition !== '') {
+			$gamesScores->whereRaw("date_game $dateCondition");
+		}
+		return $gamesScores->get();
 	}
 }
