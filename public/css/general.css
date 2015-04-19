@@ -256,3 +256,39 @@ table.table thead th
 	float: right;
 	text-align: center;
 }
+
+@media all and (max-width: 1430px)
+{
+	.playoff_bracket
+	{
+		padding: 0px;
+	}
+}
+
+@media all and (max-width: 1240px)
+{
+	.playoff_bracket .game
+	{
+		padding: 10px;
+	}
+	.playoff_bracket .team_position
+	{
+		display: none;
+	}
+	.playoff_bracket .team_name
+	{
+		width: 70px;
+	}
+}
+
+@media all and (max-width: 1050px)
+{
+	.playoff_bracket .team_name img
+	{
+		max-width: 40px;
+	}
+	.playoff_bracket .team_name
+	{
+		width: 45px;
+	}
+}

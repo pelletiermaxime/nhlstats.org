@@ -11,7 +11,7 @@
 			alt="{{ $g['team1']['city'] }} {{ $g['team1']['name'] }}"
 			title="{{ $g['team1']['city'] }} {{ $g['team1']['name'] }}"
 		/>
-		({{ $g['team1_position'] }})
+		<span class="team_position">({{ $g['team1_position'] }})</span>
 		</div>
 		<div class="matches">
 		<? $team1_vics = $team2_vics = 0 ?>
@@ -45,7 +45,7 @@
 			alt="{{ $g['team2']['city'] }} {{ $g['team2']['name'] }}"
 			title="{{ $g['team2']['city'] }} {{ $g['team2']['name'] }}"
 		/>
-		({{ $g['team2_position'] }})
+		<span class="team_position">({{ $g['team2_position'] }})</span>
 		</div>
 		<div class="matches">
 		@foreach ($g['regularSeasonGames'] as $noGame => $game)
