@@ -7,7 +7,7 @@
 	</div>
 	<div class="team1">
 		<div class="team_name">
-		<img height="45" src="{{ asset('images/SVG') }}/{{ $g['team1']['short_name'] }}.svg"
+		<img src="{{ asset('images/SVG') }}/{{ $g['team1']['short_name'] }}.svg"
 			alt="{{ $g['team1']['city'] }} {{ $g['team1']['name'] }}"
 			title="{{ $g['team1']['city'] }} {{ $g['team1']['name'] }}"
 		/>
@@ -41,7 +41,7 @@
 	</div>
 	<div class="team2">
 		<div class="team_name">
-		<img height="45" src="{{ asset('images/SVG') }}/{{ $g['team2']['short_name'] }}.svg"
+		<img src="{{ asset('images/SVG') }}/{{ $g['team2']['short_name'] }}.svg"
 			alt="{{ $g['team2']['city'] }} {{ $g['team2']['name'] }}"
 			title="{{ $g['team2']['city'] }} {{ $g['team2']['name'] }}"
 		/>

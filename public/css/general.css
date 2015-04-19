@@ -236,6 +236,7 @@ table.table thead th
 .playoff_bracket .team_name img
 {
 	max-width: 60px;
+	max-height: 45px;
 }
 
 .playoff_bracket .game_header div
@@ -290,5 +291,21 @@ table.table thead th
 	.playoff_bracket .team_name
 	{
 		width: 45px;
+	}
+}
+
+@media all and (max-width: 900px)
+{
+	.playoff_bracket .team_name img
+	{
+		max-width: 30px;
+	}
+	.playoff_bracket .team_name
+	{
+		width: 35px;
+	}
+	.playoff_bracket .game_header
+	{
+		display: none;
 	}
 }
