@@ -35,7 +35,7 @@ class PlayoffBracketController extends Controller
 
 		$betweenDate = "BETWEEN '$dateCurrentRound' AND '$dateNextRound'";
 
-		return \Cache::remember("games_{$conference}_{$round}_{$betweenDate}", 60,
+		return \Cache::tags('playoffs')->remember("games_{$conference}_{$round}", 60,
 			() ==> {
 				$games = Models\PlayoffTeams::byConference($conference, $round);
 				foreach ($games as &$game) {
