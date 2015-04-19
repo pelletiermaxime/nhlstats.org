@@ -309,3 +309,11 @@ table.table thead th
 		display: none;
 	}
 }
+
+@media all and (max-width: 850px)
+{
+	.playoff_bracket .matches
+	{
+		display: none;
+	}
+}
