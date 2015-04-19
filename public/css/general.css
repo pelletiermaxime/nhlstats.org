@@ -316,4 +316,9 @@ table.table thead th
 	{
 		display: none;
 	}
+	.playoff_bracket .game
+	{
+		margin: 5px 15px;
+		padding: 5px;
+	}
 }
