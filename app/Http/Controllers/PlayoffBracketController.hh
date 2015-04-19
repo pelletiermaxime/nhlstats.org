@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Models;
+use Carbon\Carbon;
 
 class PlayoffBracketController extends Controller
 {
@@ -23,8 +24,15 @@ class PlayoffBracketController extends Controller
 		$games = [];
 
 		$nextRound = $round + 1;
+		$dateToday        = Carbon::today();
 		$dateCurrentRound = \Config::get("nhlstats.round{$round}Start");
-		$dateNextRound = \Config::get("nhlstats.round{$nextRound}Start");
+		$dateNextRound    = \Config::get("nhlstats.round{$nextRound}Start");
+
+		// Don't show scores for today
+		if ($dateNextRound > $dateToday->format('Y-m-d')) {
+			$dateNextRound = $dateToday->subDay();
+		}
+
 		$betweenDate = "BETWEEN '$dateCurrentRound' AND '$dateNextRound'";
 
 		return \Cache::remember("games_{$conference}_{$round}_{$betweenDate}", 60,
