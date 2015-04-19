@@ -6,14 +6,18 @@ use Carbon\Carbon;
 
 class PlayoffBracketController extends Controller
 {
+	public function __construct()
+	{
+		$this->rounds = \Config::get("nhlstats.rounds");
+	}
 	public function index()
 	{
-		$round = 1;
+		foreach ($this->rounds as $round => $date) {
+			$gamesEast[$round] = $this->getPlayoffBracket('EAST', $round);
+			$gamesWest[$round] = $this->getPlayoffBracket('WEST', $round);
+		}
 
-		$gamesEast = $this->getPlayoffBracket('EAST', $round);
-		$gamesWest = $this->getPlayoffBracket('WEST', $round);
-
-		return view('playoffBracket')
+		return view('playoffBracket.bracket')
 			->withGamesEast($gamesEast)
 			->withGamesWest($gamesWest)
 		;
@@ -25,8 +29,8 @@ class PlayoffBracketController extends Controller
 
 		$nextRound = $round + 1;
 		$dateToday        = Carbon::today();
-		$dateCurrentRound = \Config::get("nhlstats.round{$round}Start");
-		$dateNextRound    = \Config::get("nhlstats.round{$nextRound}Start");
+		$dateCurrentRound = \Config::get("nhlstats.rounds.$round");
+		$dateNextRound    = \Config::get("nhlstats.rounds.$nextRound");
 
 		// Don't show scores for today
 		if ($dateNextRound > $dateToday->format('Y-m-d')) {
