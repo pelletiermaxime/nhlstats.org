@@ -8,8 +8,10 @@ _ide_helper.php
 _ide_helper_models.php
 adminer.php
 public/components/
+public/css/app.*
 app/config/development/*
 
 /node_modules
+.sass-cache
 .env
 .rocketeer/logs

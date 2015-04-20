@@ -1,0 +1,224 @@
+body
+  font-family: "lucida grande", tahoma, verdana, arial, sans-serif
+  font-size: 12px
+  width: 95%
+  margin: auto
+  padding-top: 70px
+
+table.table
+  text-align: center
+  margin: auto
+  border: thin solid #000000
+
+.thead
+  font-weight: bold
+
+.table > thead > tr > th
+  border-bottom: thin solid black
+  min-width: 45px
+
+table.table thead .sorting,
+table.table thead .sorting_asc,
+table.table thead .sorting_desc,
+table.table thead .sorting_asc_disabled,
+table.table thead .sorting_desc_disabled
+  cursor: pointer
+  *cursor: hand
+
+table.table thead .sorting
+  background: url("/images/datatables/sort_both.png") no-repeat center right
+
+table.table thead .sorting_asc
+  background: url("/images/datatables/sort_asc.png") no-repeat center right
+
+table.table thead .sorting_desc
+  background: url("/images/datatables/sort_desc.png") no-repeat center right
+
+table.table thead .sorting_asc_disabled
+  background: url("/images/datatables/sort_asc_disabled.png") no-repeat center right
+
+table.table thead .sorting_desc_disabled
+  background: url("/images/datatables/sort_desc_disabled.png") no-repeat center right
+
+table.table thead th
+  text-align: center
+
+.alert
+  border: 1px solid #e7dc2b
+  background: #fff888
+
+.success
+  border: 1px solid #669966
+  background: #88ff88
+
+.error
+  border: 1px solid #ff0000
+  background: #ffaaaa
+  font-size: 2em
+  width: 15em
+
+#verify-form
+  border: 1px solid #777777
+  background: #dddddd
+  margin-top: 1em
+  padding-bottom: 0em
+
+.flex-container
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: center
+  align-content: flex-start
+  align-items: flex-start
+
+.flex-item:nth-child(1)
+  order: 0
+  flex: 1 1 60%
+  align-self: auto
+  padding: 0 10px
+
+.flex-item:nth-child(2)
+  order: 1
+  flex: 1 1 40%
+  align-self: auto
+  padding: 0 10px
+
+@media all and (max-width: 1000px)
+  .flex-container
+    flex-direction: column
+
+.scores_page
+  .teams_page
+    width: 85%
+    margin: auto
+  .game
+    border: 1px solid black
+    width: 300px
+    float: left
+    margin: 10px 20px
+    padding: 15px
+  div
+    min-width: 40px
+    float: left
+    line-height: 50px
+  .team_name
+    width: 100px
+  .game_header div
+    font-size: 18px
+    line-height: 35px
+
+.teams_page
+  .game
+    border: 1px solid black
+    width: 47%
+    float: left
+    margin: 5px 12px
+    padding: 12px
+  .team_logo
+    float: left
+    min-width: 150px
+    clear: left
+    text-align: center
+  .team_name
+    float: left
+  .team_line
+    line-height: 40px
+  .division
+    border: 1px solid black
+    width: 47%
+    float: left
+    margin: 5px 12px
+
+.player-form-input-text
+  width: 180px
+
+.player-form-input-list
+  width: 180px
+
+.chosen-container-single .chosen-single
+  height: 30px
+  border-radius: 3px
+  border: 1px solid #CCCCCC
+
+.chosen-container-single .chosen-single span
+  padding-top: 2px
+
+.chosen-container-single .chosen-single div b
+  margin-top: 2px
+
+.chosen-container-active .chosen-single,
+.chosen-container-active.chosen-with-drop .chosen-single
+  border-color: #ccc
+  border-color: rgba(82, 168, 236, 0.8)
+  outline: 0
+  outline: thin dotted \9
+  -moz-box-shadow: 0 0 8px rgba(82, 168, 236, 0.6)
+  box-shadow: 0 0 8px rgba(82, 168, 236, 0.6)
+
+.playoff_bracket
+
+.playoff_bracket .game
+  border: 1px solid black
+  float: left
+  margin: 10px 20px
+  padding: 15px
+
+.playoff_bracket div
+  min-width: 15px
+  float: left
+  line-height: 50px
+
+.playoff_bracket .team_name
+  width: 90px
+
+.playoff_bracket .matches
+
+.playoff_bracket .team_name img
+  max-width: 60px
+  max-height: 45px
+
+.playoff_bracket .game_header div
+  font-size: 18px
+  line-height: 35px
+
+.playoff_bracket .team1,
+.playoff_bracket .team2
+  width: 100%
+
+.playoff_bracket .total_score
+  background-color: black
+  float: right
+  text-align: center
+
+@media all and (max-width: 1430px)
+  .playoff_bracket
+    padding: 0px
+
+@media all and (max-width: 1240px)
+  .playoff_bracket .game
+    padding: 10px
+  .playoff_bracket .team_position
+    display: none
+  .playoff_bracket .team_name
+    width: 70px
+
+@media all and (max-width: 1050px)
+  .playoff_bracket .team_name img
+    max-width: 40px
+  .playoff_bracket .team_name
+    width: 45px
+
+@media all and (max-width: 900px)
+  .playoff_bracket .team_name img
+    max-width: 30px
+  .playoff_bracket .team_name
+    width: 35px
+  .playoff_bracket .game_header
+    display: none
+
+@media all and (max-width: 850px)
+  .playoff_bracket .matches
+    display: none
+  .playoff_bracket .game
+    margin: 5px 15px
+    padding: 5px

@@ -14,7 +14,7 @@
 <link href="{{ asset("css/slate-bootstrap.min.css") }}" rel="stylesheet">
 
 <link rel="stylesheet" media="all" type="text/css" href="{{ asset('components/chosen/css/chosen.min.css') }}" />
-<link rel="stylesheet" media="all" type="text/css" href="{{ asset('css/general.css') }}" />
+<link rel="stylesheet" media="all" type="text/css" href="{{ asset('css/app.css') }}" />
 
 @show
 </head>

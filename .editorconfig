@@ -9,3 +9,6 @@ insert_final_newline = true
 [*.php]
 indent_style = tabs
 indent_size = 4
+
+[*.sass]
+indent_size = 2
