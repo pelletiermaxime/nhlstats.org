@@ -33,6 +33,7 @@ return [
         'storage/logs',
         'storage/sessions',
         '.env',
+        'node_modules',
     ],
 
     // Execution
@@ -43,7 +44,7 @@ return [
     'shell'          => false,
 
     // An array of commands to run under shell
-    'shelled'        => ['which', 'ruby', 'npm', 'bower', 'bundle', 'grunt'],
+    'shelled'        => ['which', 'ruby', 'npm', 'bower', 'bundle', 'grunt', 'gulp'],
 
     // Permissions$
     ////////////////////////////////////////////////////////////////////
@@ -70,7 +71,5 @@ return [
                 sprintf('setfacl -m u:www-data:rwx,u:deploy:rwx %s', $file),
             ];
         },
-
     ],
-
 ];
