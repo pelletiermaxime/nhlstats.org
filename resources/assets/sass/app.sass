@@ -162,7 +162,7 @@ table.table thead th
     margin: 10px 20px
     padding: 15px
   div
-    min-width: 15px
+    min-width: 12px
     float: left
     line-height: 50px
   .team_name
@@ -170,10 +170,9 @@ table.table thead th
   .team_name img
     max-width: 60px
     max-height: 45px
-
-.playoff_bracket .game_header div
-  font-size: 18px
-  line-height: 35px
+  .game_header div
+    font-size: 18px
+    line-height: 35px
 
 .playoff_bracket .team1,
 .playoff_bracket .team2
@@ -184,11 +183,11 @@ table.table thead th
   float: right
   text-align: center
 
-@media all and (max-width: 1430px)
+@media all and (max-width: 1560px)
   .playoff_bracket
     padding: 0px
 
-@media all and (max-width: 1280px)
+@media all and (max-width: 1450px)
   .playoff_bracket .game
     padding: 10px
   .playoff_bracket .team_position
@@ -196,23 +195,23 @@ table.table thead th
   .playoff_bracket .team_name
     width: 70px
 
-@media all and (max-width: 1090px)
+@media all and (max-width: 1260px)
   .playoff_bracket .team_name img
     max-width: 40px
   .playoff_bracket .team_name
     width: 45px
 
-@media all and (max-width: 930px)
+@media all and (max-width: 1100px)
   .playoff_bracket .team_name img
     max-width: 30px
   .playoff_bracket .team_name
     width: 35px
   .playoff_bracket .game_header
     display: none
-
-@media all and (max-width: 870px)
-  .playoff_bracket .matches
-    display: none
   .playoff_bracket .game
     margin: 5px 15px
     padding: 5px
+
+@media all and (max-width: 920px)
+  .playoff_bracket .matches
+    display: none
