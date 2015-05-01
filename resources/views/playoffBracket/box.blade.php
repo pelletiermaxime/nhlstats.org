@@ -2,25 +2,35 @@
 	<div class="team1" style='background-image: url("{{ asset('images/SVG') }}/{{ $g['team1']['short_name'] }}.svg")'>
 		<div class="matches">
 		<? $team1_vics = $team2_vics = 0 ?>
-		@foreach ($g['regularSeasonGames'] as $noGame => $game)
+		@for ($i = 0; $i < 7 ; $i++)
+			<?
+			$game = [];
+			$score = '';
+			if (isset($g['regularSeasonGames'][$i]))
+			{
+				$game = $g['regularSeasonGames'][$i];
+			?>
 			@if ($game['team1_id'] == $g['team1']['id'])
 				@if ($game['winner'] == 'team1')
-				<div class="winner">
+				<? $class = 'winner' ?>
 				@else
-				<div>
+				<? $class = '' ?>
 				@endif
-				{{ $game['score1_T'] }}
-			</div>
+				<? $score = $game['score1_T'] ?>
 			@else
 				@if ($game['winner'] == 'team2')
-				<div class="winner">
+				<? $class = 'winner' ?>
 				@else
-				<div>
+				<? $class = '' ?>
 				@endif
-				{{ $game['score2_T'] }}
-			</div>
+				<? $score = $game['score2_T'] ?>
 			@endif
-		@endforeach
+			<? } ?>
+
+			<div class="{{ $class }}">
+			{{ $score }}
+			</div>
+		@endfor
 		</div>
 		<div class="total_score">
 		{{ $g['wins'][$g['team1_id']] }}
@@ -28,25 +38,35 @@
 	</div>
 	<div class="team2" style='background-image: url("{{ asset('images/SVG') }}/{{ $g['team2']['short_name'] }}.svg")'>
 		<div class="matches">
-		@foreach ($g['regularSeasonGames'] as $noGame => $game)
+		<? $team1_vics = $team2_vics = 0 ?>
+		@for ($i = 0; $i < 7 ; $i++)
+			<?
+			$game = [];
+			$score = '';
+			if (isset($g['regularSeasonGames'][$i]))
+			{
+				$game = $g['regularSeasonGames'][$i];
+			?>
 			@if ($game['team1_id'] == $g['team2']['id'])
-			@if ($game['winner'] == 'team1')
-			<div class="winner">
+				@if ($game['winner'] == 'team1')
+				<? $class = 'winner' ?>
+				@else
+				<? $class = '' ?>
+				@endif
+				<? $score = $game['score1_T'] ?>
 			@else
-			<div>
+				@if ($game['winner'] == 'team2')
+				<? $class = 'winner' ?>
+				@else
+				<? $class = '' ?>
+				@endif
+				<? $score = $game['score2_T'] ?>
 			@endif
-				{{ $game['score1_T'] }}
+			<? } ?>
+			<div class="{{ $class }}">
+			{{ $score }}
 			</div>
-			@else
-			@if ($game['winner'] == 'team2')
-			<div class="winner">
-			@else
-			<div>
-			@endif
-				{{ $game['score2_T'] }}
-			</div>
-			@endif
-		@endforeach
+		@endfor
 		</div>
 		<div class="total_score">
 		{{ $g['wins'][$g['team2_id']] }}
