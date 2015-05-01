@@ -1,9 +1,4 @@
 <div class="game panel">
-	<div class="game_header">
-		@for ($i = 1; $i <= count($g['regularSeasonGames']); $i++)
-			<div>{{ $i }}</div>
-		@endfor
-	</div>
 	<div class="team1" style='background-image: url("{{ asset('images/SVG') }}/{{ $g['team1']['short_name'] }}.svg")'>
 		<div class="matches">
 		<? $team1_vics = $team2_vics = 0 ?>
