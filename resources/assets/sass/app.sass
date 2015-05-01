@@ -160,9 +160,9 @@ table.table thead th
     border: 1px solid black
     float: left
     margin: 10px 20px
-    padding: 15px
+    padding: 10px
   div
-    min-width: 19px
+    min-width: 23px
     float: left
     line-height: 50px
   .team_name
@@ -174,14 +174,16 @@ table.table thead th
     font-size: 18px
     line-height: 35px
   .matches
-    color: black;
+    color: white;
     font-size: 22px
-    background-color: rgba(255, 255, 255, 0.2)
-    width: 88%
+    background-color: rgba(0, 0, 0, 0.5)
+    width: 100%
+    div
+      min-width: 23px
     .winner
       font-weight: bold
       text-decoration: underline
-      font-size: 25px
+      font-size: 24px
 
 .playoff_bracket .team1,
 .playoff_bracket .team2
@@ -192,7 +194,8 @@ table.table thead th
 
 .playoff_bracket .total_score
   background-color: black
-  float: right
+  position: absolute
+  right: 40px;
   text-align: center
 
 @media all and (max-width: 1560px)
