@@ -5,7 +5,7 @@
 		@for ($i = 0; $i < 7 ; $i++)
 			<?
 			$game = [];
-			$score = '';
+			$score = $class = '';
 			if (isset($g['regularSeasonGames'][$i]))
 			{
 				$game = $g['regularSeasonGames'][$i];
@@ -42,7 +42,7 @@
 		@for ($i = 0; $i < 7 ; $i++)
 			<?
 			$game = [];
-			$score = '';
+			$score = $class = '';
 			if (isset($g['regularSeasonGames'][$i]))
 			{
 				$game = $g['regularSeasonGames'][$i];
