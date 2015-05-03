@@ -5,6 +5,10 @@ use App\Http\Models;
 
 class PoolController extends Controller
 {
+	public function __construct()
+	{
+		$this->rounds = \Config::get("nhlstats.rounds");
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -29,6 +33,7 @@ class PoolController extends Controller
 	{
 		$playoffTeams = \Input::get('WinningTeamId');
 		$games        = \Input::get('NbGames');
+		$round        = \Input::get('round');
 		$currentYear  = \Config::get('nhlstats.currentYear');
 		foreach ($playoffTeams as $playoff_team_id => $winning_team_id)
 		{
@@ -37,8 +42,9 @@ class PoolController extends Controller
 				'playoff_team_id' => $playoff_team_id,
 			]);
 			$playoffChoices->winning_team_id = $winning_team_id;
-			$playoffChoices->year  = $currentYear;
-			$playoffChoices->games = $games[$playoff_team_id];
+			$playoffChoices->year   = $currentYear;
+			$playoffChoices->round  = $round;
+			$playoffChoices->games  = $games[$playoff_team_id];
 			$playoffChoices->save();
 		}
 		return \Redirect::route('pool_me')->withSuccess('Pool choices saved');
@@ -55,7 +61,7 @@ class PoolController extends Controller
 			->join('playoff_teams', 'playoff_teams.id', '=', 'playoff_choices.playoff_team_id')
 			->join('teams', 'teams.id', '=', 'playoff_choices.winning_team_id')
 			->whereUserId($user_id)
-			->whereRound($round)
+			->where('playoff_choices.round', $round)
 		;
 		$playoffChoices = $query->get();
 		if (count($playoffChoices))
@@ -77,7 +83,7 @@ class PoolController extends Controller
 		$user_id = \Auth::user()->id;
 		$view = '';
 
-		for ($round = 1; $round <= 4; $round++)
+		foreach ($this->rounds as $round => $date)
 		{
 			$resultView = $this->show($user_id, $round);
 			$view .= $resultView;
@@ -89,11 +95,11 @@ class PoolController extends Controller
 			$gamesEast = Models\PlayoffTeams::byConference('EAST', $round);
 			$gamesWest = Models\PlayoffTeams::byConference('WEST', $round);
 			$playoffTeams = array_merge($gamesEast, $gamesWest);
-			// \Debugbar::log($playoffTeams2);
 			if (count($playoffTeams) > 0)
 			{
 				$view .= view('pool/me')
 					->with('playoffTeams', $playoffTeams)
+					->withRound($round)
 				;
 			}
 		}

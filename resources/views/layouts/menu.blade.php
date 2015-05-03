@@ -23,7 +23,7 @@ $menuAliases = [
 
 if (\Auth::user()) //Logged-in
 {
-	if ($seasonEnded && !$round1Started) {
+	if ($seasonEnded) {
 		$menu['Pool choices'] = 'pool_me';
 	}
 	$menu['Logout'] = 'user_logout';
