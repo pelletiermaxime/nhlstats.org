@@ -7,6 +7,8 @@
 </div>
 @endif
 
+<div align="center">
 {!! $view !!}
+</div>
 
 @stop

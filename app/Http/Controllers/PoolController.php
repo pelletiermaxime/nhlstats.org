@@ -68,6 +68,7 @@ class PoolController extends Controller
 		{
 			return view('pool/show')
 				->with('playoffChoices', $playoffChoices)
+				->withRound($round)
 			;
 		}
 		return false;
@@ -87,6 +88,8 @@ class PoolController extends Controller
 		{
 			$resultView = $this->show($user_id, $round);
 			$view .= $resultView;
+
+			// There's choices for this round, so don't show choice form
 			if ($resultView !== false)
 			{
 				continue;
