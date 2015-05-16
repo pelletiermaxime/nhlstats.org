@@ -6,8 +6,7 @@
 			<?
 			$game = [];
 			$score = $class = '';
-			if (isset($g['regularSeasonGames'][$i]))
-			{
+			if (isset($g['regularSeasonGames'][$i])):
 				$game = $g['regularSeasonGames'][$i];
 			?>
 			@if ($game['team1_id'] == $g['team1']['id'])
@@ -25,8 +24,9 @@
 				@endif
 				<? $score = $game['score2_T'] ?>
 			@endif
-			<? } ?>
-
+			<? else:?>
+			&nbsp;
+			<? endif ?>
 			<div class="{{ $class }}">
 			{{ $score }}
 			</div>
@@ -43,8 +43,7 @@
 			<?
 			$game = [];
 			$score = $class = '';
-			if (isset($g['regularSeasonGames'][$i]))
-			{
+			if (isset($g['regularSeasonGames'][$i])):
 				$game = $g['regularSeasonGames'][$i];
 			?>
 			@if ($game['team1_id'] == $g['team2']['id'])
@@ -62,7 +61,9 @@
 				@endif
 				<? $score = $game['score2_T'] ?>
 			@endif
-			<? } ?>
+			<? else : ?>
+			&nbsp;
+			<? endif ?>
 			<div class="{{ $class }}">
 			{{ $score }}
 			</div>
