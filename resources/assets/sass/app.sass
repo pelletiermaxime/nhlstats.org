@@ -226,4 +226,8 @@ table.table thead th
 
 @media all and (max-width: 920px)
   .playoff_bracket .matches
-    display: none
+    div:not(.total_score)
+      display: none
+    div
+      width: 100%
+      background-color: transparent
