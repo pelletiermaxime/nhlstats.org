@@ -25,15 +25,15 @@
 				<? $score = $game['score2_T'] ?>
 			@endif
 			<? else:?>
-			&nbsp;
+			<? $score = '&nbsp;&nbsp;' ?>
 			<? endif ?>
 			<div class="{{ $class }}">
 			{{ $score }}
 			</div>
 		@endfor
-		</div>
-		<div class="total_score">
-		{{ $g['wins'][$g['team1_id']] }}
+			<div class="total_score">
+			{{ $g['wins'][$g['team1_id']] }}
+			</div>
 		</div>
 	</div>
 	<div class="team2" style='background-image: url("{{ asset('images/SVG') }}/{{ $g['team2']['short_name'] }}.svg")'>
@@ -62,15 +62,15 @@
 				<? $score = $game['score2_T'] ?>
 			@endif
 			<? else : ?>
-			&nbsp;
+			<? $score = '&nbsp;&nbsp;' ?>
 			<? endif ?>
 			<div class="{{ $class }}">
 			{{ $score }}
 			</div>
 		@endfor
-		</div>
-		<div class="total_score">
-		{{ $g['wins'][$g['team2_id']] }}
+			<div class="total_score">
+			{{ $g['wins'][$g['team2_id']] }}
+			</div>
 		</div>
 	</div>
 </div>
