@@ -148,7 +148,7 @@ return [
 		'Illuminate\Html\HtmlServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
 		'Laravel\Socialite\SocialiteServiceProvider',
-		// 'Zizaco\Confide\ServiceProvider',
+		'Frozennode\Administrator\AdministratorServiceProvider',
 	],
 
 	/*
@@ -201,7 +201,6 @@ return [
 		'Html'      => 'Illuminate\Html\HtmlFacade',
 		'Debugbar'  => 'Barryvdh\Debugbar\Facade',
 		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
-		// 'Confide'   => 'Zizaco\Confide\Facade',
 	],
 
 ];
