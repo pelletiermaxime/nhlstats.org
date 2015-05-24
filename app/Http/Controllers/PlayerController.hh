@@ -14,6 +14,7 @@ class PlayerController extends Controller
 
 	public function getListFiltered()
 	{
+		$filter = [];
 		/* ----------- COUNTS ----------- */
 		$all_counts = [
 			'50'  => '50',

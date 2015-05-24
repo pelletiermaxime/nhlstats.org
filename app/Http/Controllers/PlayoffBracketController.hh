@@ -12,6 +12,8 @@ class PlayoffBracketController extends Controller
 	}
 	public function index()
 	{
+		$gamesEast = $gamesWest = [];
+
 		foreach ($this->rounds as $round => $date) {
 			$gamesEast[$round] = $this->getPlayoffBracket('EAST', $round);
 			$gamesWest[$round] = $this->getPlayoffBracket('WEST', $round);
@@ -25,7 +27,7 @@ class PlayoffBracketController extends Controller
 
 	private function getPlayoffBracket($conference, $round)
 	{
-		$games = [];
+		$games = $wins = [];
 
 		$nextRound = $round + 1;
 		$dateToday        = Carbon::today();

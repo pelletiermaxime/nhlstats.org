@@ -12,6 +12,7 @@ class GoalerController extends Controller
 
 	public function getListFiltered()
 	{
+		$filter = [];
 		/* ----------- TEAMS ----------- */
 		$all_teams = ['all' => '---------------'] + $this->team->getWithShortNameAndCity();
 

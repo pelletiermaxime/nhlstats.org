@@ -4,6 +4,9 @@ use App\Http\Models;
 
 class PlayoffRepository
 {
+	private $wildcard;
+	private $conference;
+
 	public function __construct(private Models\Standings $standings)
 	{
 		$this->wildcard   = $this->standings->byWildcard();
@@ -12,6 +15,8 @@ class PlayoffRepository
 
 	public function getPlayoffGamesEast()
 	{
+		$playoffGames = [];
+
 		$wildcard = $this->wildcard;
 		$wildcardEast = $wildcard['wildcard']['EAST'];
 
@@ -50,6 +55,8 @@ class PlayoffRepository
 
 	public function getPlayoffGamesWest()
 	{
+		$playoffGames = [];
+
 		$wildcard = $this->wildcard;
 		$wildcardWest = $wildcard['wildcard']['WEST'];
 		//The strongest team plays against the 2nd wildcard

@@ -24,7 +24,7 @@ class PlayoffTeams extends Model
 	 * @param  integer $round
 	 * @return array   Games including teams
 	 */
-	public function byConference(string $conference, int $round = 1): array
+	public static function byConference(string $conference, int $round = 1): array
 	{
 		return \Cache::remember("playoffGames_{$conference}_{$round}", 60, () ==> {
 			return Models\PlayoffTeams::whereConference($conference)

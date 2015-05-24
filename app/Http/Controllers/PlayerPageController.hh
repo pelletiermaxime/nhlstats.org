@@ -14,6 +14,8 @@ class PlayerPageController extends Controller
 	 */
 	public function index(mixed $id, string $name)
 	{
+		$enemies = [];
+
 		$playerStatsDays = Models\PlayersStatsDays::wherePlayerId($id)
 			->where('day' , '>', '2014-10-18')
 			->orderBy('day', 'DESC')
