@@ -1,4 +1,5 @@
 <?php
+$serializer = new SuperClosure\Serializer;
 
 return array(
 
@@ -53,7 +54,8 @@ return array(
 	 */
 	'menu' => [
 		'teams',
-		'users'
+		'users',
+		'Playoffs' => ['playoff_teams'],
 	],
 
 	/**
@@ -62,6 +64,8 @@ return array(
 	 *
 	 * @type closure
 	 */
+
+	// 'permission' => $serializer->serialize(function()
 	'permission'=> function()
 	{
 		return Auth::check() && Auth::user()->admin;
