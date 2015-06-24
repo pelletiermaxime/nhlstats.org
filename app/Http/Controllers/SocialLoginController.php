@@ -1,40 +1,43 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
+
 use App\User;
 
 class SocialLoginController extends Controller
 {
-	public function login()
-	{
-		return view('login/select');
-	}
+    public function login()
+    {
+        return view('login/select');
+    }
 
-	public function doLogin($type)
-	{
-		return \Socialize::with($type)->redirect();
-	}
+    public function doLogin($type)
+    {
+        return \Socialize::with($type)->redirect();
+    }
 
-	public function logged_in($type)
-	{
-		$userData = \Socialize::with($type)->user();
-		$username = $userData->nickname;
-		if (empty($username)) {
-			$username = $userData->email;
-		}
-		$user = User::firstOrNew([
-			'username' => $username,
-			'email'    => $userData->email,
-		]);
-		$user->save();
+    public function logged_in($type)
+    {
+        $userData = \Socialize::with($type)->user();
+        $username = $userData->nickname;
+        if (empty($username)) {
+            $username = $userData->email;
+        }
+        $user = User::firstOrNew([
+            'username' => $username,
+            'email' => $userData->email,
+        ]);
+        $user->save();
 
-		\Auth::login($user, true);
-		return \Redirect::to('/');
-	}
+        \Auth::login($user, true);
 
-	public function logout()
-	{
-		\Auth::logout();
-		return \Redirect::to('/');
-	}
+        return \Redirect::to('/');
+    }
+
+    public function logout()
+    {
+        \Auth::logout();
+
+        return \Redirect::to('/');
+    }
 }
