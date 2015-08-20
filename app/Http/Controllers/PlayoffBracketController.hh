@@ -4,19 +4,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Models;
 use Carbon\Carbon;
 
+use Config;
+
 class PlayoffBracketController extends Controller
 {
-    public function __construct()
-    {
-        $this->rounds = \Config::get("nhlstats.rounds");
-    }
     public function index()
     {
         $gamesEast = $gamesWest = [];
+        $rounds = Models\PlayoffRounds
+            ::where('year', '=', \Config::get('nhlstats.currentYear'))
+            ->get();
 
-        foreach ($this->rounds as $round => $date) {
-            $gamesEast[$round] = $this->getPlayoffBracket('EAST', $round);
-            $gamesWest[$round] = $this->getPlayoffBracket('WEST', $round);
+        foreach ($rounds as $round) {
+            $noRound = $round->round;
+            $gamesEast[$noRound] = $this->getPlayoffBracket('EAST', $round);
+            $gamesWest[$noRound] = $this->getPlayoffBracket('WEST', $round);
         }
 
         return view('playoffBracket.bracket')
@@ -29,10 +31,10 @@ class PlayoffBracketController extends Controller
     {
         $games = $wins = [];
 
-        $nextRound = $round + 1;
         $dateToday        = Carbon::today();
-        $dateCurrentRound = \Config::get("nhlstats.rounds.$round");
-        $dateNextRound    = \Config::get("nhlstats.rounds.$nextRound");
+        $dateCurrentRound = $round->date_start;
+        $dateNextRound    = $round->date_end;
+        $noRound = $round->round;
 
         // Don't show scores for today
         if ($dateNextRound > $dateToday->format('Y-m-d')) {
@@ -41,9 +43,9 @@ class PlayoffBracketController extends Controller
 
         $betweenDate = "BETWEEN '$dateCurrentRound' AND '$dateNextRound'";
 
-        return \Cache::tags('playoffs')->remember("games_{$conference}_{$round}", 60,
+        return \Cache::tags('playoffs')->remember("games_{$conference}_{$noRound}", 60,
             () ==> {
-                $games = Models\PlayoffTeams::byConference($conference, $round);
+                $games = Models\PlayoffTeams::byConference($conference, $noRound);
                 foreach ($games as &$game) {
                     $wins[$game['team1_id']] = $wins[$game['team2_id']] = 0;
                     $game['regularSeasonGames'] = Models\GameScores::betweenTeams(
