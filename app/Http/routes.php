@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers;
+
 Route::get('/', [
     'as' => 'index',
     'uses' => 'PlayerController@getListFiltered',
@@ -76,27 +78,8 @@ Route::get('playoff-bracket', [
     'uses' => 'PlayoffBracketController@index',
 ]);
 
-// Confide routes
-// Route::get('user/create', [
-// 	'as'    => 'user_create',
-// 	'uses'  => 'UserController@create',
-// ]);
-// Route::post('user',                        'UserController@store');
-// Route::get('user/login', [
-// 	'as'    => 'user_login',
-// 	'uses'  => 'UserController@login',
-// ]);
-// Route::post('user/login',                  'UserController@doLogin');
-// Route::get( 'user/confirm/{code}',         'UserController@confirm');
-// Route::get( 'user/forgot_password',        'UserController@forgotPassword');
-// Route::post('user/forgot_password',        'UserController@doForgotPassword');
-// Route::get( 'user/reset_password/{token}', 'UserController@resetPassword');
-// Route::post('user/reset_password',         'UserController@doResetPassword');
-// Route::get('user/logout', [
-// 	'as'    => 'user_logout',
-// 	'uses'  => 'UserController@logout',
-// ]);
 
+/// Oauth Login
 Route::get('login', [
     'as' => 'user_login',
     'uses' => 'SocialLoginController@login',
@@ -116,3 +99,10 @@ Route::get('logout', [
     'as' => 'user_logout',
     'uses' => 'SocialLoginController@logout',
 ]);
+
+/// API
+$api = app('Dingo\Api\Routing\Router');
+$api->version('v1', function ($api) {
+    $api->get('teams', ['as' => 'api.get.teams', 'uses' =>'App\Http\Controllers\ApiController@teams_get']);
+    $api->get('team/{id}', ['as' => 'api.get.team', 'uses' =>'App\Http\Controllers\ApiController@team_get']);
+});
