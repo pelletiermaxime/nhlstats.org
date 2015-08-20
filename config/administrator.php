@@ -56,7 +56,7 @@ return array(
     'menu' => [
         'teams',
         'users',
-        'Playoffs' => ['playoff_teams'],
+        'Playoffs' => ['playoff_teams', 'playoff_rounds'],
     ],
 
     /*
