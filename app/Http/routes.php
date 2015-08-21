@@ -103,6 +103,6 @@ Route::get('logout', [
 /// API
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
-    $api->get('teams', ['as' => 'api.get.teams', 'uses' =>'App\Http\Controllers\ApiController@teams_get']);
-    $api->get('team/{id}', ['as' => 'api.get.team', 'uses' =>'App\Http\Controllers\ApiController@team_get']);
+    $api->get('teams', ['as' => 'api.get.teams', 'uses' =>'App\Http\Controllers\Api\TeamsController@get']);
+    $api->get('team/{id}', ['as' => 'api.get.team', 'uses' =>'App\Http\Controllers\Api\TeamController@get']);
 });

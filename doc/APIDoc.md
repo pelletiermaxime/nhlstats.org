@@ -2,9 +2,9 @@ FORMAT: 1A
 
 # Documentation
 
-# AppHttpControllersApiController [/]
+# Teams [/api/teams]
 
-## Show all teams [GET /api/teams]
+## Show all teams [GET /api/teams/api/teams]
 Get a JSON representation of all the teams.
 
 + Response 200 (application/json)
@@ -22,7 +22,9 @@ Get a JSON representation of all the teams.
                 ]
             }
 
-## Show a team [GET /api/team/{id}]
+# Team [/api/team/{id}]
+
+## Show a team [GET]
 Get a JSON representation of a specific team.
 
 + Parameters

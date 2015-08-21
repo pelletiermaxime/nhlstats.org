@@ -22,5 +22,5 @@ timestamp: false
 silent: false
 path: []
 blueprint: APIDoc.md
-# endpoint: 'http://nhlstats.local'
+endpoint: 'http://nhlstats.local'
 # endpoint: 'http://localhost:3000'

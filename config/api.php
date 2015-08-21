@@ -53,6 +53,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Name
+    |--------------------------------------------------------------------------
+    |
+    | When documenting your API using the API Blueprint syntax you can
+    | configure a default name to avoid having to manually specify
+    | one when using the command.
+    |
+    */
+    'name' => env('API_NAME', 'Documentation'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Conditional Requests
     |--------------------------------------------------------------------------
     |

@@ -2,10 +2,9 @@ FORMAT: 1A
 
 # Documentation
 
-# AppHttpControllersApiController [/api]
+## Teams [/api/teams]
 
-## Teams Collection [/teams]
-### List all teams [GET]
+### Show all teams [GET]
 Get a JSON representation of all the teams.
 
 + Response 200 (application/json)
@@ -23,17 +22,13 @@ Get a JSON representation of all the teams.
                 ]
             }
 
-## Group Team
+## Team [/api/team/{id}]
 
-Resources related to teams in the API.
-
-## Team [/team/{id}]
-
-## View a team [GET]
+### Show a team [GET]
 Get a JSON representation of a specific team.
 
 + Parameters
-    + id: 31 (integer, required) - ID of the team.
+    + id:31 (integer, required) - ID of the team.
 
 + Response 200 (application/json)
     + Body
