@@ -4,7 +4,7 @@ FORMAT: 1A
 
 # Teams [/api/teams]
 
-## Show all teams [GET /api/teams/api/teams]
+## Show all teams [GET]
 Get a JSON representation of all the teams.
 
 + Response 200 (application/json)
@@ -45,8 +45,11 @@ Get a JSON representation of a specific team.
 
 # Scores [/api/scores]
 
-## Show all scores [GET /api/scores/api/scores]
+## Show all scores [GET /api/scores/{date}]
 Get a JSON representation of the scores of a day. Defaults to today.
+
++ Parameters
+    + date:`2015-05-12` (string, optional) - Date of the scores. Defaults to today.
 
 + Response 200 (application/json)
     + Body

@@ -13,7 +13,7 @@ class TeamsController extends Controller
      *
      * Get a JSON representation of all the teams.
      *
-     * @Get("api/teams")
+     * @Get
      * @Versions({"v1"})
      * @Response(200, body={"teams":{{"id":31,"short_name":"DET","city":"Detroit","name":"Red Wings","division_id":5}}})
      */

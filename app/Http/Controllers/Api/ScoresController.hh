@@ -13,7 +13,7 @@ class ScoresController extends Controller
      *
      * Get a JSON representation of the scores of a day. Defaults to today.
      *
-     * @Get("api/scores")
+     * @Get("/{date}")
      * @Versions({"v1"})
      * @Response(200, body={
      * "game_scores":{{
@@ -42,6 +42,9 @@ class ScoresController extends Controller
      *         "division_id": "5"
      *     }
      * }}
+     * })
+     * @Parameters({
+     *     @Parameter("date:`2015-05-12`", type="string", required=false, description="Date of the scores. Defaults to today.")
      * })
      */
 
