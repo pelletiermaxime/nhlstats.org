@@ -1,4 +1,4 @@
-<?php
+<?hh
 
 use App\Http\Controllers;
 
@@ -99,10 +99,3 @@ Route::get('logout', [
     'as' => 'user_logout',
     'uses' => 'SocialLoginController@logout',
 ]);
-
-/// API
-$api = app('Dingo\Api\Routing\Router');
-$api->version('v1', function ($api) {
-    $api->get('teams', ['as' => 'api.get.teams', 'uses' =>'App\Http\Controllers\Api\TeamsController@get']);
-    $api->get('team/{id}', ['as' => 'api.get.team', 'uses' =>'App\Http\Controllers\Api\TeamController@get']);
-});
