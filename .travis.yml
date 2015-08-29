@@ -4,6 +4,7 @@ php:
 
 before_install:
   - composer install
+  - npm install -g dredd
 
 before_script:
   - mysql -e 'create database nhlstats'
@@ -14,4 +15,5 @@ services:
   - redis-server
 
 script:
-  - hhvm vendor/bin/phpunit
+  # - hhvm vendor/bin/phpunit
+  - cd public/doc && dredd APIDoc.md
