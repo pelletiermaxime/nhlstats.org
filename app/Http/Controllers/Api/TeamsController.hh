@@ -17,7 +17,7 @@ class TeamsController extends Controller
      * @Versions({"v1"})
      * @Response(200, body={"teams":{{"id":31,"short_name":"DET","city":"Detroit","name":"Red Wings","division_id":5}}})
      */
-    public function teams_get()
+    public function get()
     {
         return Models\Team::all(['id', 'short_name', 'city', 'name', 'division_id']);
     }
