@@ -24,17 +24,17 @@ return [
             'title' => 'Conference',
         ],
         'team1' => [
-            'title' => 'Team 1',
+            'title'        => 'Team 1',
             'relationship' => 'team1',
-            'select' => "CONCAT((:table).city, ' ', (:table).name)",
+            'select'       => "CONCAT((:table).city, ' ', (:table).name)",
         ],
         'team1_position' => [
             'title' => 'Position',
         ],
         'team2' => [
-            'title' => 'Team 2',
+            'title'        => 'Team 2',
             'relationship' => 'team2',
-            'select' => "CONCAT((:table).city, ' ', (:table).name)",
+            'select'       => "CONCAT((:table).city, ' ', (:table).name)",
         ],
         'team2_position' => [
             'title' => 'Position',
@@ -64,16 +64,16 @@ return [
             'title' => 'Conference',
         ],
         'team1' => [
-            'title' => 'Team 1',
-            'type' => 'relationship',
+            'title'      => 'Team 1',
+            'type'       => 'relationship',
             'name_field' => 'name',
         ],
         'team1_position' => [
             'title' => 'Position team 1',
         ],
         'team2' => [
-            'title' => 'Team 2',
-            'type' => 'relationship',
+            'title'      => 'Team 2',
+            'type'       => 'relationship',
             'name_field' => 'name',
         ],
         'team2_position' => [
@@ -81,8 +81,8 @@ return [
         ],
     ],
 
-    'sort' => array(
-        'field' => 'round',
+    'sort' => [
+        'field'     => 'round',
         'direction' => 'asc',
-    ),
+    ],
 ];

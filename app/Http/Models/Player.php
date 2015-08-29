@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Models;
+namespace app\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model
 {
-    protected $guarded = array();
+    protected $guarded = [];
 
-    public static $rules = array();
+    public static $rules = [];
 
     public function team()
     {

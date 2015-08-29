@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
 use App\User;
 
@@ -25,7 +25,7 @@ class SocialLoginController extends Controller
         }
         $user = User::firstOrNew([
             'username' => $username,
-            'email' => $userData->email,
+            'email'    => $userData->email,
         ]);
         $user->save();
 

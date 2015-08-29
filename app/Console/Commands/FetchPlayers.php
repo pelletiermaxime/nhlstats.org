@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace app\Console\Commands;
 
 use App\Http\Models;
 use Carbon\Carbon;
@@ -62,7 +62,7 @@ class FetchPlayers extends Command
             $fetchCount = ($currentPage - 1) * 40 + 1;
             $regularSeasonUrl = 'http://espn.go.com/nhl/statistics/player/_/stat/points/sort/points/seasontype/2/count/';
             $crawler = $this->client->request('GET', $regularSeasonUrl.$fetchCount);
-            $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
+            $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
 
             $noParametre = 0;
             if (count($cells) == 0) {
@@ -108,7 +108,7 @@ class FetchPlayers extends Command
             $fetchCount = ($currentPage - 1) * 40 + 1;
             $regularSeasonUrl = 'http://espn.go.com/nhl/statistics/player/_/stat/timeonice/sort/avgTimeOnIce/count/';
             $crawler = $this->client->request('GET', $regularSeasonUrl.$fetchCount);
-            $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
+            $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
 
             $noParametre = 0;
             if (count($cells) == 0) {
@@ -162,7 +162,7 @@ class FetchPlayers extends Command
 
             $playerDB = Models\Player::firstOrNew([
                 'full_name' => $fullName,
-                'team_id' => $playerTeamID,
+                'team_id'   => $playerTeamID,
             ]);
             $playerDB->first_name = $firstName;
             $playerDB->name = $name;
@@ -194,7 +194,7 @@ class FetchPlayers extends Command
     {
         $player_stats_day = Models\PlayersStatsDays::firstOrNew([
             'player_id' => $playerDB->id,
-            'day' => Carbon::today(),
+            'day'       => Carbon::today(),
         ]);
 
         $player_stats_day->goals = $player['G'] - $player_stats->goals;

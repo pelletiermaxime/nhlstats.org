@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace app\Console\Commands;
 
 use App\Http\Models;
 use Goutte\Client;
@@ -57,26 +57,26 @@ class FetchStandings extends Command
             }
             Models\Standings::create([
                 'team_id' => $team_id,
-                'year' => \Config::get('nhlstats.currentYear'),
-                'gp' => $team['GP'],
-                'w' => $team['W'],
-                'l' => $team['L'],
-                'otl' => $team['OTL'],
-                'pts' => $team['PTS'],
-                'row' => $team['ROW'],
-                'gf' => $team['GF'],
-                'ga' => $team['GA'],
-                'diff' => $team['Diff'],
-                'ppg' => $team['PPG'],
-                'ppo' => $team['PPO'],
-                'ppp' => $team['PPP'],
-                'ppga' => $team['PPGA'],
-                'ppoa' => $team['PPOA'],
-                'pkp' => $team['PKP'],
-                'home' => $team['HOME'],
-                'away' => $team['ROAD'],
-                'l10' => $team['L10'],
-                'streak' => $team['Streak'],
+                'year'    => \Config::get('nhlstats.currentYear'),
+                'gp'      => $team['GP'],
+                'w'       => $team['W'],
+                'l'       => $team['L'],
+                'otl'     => $team['OTL'],
+                'pts'     => $team['PTS'],
+                'row'     => $team['ROW'],
+                'gf'      => $team['GF'],
+                'ga'      => $team['GA'],
+                'diff'    => $team['Diff'],
+                'ppg'     => $team['PPG'],
+                'ppo'     => $team['PPO'],
+                'ppp'     => $team['PPP'],
+                'ppga'    => $team['PPGA'],
+                'ppoa'    => $team['PPOA'],
+                'pkp'     => $team['PKP'],
+                'home'    => $team['HOME'],
+                'away'    => $team['ROAD'],
+                'l10'     => $team['L10'],
+                'streak'  => $team['Streak'],
             ]);
         }
     }
@@ -136,7 +136,7 @@ class FetchStandings extends Command
         $paramCount = count($params);
 
         $crawler = $this->client->request('GET', 'http://espn.go.com/nhl/standings');
-        $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
+        $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
 
         $noParametre = 0;
         $noTeam = 1;
@@ -155,7 +155,7 @@ class FetchStandings extends Command
         $paramCount = count($params);
 
         $crawler = $this->client->request('GET', 'http://espn.go.com/nhl/standings/_/type/expanded');
-        $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
+        $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
 
         $noParametre = 0;
         $noTeam = 1;
@@ -199,13 +199,13 @@ class FetchStandings extends Command
                 $conference = $conference;
                 $round = 1;
                 $playoffTeams = Models\PlayoffTeams::firstOrNew([
-                    'team1_id' => $team1,
+                    'team1_id'       => $team1,
                     'team1_position' => $game['team1']->positionConference,
-                    'team2_id' => $team2,
+                    'team2_id'       => $team2,
                     'team2_position' => $game['team2']->positionConference,
-                    'conference' => $conference,
-                    'round' => $round,
-                    'year' => \Config::get('nhlstats.currentYear'),
+                    'conference'     => $conference,
+                    'round'          => $round,
+                    'year'           => \Config::get('nhlstats.currentYear'),
                 ]);
                 $playoffTeams->save();
             }

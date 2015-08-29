@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Models;
+namespace app\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class PlayoffRounds extends Model
 {
     protected $casts = [
-        'id' => 'int',
+        'id'    => 'int',
         'round' => 'int',
     ];
 }

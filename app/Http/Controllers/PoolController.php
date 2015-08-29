@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
 use App\Http\Models;
 
@@ -38,7 +38,7 @@ class PoolController extends Controller
         $currentYear = \Config::get('nhlstats.currentYear');
         foreach ($playoffTeams as $playoff_team_id => $winning_team_id) {
             $playoffChoices = Models\PlayoffChoices::firstOrNew([
-                'user_id' => \Auth::user()->id,
+                'user_id'         => \Auth::user()->id,
                 'playoff_team_id' => $playoff_team_id,
             ]);
             $playoffChoices->winning_team_id = $winning_team_id;

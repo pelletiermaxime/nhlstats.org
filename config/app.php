@@ -148,7 +148,7 @@ return [
         'Barryvdh\Debugbar\ServiceProvider',
         'Laravel\Socialite\SocialiteServiceProvider',
         'Frozennode\Administrator\AdministratorServiceProvider',
-        Dingo\Api\Provider\LaravelServiceProvider::class
+        Dingo\Api\Provider\LaravelServiceProvider::class,
     ],
 
     /*
@@ -196,9 +196,9 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
 
-        'Form' => 'Illuminate\Html\FormFacade',
-        'Html' => 'Illuminate\Html\HtmlFacade',
-        'Debugbar' => 'Barryvdh\Debugbar\Facade',
+        'Form'      => 'Illuminate\Html\FormFacade',
+        'Html'      => 'Illuminate\Html\HtmlFacade',
+        'Debugbar'  => 'Barryvdh\Debugbar\Facade',
         'Socialize' => 'Laravel\Socialite\Facades\Socialite',
     ],
 
