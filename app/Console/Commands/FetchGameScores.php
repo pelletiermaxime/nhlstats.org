@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace app\Console\Commands;
 
 use App\Http\Models;
 use Carbon\Carbon;
@@ -60,7 +60,7 @@ class FetchGameScores extends Command
 
         $line_cells = [];
         $lines->each(function ($line) use (&$line_cells) {
-            $line_cells[] = $line->filter('td')->extract(array('_text'));
+            $line_cells[] = $line->filter('td')->extract(['_text']);
         });
 
         $noGame = 0;
@@ -104,8 +104,8 @@ class FetchGameScores extends Command
 
             $gameDB = Models\GameScores::firstOrNew([
                 'date_game' => $dateFetched,
-                'team1_id' => $team1_id,
-                'team2_id' => $team2_id,
+                'team1_id'  => $team1_id,
+                'team2_id'  => $team2_id,
             ]);
             $gameDB->score1_1 = $game['score1_1'];
             $gameDB->score1_2 = $game['score1_2'];

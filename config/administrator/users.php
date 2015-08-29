@@ -40,7 +40,7 @@ return [
         ],
         'admin' => [
             'title' => 'Admin',
-            'type' => 'bool',
+            'type'  => 'bool',
         ],
     ],
 
@@ -56,12 +56,12 @@ return [
         ],
         'admin' => [
             'title' => 'Admin',
-            'type' => 'bool',
+            'type'  => 'bool',
         ],
     ],
 
-    'sort' => array(
-        'field' => 'username',
+    'sort' => [
+        'field'     => 'username',
         'direction' => 'asc',
-    ),
+    ],
 ];

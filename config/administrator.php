@@ -2,7 +2,7 @@
 
 $serializer = new SuperClosure\Serializer();
 
-return array(
+return [
 
     /*
      * Package URI
@@ -134,6 +134,6 @@ return array(
      *
      * @type array
      */
-    'locales' => array(),
+    'locales' => [],
 
-);
+];

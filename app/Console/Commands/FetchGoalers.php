@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace app\Console\Commands;
 
 use App\Http\Models;
 use Goutte\Client;
@@ -56,7 +56,7 @@ class FetchGoalers extends Command
             $fetchCount = ($currentPage - 1) * 40 + 1;
             $regularSeasonUrl = "http://espn.go.com/nhl/statistics/player/_/stat/goaltending/qualified/false/count/$fetchCount";
             $crawler = $this->client->request('GET', $regularSeasonUrl);
-            $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(array('_text'));
+            $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
 
             $noParametre = 0;
             foreach ($cells as $cell) {
@@ -103,7 +103,7 @@ class FetchGoalers extends Command
 
             $goalerDB = Models\Player::firstOrNew([
                 'full_name' => $fullName,
-                'team_id' => $goalerTeamID,
+                'team_id'   => $goalerTeamID,
             ]);
             $goalerDB->first_name = $firstName;
             $goalerDB->name = $name;

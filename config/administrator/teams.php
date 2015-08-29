@@ -17,7 +17,7 @@ return [
      */
     'columns' => [
         'short_name' => [
-            'title' => 'Logo',
+            'title'  => 'Logo',
             'output' => '<img src="/images/SVG/(:value).svg" height="35" />',
         ],
         'city' => [
@@ -52,19 +52,19 @@ return [
     'edit_fields' => [
         'city' => [
             'title' => 'City',
-            'type' => 'text',
+            'type'  => 'text',
         ],
         'name' => [
             'title' => 'Name',
         ],
         'year' => [
             'title' => 'Year',
-            'type' => 'text',
+            'type'  => 'text',
         ],
     ],
 
-    'sort' => array(
-        'field' => 'city',
+    'sort' => [
+        'field'     => 'city',
         'direction' => 'asc',
-    ),
+    ],
 ];

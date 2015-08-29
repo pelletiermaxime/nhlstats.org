@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace app\Console\Commands;
 
 use Carbon\Carbon;
 use Goutte\Client;
@@ -98,7 +98,7 @@ class FetchPlayersInfo extends Command
 
             $playerDB = \Player::firstOrNew([
                 'full_name' => $fullName,
-                'year' => $currentYear,
+                'year'      => $currentYear,
             ]);
             $playerDB->number = $player['number'];
             $playerDB->birthdate = $birthdate;

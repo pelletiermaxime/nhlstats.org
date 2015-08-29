@@ -36,16 +36,16 @@ return [
      */
     'filters' => [
         'year' => [
-            'title' => 'Year',
-            'type' => 'enum',
+            'title'   => 'Year',
+            'type'    => 'enum',
             'options' => [
                 '1415' => '2014-2015',
             ],
         ],
         'round' => [
-            'title' => 'Round',
-            'type' => 'enum',
-            'options' => ['1', '2', '3', '4']
+            'title'   => 'Round',
+            'type'    => 'enum',
+            'options' => ['1', '2', '3', '4'],
         ],
     ],
 
@@ -54,29 +54,29 @@ return [
      */
     'edit_fields' => [
         'year' => [
-            'title' => 'Year',
-            'type' => 'enum',
+            'title'   => 'Year',
+            'type'    => 'enum',
             'options' => [
                 '1415 ' => '2014-2015',
             ],
         ],
         'round' => [
-            'title' => 'Round',
-            'type' => 'enum',
-            'options' => ['1', '2', '3', '4']
+            'title'   => 'Round',
+            'type'    => 'enum',
+            'options' => ['1', '2', '3', '4'],
         ],
         'date_start' => [
             'title' => 'Starting date',
-            'type' => 'date',
+            'type'  => 'date',
         ],
         'date_end' => [
             'title' => 'Ending date',
-            'type' => 'date',
+            'type'  => 'date',
         ],
     ],
 
-    'sort' => array(
-        'field' => 'year',
+    'sort' => [
+        'field'     => 'year',
         'direction' => 'asc',
-    ),
+    ],
 ];
