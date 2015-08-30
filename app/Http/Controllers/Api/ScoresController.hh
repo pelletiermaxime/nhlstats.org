@@ -9,9 +9,7 @@ use App\Http\Models;
 class ScoresController extends Controller
 {
     /**
-     * Show all scores
-     *
-     * Get a JSON representation of the scores of a day. Defaults to today.
+     * Show game scores for a date
      *
      * @Get("/{date}")
      * @Versions({"v1"})

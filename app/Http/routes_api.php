@@ -8,8 +8,8 @@ Route::get('api', () ==> {
 $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', () ==> {
     $api->group(['namespace' => 'App\Http\Controllers\Api'], () ==> {
-        $api->get('teams', ['as' => 'api.get.teams', 'uses' =>'TeamsController@get']);
-        $api->get('team/{id}', ['as' => 'api.get.team', 'uses' =>'TeamController@get']);
+        $api->get('teams', ['as' => 'api.index.teams', 'uses' =>'TeamsController@index']);
+        $api->get('teams/{id}', ['as' => 'api.show.teams', 'uses' =>'TeamsController@show']);
         $api->get('scores/{date?}', ['as' => 'api.get.scores', 'uses' =>'ScoresController@get']);
     });
 });
