@@ -1,4 +1,6 @@
-<?hh namespace App\Http\Controllers;
+<?hh
+
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Models;

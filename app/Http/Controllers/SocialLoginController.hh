@@ -3,6 +3,7 @@
 namespace app\Http\Controllers;
 
 use App\User;
+use app\Http\Controllers\Controller;
 
 class SocialLoginController extends Controller
 {

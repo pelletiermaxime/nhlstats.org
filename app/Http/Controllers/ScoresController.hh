@@ -4,6 +4,7 @@ namespace app\Http\Controllers;
 
 use App\Http\Models\DateHelper;
 use App\Http\Models\GameScores;
+use app\Http\Controllers\Controller;
 
 class ScoresController extends Controller
 {
