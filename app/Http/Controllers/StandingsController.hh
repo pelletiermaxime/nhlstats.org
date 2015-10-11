@@ -3,7 +3,7 @@
 namespace app\Http\Controllers;
 
 use App\Http\Models\Standings;
-use app\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class StandingsController extends Controller
 {

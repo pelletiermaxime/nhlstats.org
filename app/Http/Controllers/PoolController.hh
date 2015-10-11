@@ -3,6 +3,7 @@
 namespace app\Http\Controllers;
 
 use App\Http\Models;
+use App\Http\Controllers\Controller;
 
 class PoolController extends Controller
 {
