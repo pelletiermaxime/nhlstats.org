@@ -16,7 +16,6 @@ class TeamController extends Controller
     public function index()
     {
         $teamsByDivision = $this->team->byDivision();
-        \Debugbar::log($teamsByDivision);
 
         return view('team.index')
             ->withTeamsByDivision($teamsByDivision)
