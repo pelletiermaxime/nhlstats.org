@@ -19,21 +19,21 @@ class PlayerPageController extends Controller
         $enemies = [];
 
         $playerStatsDays = Models\PlayersStatsDays::wherePlayerId($id)
-            ->where('day' , '>', '2014-10-18')
+            ->where('day' , '>', config('nhlstats.seasonStarts'))
             ->orderBy('day', 'DESC')
             ->get()
-            ;
+        ;
 
         $playerStatsYear = Models\PlayersStatsYear::wherePlayerId($id)
             ->first()
-            ;
+        ;
 
         $player = Models\Player::find($id);
 
         $games = Models\GameScores::whereRaw("team1_id = {$player->team->id} OR team2_id = {$player->team->id}")
             ->with(['team1', 'team2'])
             ->get()
-            ;
+        ;
 
         foreach ($games as $id => $game) {
             if ($game->team1_id == $player->team->id) {
