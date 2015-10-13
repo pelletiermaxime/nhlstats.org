@@ -14,7 +14,7 @@ class PlayerPageController extends Controller
      *
      * @return View
      */
-    public function index($player_id, string $name)
+    public function index(int $player_id, string $name)
     {
         $enemies = [];
 
