@@ -3,7 +3,6 @@
 namespace Nhlstats\Http\Controllers;
 
 use Nhlstats\Http\Models;
-use Nhlstats\Http\Controllers\Controller;
 
 class PoolController extends Controller
 {
@@ -11,6 +10,7 @@ class PoolController extends Controller
     {
         $this->rounds = \Config::get('nhlstats.rounds');
     }
+
     /**
      * Display a listing of the resource.
      *

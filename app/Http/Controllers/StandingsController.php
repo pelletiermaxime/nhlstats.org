@@ -3,7 +3,6 @@
 namespace Nhlstats\Http\Controllers;
 
 use Nhlstats\Http\Models\Standings;
-use Nhlstats\Http\Controllers\Controller;
 
 class StandingsController extends Controller
 {

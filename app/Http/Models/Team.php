@@ -22,7 +22,6 @@ class Team extends Model
         ;
         $teams = $query->get();
 
-
         // Put in sub-arrays by division
         $teamsByDivision = [];
         foreach ($teams as $team) {

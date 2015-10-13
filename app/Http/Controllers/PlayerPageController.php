@@ -2,16 +2,16 @@
 
 namespace Nhlstats\Http\Controllers;
 
-use Nhlstats\Http\Controllers\Controller;
 use Nhlstats\Http\Models;
-use Carbon\Carbon;
 
 class PlayerPageController extends Controller
 {
     /**
-     * Show info and daily stats for a player
-     * @param  int    $id   player_id
-     * @param  string $name player's full_name
+     * Show info and daily stats for a player.
+     *
+     * @param int    $id   player_id
+     * @param string $name player's full_name
+     *
      * @return View
      */
     public function index(int $player_id, string $name)
@@ -19,7 +19,7 @@ class PlayerPageController extends Controller
         $enemies = [];
 
         $playerStatsDays = Models\PlayersStatsDays::wherePlayerId($player_id)
-            ->where('day' , '>', config('nhlstats.seasonStarts'))
+            ->where('day', '>', config('nhlstats.seasonStarts'))
             ->orderBy('day', 'DESC')
             ->get()
         ;

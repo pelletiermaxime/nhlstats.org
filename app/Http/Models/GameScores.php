@@ -22,7 +22,7 @@ class GameScores extends Model
 
     public static function betweenTeams($team1_id, $team2_id, $dateCondition = '')
     {
-        $gamesScores = GameScores::whereRaw(
+        $gamesScores = self::whereRaw(
                 '((team1_id = ? AND team2_id = ?) OR (team1_id = ? AND team2_id = ?))',
                 [$team1_id, $team2_id, $team2_id, $team1_id]
             )
@@ -33,6 +33,7 @@ class GameScores extends Model
         if ($dateCondition !== '') {
             $gamesScores->whereRaw("date_game $dateCondition");
         }
+
         return $gamesScores->get();
     }
 }

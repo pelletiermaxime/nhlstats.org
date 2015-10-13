@@ -11,7 +11,7 @@ use Nhlstats\Http\Models;
 class TeamsController extends Controller
 {
     /**
-     * Show all teams
+     * Show all teams.
      *
      * @Get
      * @Versions({"v1"})
@@ -23,7 +23,7 @@ class TeamsController extends Controller
     }
 
     /**
-     * Show a team
+     * Show a team.
      *
      * @Get("/{id}")
      * @Response(200, body={"team":{"id":31,"short_name":"DET","city":"Detroit","name":"Red Wings","division_id":5}})
