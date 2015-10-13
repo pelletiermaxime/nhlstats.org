@@ -11,7 +11,7 @@ use Nhlstats\Http\Models;
 class ScoresController extends Controller
 {
     /**
-     * Show game scores for a date
+     * Show game scores for a date.
      *
      * @Get("/{date}")
      * @Versions({"v1"})
@@ -47,7 +47,6 @@ class ScoresController extends Controller
      *     @Parameter("date:`2015-05-12`", type="string", required=false, description="Date of the scores. Defaults to today.")
      * })
      */
-
     public function get($date = null)
     {
         $dates = Models\DateHelper::getDates($date);
@@ -55,6 +54,7 @@ class ScoresController extends Controller
             ->with(['team1', 'team2'])
             ->get()
         ;
+
         return $scores;
     }
 }

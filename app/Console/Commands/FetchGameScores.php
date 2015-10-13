@@ -2,10 +2,10 @@
 
 namespace Nhlstats\Console\Commands;
 
-use Nhlstats\Http\Models;
 use Carbon\Carbon;
 use Goutte\Client;
 use Illuminate\Console\Command;
+use Nhlstats\Http\Models;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

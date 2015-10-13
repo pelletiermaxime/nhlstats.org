@@ -2,11 +2,10 @@
 
 namespace Nhlstats\Http\Controllers;
 
-use Nhlstats\Http\Controllers\Controller;
-use Nhlstats\Http\Models;
-use Carbon\Carbon;
 use Cache;
+use Carbon\Carbon;
 use Input;
+use Nhlstats\Http\Models;
 
 class PlayerController extends Controller
 {
@@ -14,12 +13,11 @@ class PlayerController extends Controller
     private $players_stats_year;
     private $players_stats_day;
 
-    public function __construct (
+    public function __construct(
         Models\Team $team,
         Models\PlayersStatsYear $players_stats_year,
         Models\PlayersStatsDays $players_stats_day
-    )
-    {
+    ) {
         $this->team = $team;
         $this->players_stats_year = $players_stats_year;
         $this->players_stats_day = $players_stats_day;
@@ -33,12 +31,11 @@ class PlayerController extends Controller
             '50'  => '50',
             '100' => '100',
             '500' => '500',
-            'all' => 'All'
+            'all' => 'All',
         ];
         $count = Input::get('count', head($all_counts));
         //Default to 50 if not a possible count
-        if (!isset($all_counts[$count]))
-        {
+        if (!isset($all_counts[$count])) {
             $count = head($all_counts);
         }
 
@@ -47,24 +44,22 @@ class PlayerController extends Controller
 
         $team = Input::get('team', 'all');
         //Default to first team if invalid is passed
-        if (!isset($all_teams[$team]))
-        {
+        if (!isset($all_teams[$team])) {
             $team = 'all';
         }
 
         /* ---------- POSITION ---------- */
         $all_positions = [
-            'all' => 'All',
-            'F'   => 'Forward',
+            'all'  => 'All',
+            'F'    => 'Forward',
             'LW'   => 'Left',
-            'C'   => 'Center',
+            'C'    => 'Center',
             'RW'   => 'Right',
-            'D'   => 'Defense'
+            'D'    => 'Defense',
         ];
 
         $position = Input::get('position', 'all');
-        if (!isset($all_positions[$position]))
-        {
+        if (!isset($all_positions[$position])) {
             $position = 'all';
         }
 
@@ -77,12 +72,12 @@ class PlayerController extends Controller
         /* -------- PLAYER STATS -------- */
         $filter['teams.short_name'] = ['=', $team];
         $filter['players.position'] = ['=', $position];
-        $filter['players.year']     = ['=', \Config::get('nhlstats.currentYear')];
-        $filter_string = implode('', array_flatten($filter)) . "=$name=$count";
+        $filter['players.year'] = ['=', \Config::get('nhlstats.currentYear')];
+        $filter_string = implode('', array_flatten($filter))."=$name=$count";
         $playersStatsYear = Cache::remember(
             "playersStatsYear-{$filter_string}",
             60,
-            function () use($count, $filter, $filtersRaw) {
+            function () use ($count, $filter,$filtersRaw) {
                 return $this->players_stats_year->topPlayersByPoints($count, $filter, $filtersRaw);
             }
         );
@@ -106,10 +101,11 @@ class PlayerController extends Controller
     private function playersStatsDay($count, $filter)
     {
         $filter_string = implode('', array_flatten($filter));
+
         return Cache::remember(
             "playersStatsDay-{$filter_string}",
             60,
-            function () use($count, $filter) {
+            function () use ($count,$filter) {
                 return $this->players_stats_day->topPlayersByPoints($count, $filter);
             }
         );

@@ -2,10 +2,10 @@
 
 namespace app\Http\Controllers\Auth;
 
-use Nhlstats\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Nhlstats\Http\Controllers\Controller;
 
 class PasswordController extends Controller
 {

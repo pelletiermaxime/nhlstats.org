@@ -4,7 +4,6 @@ namespace Nhlstats\Http\Controllers;
 
 use Nhlstats\Http\Models\DateHelper;
 use Nhlstats\Http\Models\GameScores;
-use Nhlstats\Http\Controllers\Controller;
 
 class ScoresController extends Controller
 {

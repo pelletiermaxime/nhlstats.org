@@ -3,7 +3,6 @@
 namespace Nhlstats\Http\Controllers;
 
 use Nhlstats\User;
-use Nhlstats\Http\Controllers\Controller;
 
 class SocialLoginController extends Controller
 {

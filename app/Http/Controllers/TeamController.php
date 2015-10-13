@@ -5,7 +5,6 @@ namespace Nhlstats\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Input;
-use Nhlstats\Http\Controllers\Controller;
 use Nhlstats\Http\Models;
 
 class TeamController extends Controller
@@ -21,7 +20,7 @@ class TeamController extends Controller
 
     public function show($team)
     {
-        $count  = 'All';
+        $count = 'All';
         $filter = [];
 
         /* -------- PLAYER STATS -------- */
@@ -31,7 +30,7 @@ class TeamController extends Controller
         $playersStatsYear = Cache::remember(
             "playersStatsYear-{$count}-{$team}",
             60,
-            function () use($count, $filter) {
+            function () use ($count,$filter) {
                 return Models\PlayersStatsYear::topPlayersByPoints($count, $filter);
             }
         );

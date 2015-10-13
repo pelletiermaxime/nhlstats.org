@@ -2,9 +2,9 @@
 
 namespace Nhlstats\Console\Commands;
 
-use Nhlstats\Http\Models;
 use Goutte\Client;
 use Illuminate\Console\Command;
+use Nhlstats\Http\Models;
 
 class FetchStandings extends Command
 {
