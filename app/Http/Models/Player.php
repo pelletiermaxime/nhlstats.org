@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Models;
+namespace Nhlstats\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,6 @@ class Player extends Model
 
     public function team()
     {
-        return $this->belongsTo('App\Http\Models\Team');
+        return $this->belongsTo('Nhlstats\Http\Models\Team');
     }
 }

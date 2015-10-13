@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Providers;
+namespace Nhlstats\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

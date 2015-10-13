@@ -1,8 +1,8 @@
 <?php
 
-namespace app\Console\Commands;
+namespace Nhlstats\Console\Commands;
 
-use App\Http\Models;
+use Nhlstats\Http\Models;
 use Carbon\Carbon;
 use Goutte\Client;
 use Illuminate\Console\Command;

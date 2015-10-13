@@ -1,9 +1,9 @@
-<?hh
+<?php
 
-namespace App\Http\Controllers;
+namespace Nhlstats\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Models;
+use Nhlstats\Http\Controllers\Controller;
+use Nhlstats\Http\Models;
 use Carbon\Carbon;
 
 class PlayerPageController extends Controller
@@ -14,21 +14,21 @@ class PlayerPageController extends Controller
      * @param  string $name player's full_name
      * @return View
      */
-    public function index(mixed $id, string $name)
+    public function index(int $player_id, string $name)
     {
         $enemies = [];
 
-        $playerStatsDays = Models\PlayersStatsDays::wherePlayerId($id)
+        $playerStatsDays = Models\PlayersStatsDays::wherePlayerId($player_id)
             ->where('day' , '>', config('nhlstats.seasonStarts'))
             ->orderBy('day', 'DESC')
             ->get()
         ;
 
-        $playerStatsYear = Models\PlayersStatsYear::wherePlayerId($id)
+        $playerStatsYear = Models\PlayersStatsYear::wherePlayerId($player_id)
             ->first()
         ;
 
-        $player = Models\Player::find($id);
+        $player = Models\Player::find($player_id);
 
         $games = Models\GameScores::whereRaw("team1_id = {$player->team->id} OR team2_id = {$player->team->id}")
             ->with(['team1', 'team2'])

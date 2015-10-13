@@ -1,21 +1,18 @@
-<?hh namespace App\Http\Controllers;
+<?php
 
-use App\Http\Controllers\Controller;
-use App\Http\Models;
+namespace Nhlstats\Http\Controllers;
+
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Input;
+use Nhlstats\Http\Controllers\Controller;
+use Nhlstats\Http\Models;
 
 class TeamController extends Controller
 {
-    public function __construct(
-        private Models\Team $team,
-        private Models\PlayersStatsYear $players_stats_year,
-        private Models\PlayersStatsDays $players_stats_day,
-        private Models\GoalersStatsYear $goalers_stats_year,
-    ) {}
-
     public function index()
     {
-        $teamsByDivision = $this->team->byDivision();
+        $teamsByDivision = Models\Team::byDivision(config('nhlstats.currentYear'));
 
         return view('team.index')
             ->withTeamsByDivision($teamsByDivision)
@@ -28,23 +25,23 @@ class TeamController extends Controller
         $filter = [];
 
         /* -------- PLAYER STATS -------- */
-        $position = \Input::get('position', 'all');
+        $position = Input::get('position', 'all');
         $filter['teams.short_name'] = ['=', $team];
-        $filter['players.year'] = ['=', \Config::get('nhlstats.currentYear')];
-        $playersStatsYear = \Cache::remember(
+        $filter['players.year'] = ['=', config('nhlstats.currentYear')];
+        $playersStatsYear = Cache::remember(
             "playersStatsYear-{$count}-{$team}",
             60,
-            () ==> {
-                return $this->players_stats_year->topPlayersByPoints($count, $filter);
+            function () use($count, $filter) {
+                return Models\PlayersStatsYear::topPlayersByPoints($count, $filter);
             }
         );
 
-        $pointsByPosition = $this->players_stats_year->pointsByPosition($filter);
+        $pointsByPosition = Models\PlayersStatsYear::pointsByPosition($filter);
 
-        $goalersStatsYear = $this->goalers_stats_year->topGoalersByGAA($filter);
+        $goalersStatsYear = Models\GoalersStatsYear::topGoalersByGAA($filter);
 
         $filter['day'] = ['=', Carbon::today()];
-        $playersStatsDay = $this->players_stats_day->topPlayersByPoints($count, $filter);
+        $playersStatsDay = Models\PlayersStatsDays::topPlayersByPoints($count, $filter);
 
         return view('team.show')
             ->with('playersStatsDay', $playersStatsDay)

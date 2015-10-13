@@ -1,4 +1,6 @@
-<?hh namespace App\Http\Controllers;
+<?php
+
+namespace Nhlstats\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Models;

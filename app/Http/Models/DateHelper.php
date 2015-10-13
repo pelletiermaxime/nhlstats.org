@@ -1,6 +1,6 @@
-<?hh
+<?php
 
-namespace App\Http\Models;
+namespace Nhlstats\Http\Models;
 
 use Carbon\Carbon;
 

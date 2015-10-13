@@ -1,10 +1,11 @@
 <?php
 
-namespace app\Console\Commands;
+namespace Nhlstats\Console\Commands;
 
 use Carbon\Carbon;
 use Goutte\Client;
 use Illuminate\Console\Command;
+use Nhlstats\Http\Models;
 
 class FetchPlayersInfo extends Command
 {
@@ -80,7 +81,7 @@ class FetchPlayersInfo extends Command
 
     private function savePlayers($players)
     {
-        $currentYear = \Config::get('nhlstats.currentYear');
+        $currentYear = config('nhlstats.currentYear');
         echo "Enregistre les informations dans la bd mysql\n";
         foreach ($players as $player) {
             if (empty($player['name'])) {
@@ -96,7 +97,7 @@ class FetchPlayersInfo extends Command
                 list($city, $country) = explode(', ', $player['birthplace']);
             }
 
-            $playerDB = \Player::firstOrNew([
+            $playerDB = Models\Player::firstOrNew([
                 'full_name' => $fullName,
                 'year'      => $currentYear,
             ]);

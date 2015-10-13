@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Exceptions;
+namespace Nhlstats\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

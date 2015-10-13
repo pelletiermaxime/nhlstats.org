@@ -1,7 +1,9 @@
-<?php namespace App\Http\Controllers\Api;
+<?php
 
-use App\Http\Controllers\Controller;
-use App\Http\Models;
+namespace Nhlstats\Http\Controllers\Api;
+
+use Nhlstats\Http\Controllers\Controller;
+use Nhlstats\Http\Models;
 
 /**
  * @Resource("Scores", uri="/api/scores")

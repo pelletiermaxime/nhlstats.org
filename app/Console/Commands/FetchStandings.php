@@ -1,8 +1,8 @@
 <?php
 
-namespace app\Console\Commands;
+namespace Nhlstats\Console\Commands;
 
-use App\Http\Models;
+use Nhlstats\Http\Models;
 use Goutte\Client;
 use Illuminate\Console\Command;
 
@@ -175,7 +175,7 @@ class FetchStandings extends Command
 
     private function generatePlayoffTeams()
     {
-        $playoff = app('App\Http\Repositories\PlayoffRepository');
+        $playoff = app('Nhlstats\Http\Repositories\PlayoffRepository');
 
         $gamesEast = $playoff->getPlayoffGamesEast();
         $this->savePlayoffTeams($gamesEast, 'EAST');

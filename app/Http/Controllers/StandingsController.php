@@ -1,9 +1,9 @@
-<?hh
+<?php
 
-namespace app\Http\Controllers;
+namespace Nhlstats\Http\Controllers;
 
-use App\Http\Models\Standings;
-use App\Http\Controllers\Controller;
+use Nhlstats\Http\Models\Standings;
+use Nhlstats\Http\Controllers\Controller;
 
 class StandingsController extends Controller
 {

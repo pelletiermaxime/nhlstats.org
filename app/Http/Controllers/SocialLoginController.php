@@ -1,9 +1,9 @@
-<?hh
+<?php
 
-namespace app\Http\Controllers;
+namespace Nhlstats\Http\Controllers;
 
-use App\User;
-use App\Http\Controllers\Controller;
+use Nhlstats\User;
+use Nhlstats\Http\Controllers\Controller;
 
 class SocialLoginController extends Controller
 {

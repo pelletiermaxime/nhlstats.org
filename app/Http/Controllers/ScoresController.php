@@ -1,10 +1,10 @@
-<?hh
+<?php
 
-namespace app\Http\Controllers;
+namespace Nhlstats\Http\Controllers;
 
-use App\Http\Models\DateHelper;
-use App\Http\Models\GameScores;
-use App\Http\Controllers\Controller;
+use Nhlstats\Http\Models\DateHelper;
+use Nhlstats\Http\Models\GameScores;
+use Nhlstats\Http\Controllers\Controller;
 
 class ScoresController extends Controller
 {

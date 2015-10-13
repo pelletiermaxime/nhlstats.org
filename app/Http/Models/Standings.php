@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Models;
+namespace Nhlstats\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

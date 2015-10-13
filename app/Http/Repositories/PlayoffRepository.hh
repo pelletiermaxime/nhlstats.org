@@ -1,16 +1,18 @@
-<?hh namespace App\Http\Repositories;
+<?php
 
-use App\Http\Models;
+namespace Nhlstats\Http\Repositories;
+
+use Nhlstats\Http\Models;
 
 class PlayoffRepository
 {
     private $wildcard;
     private $conference;
 
-    public function __construct(private Models\Standings $standings)
+    public function __construct(Models\Standings $standings)
     {
-        $this->wildcard   = $this->standings->byWildcard();
-        $this->conference = $this->standings->byConference();
+        $this->wildcard   = $standings->byWildcard();
+        $this->conference = $standings->byConference();
     }
 
     public function getPlayoffGamesEast()

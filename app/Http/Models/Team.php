@@ -1,25 +1,27 @@
 <?php
 
-namespace app\Http\Models;
+namespace Nhlstats\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Team extends Model
 {
     public function division()
     {
-        return $this->belongsTo('Division');
+        return $this->belongsTo('Nhlstats\Http\Models\Division');
     }
 
-    public function byDivision()
+    public static function byDivision(int $year)
     {
-        $query = \DB::table('teams')
-            ->where('teams.year', \Config::get('nhlstats.currentYear'))
+        $query = DB::table('teams')
+            ->where('teams.year', $year)
             ->join('divisions', 'divisions.id', '=', 'teams.division_id')
             ->orderBy('conference', 'ASC')
             ->orderBy('division', 'ASC')
         ;
         $teams = $query->get();
+
 
         // Put in sub-arrays by division
         $teamsByDivision = [];
@@ -30,9 +32,10 @@ class Team extends Model
         return $teamsByDivision;
     }
 
-    public function getWithShortNameAndCity()
+    public static function getWithShortNameAndCity()
     {
-        $query = \DB::table('teams')
+        $listTeam = [];
+        $query = DB::table('teams')
             ->select('city', 'short_name', 'name')
             ->orderBy('city', 'ASC')
         ;

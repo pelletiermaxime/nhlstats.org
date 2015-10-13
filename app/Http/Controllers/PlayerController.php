@@ -1,18 +1,29 @@
-<?hh
+<?php
 
-namespace App\Http\Controllers;
+namespace Nhlstats\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Models;
+use Nhlstats\Http\Controllers\Controller;
+use Nhlstats\Http\Models;
 use Carbon\Carbon;
+use Cache;
+use Input;
 
 class PlayerController extends Controller
 {
-    public function __construct(
-        private Models\Team $team,
-        private Models\PlayersStatsYear $players_stats_year,
-        private Models\PlayersStatsDays $players_stats_day,
-    ) {}
+    private $team;
+    private $players_stats_year;
+    private $players_stats_day;
+
+    public function __construct (
+        Models\Team $team,
+        Models\PlayersStatsYear $players_stats_year,
+        Models\PlayersStatsDays $players_stats_day
+    )
+    {
+        $this->team = $team;
+        $this->players_stats_year = $players_stats_year;
+        $this->players_stats_day = $players_stats_day;
+    }
 
     public function getListFiltered()
     {
@@ -24,7 +35,7 @@ class PlayerController extends Controller
             '500' => '500',
             'all' => 'All'
         ];
-        $count = \Input::get('count', head($all_counts));
+        $count = Input::get('count', head($all_counts));
         //Default to 50 if not a possible count
         if (!isset($all_counts[$count]))
         {
@@ -34,7 +45,7 @@ class PlayerController extends Controller
         /* ----------- TEAMS ----------- */
         $all_teams = ['all' => 'All'] + $this->team->getWithShortNameAndCity();
 
-        $team = \Input::get('team', 'all');
+        $team = Input::get('team', 'all');
         //Default to first team if invalid is passed
         if (!isset($all_teams[$team]))
         {
@@ -51,7 +62,7 @@ class PlayerController extends Controller
             'D'   => 'Defense'
         ];
 
-        $position = \Input::get('position', 'all');
+        $position = Input::get('position', 'all');
         if (!isset($all_positions[$position]))
         {
             $position = 'all';
@@ -68,10 +79,10 @@ class PlayerController extends Controller
         $filter['players.position'] = ['=', $position];
         $filter['players.year']     = ['=', \Config::get('nhlstats.currentYear')];
         $filter_string = implode('', array_flatten($filter)) . "=$name=$count";
-        $playersStatsYear = \Cache::remember(
+        $playersStatsYear = Cache::remember(
             "playersStatsYear-{$filter_string}",
             60,
-            () ==> {
+            function () use($count, $filter, $filtersRaw) {
                 return $this->players_stats_year->topPlayersByPoints($count, $filter, $filtersRaw);
             }
         );
@@ -95,10 +106,10 @@ class PlayerController extends Controller
     private function playersStatsDay($count, $filter)
     {
         $filter_string = implode('', array_flatten($filter));
-        return \Cache::remember(
+        return Cache::remember(
             "playersStatsDay-{$filter_string}",
             60,
-            () ==> {
+            function () use($count, $filter) {
                 return $this->players_stats_day->topPlayersByPoints($count, $filter);
             }
         );

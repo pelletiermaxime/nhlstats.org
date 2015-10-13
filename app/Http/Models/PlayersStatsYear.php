@@ -1,8 +1,9 @@
 <?php
 
-namespace app\Http\Models;
+namespace Nhlstats\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class PlayersStatsYear extends Model
 {
@@ -12,12 +13,12 @@ class PlayersStatsYear extends Model
 
     public function player()
     {
-        return $this->belongsTo('App\Http\Models\Player');
+        return $this->belongsTo('Nhlstats\Http\Models\Player');
     }
 
-    public function topPlayersByPoints($count, $filters = [], $filtersRaw = [])
+    public static function topPlayersByPoints($count, $filters = [], $filtersRaw = [])
     {
-        $query = \DB::table('players_stats_years')
+        $query = DB::table('players_stats_years')
                 ->join('players', 'players.id', '=', 'players_stats_years.player_id')
                 ->join('teams', 'teams.id', '=', 'players.team_id')
                 ->join('divisions', 'divisions.id', '=', 'teams.division_id')
@@ -30,12 +31,12 @@ class PlayersStatsYear extends Model
                 ->orderBy('plusminus', 'desc')
                 ->orderBy('players.name', 'asc');
 
-        $this->buildtopPlayersByPointsFilter($query, $filters, $filtersRaw);
+        self::buildtopPlayersByPointsFilter($query, $filters, $filtersRaw);
 
         return $query->get();
     }
 
-    public function buildtopPlayersByPointsFilter(&$query, $filters, $filtersRaw = [])
+    public static function buildtopPlayersByPointsFilter(&$query, $filters, $filtersRaw = [])
     {
         foreach ($filters as $field => $condition) {
             list($operator, $value) = $condition;
@@ -52,12 +53,12 @@ class PlayersStatsYear extends Model
         }
     }
 
-    public function pointsByPosition($filters = [])
+    public static function pointsByPosition($filters = [])
     {
-        $query = \DB::table('players_stats_years')
+        $query = DB::table('players_stats_years')
                 ->join('players', 'players.id', '=', 'players_stats_years.player_id')
                 ->join('teams', 'teams.id', '=', 'players.team_id')
-                ->select(\DB::raw('SUM(players_stats_years.points) AS points'), 'players.position')
+                ->select(DB::raw('SUM(players_stats_years.points) AS points'), 'players.position')
                 // ->orderBy('players.name', 'asc');
                 ->groupBy('players.position');
         foreach ($filters as $condition => $value) {

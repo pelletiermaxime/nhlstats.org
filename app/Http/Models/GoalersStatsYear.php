@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Models;
+namespace Nhlstats\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +15,7 @@ class GoalersStatsYear extends Model
         return $this->belongsTo('Player');
     }
 
-    public function topGoalersByGAA($filters)
+    public static function topGoalersByGAA($filters)
     {
         $filter_string = implode('', array_flatten($filters));
 

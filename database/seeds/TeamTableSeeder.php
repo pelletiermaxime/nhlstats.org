@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Database\Seeder;
+use Nhlstats\Http\Models\Division;
+use Nhlstats\Http\Models\Team;
+
 class TeamTableSeeder extends Seeder
 {
     public function run()

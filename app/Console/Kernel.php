@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Console;
+namespace Nhlstats\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -13,11 +13,11 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\FetchStandings',
-        'App\Console\Commands\FetchPlayers',
-        'App\Console\Commands\FetchGoalers',
-        'App\Console\Commands\FetchGameScores',
-        'App\Console\Commands\FetchPlayersInfo',
+        'Nhlstats\Console\Commands\FetchStandings',
+        'Nhlstats\Console\Commands\FetchPlayers',
+        'Nhlstats\Console\Commands\FetchGoalers',
+        'Nhlstats\Console\Commands\FetchGameScores',
+        'Nhlstats\Console\Commands\FetchPlayersInfo',
     ];
 
     /**

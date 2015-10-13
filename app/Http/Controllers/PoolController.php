@@ -1,9 +1,9 @@
-<?hh
+<?php
 
-namespace app\Http\Controllers;
+namespace Nhlstats\Http\Controllers;
 
-use App\Http\Models;
-use App\Http\Controllers\Controller;
+use Nhlstats\Http\Models;
+use Nhlstats\Http\Controllers\Controller;
 
 class PoolController extends Controller
 {

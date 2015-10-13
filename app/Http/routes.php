@@ -1,6 +1,4 @@
-<?hh
-
-use App\Http\Controllers;
+<?php
 
 Route::get('/', [
     'as' => 'index',

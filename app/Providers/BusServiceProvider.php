@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Providers;
+namespace Nhlstats\Providers;
 
 use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +16,7 @@ class BusServiceProvider extends ServiceProvider
     {
         $dispatcher->mapUsing(function ($command) {
             return Dispatcher::simpleMapping(
-                $command, 'App\Commands', 'App\Handlers\Commands'
+                $command, 'Nhlstats\Commands', 'Nhlstats\Handlers\Commands'
             );
         });
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Providers;
+namespace Nhlstats\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'Illuminate\Contracts\Auth\Registrar',
-            'App\Services\Registrar'
+            'Nhlstats\Services\Registrar'
         );
         // \Blade::setRawTags('{{', '}}');
         // \Blade::setContentTags('{{{', '}}}');

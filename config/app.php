@@ -140,9 +140,9 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Nhlstats\Providers\AppServiceProvider::class,
+        Nhlstats\Providers\EventServiceProvider::class,
+        Nhlstats\Providers\RouteServiceProvider::class,
 
         'Illuminate\Html\HtmlServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',

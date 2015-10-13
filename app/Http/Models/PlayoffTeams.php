@@ -1,7 +1,9 @@
-<?hh namespace App\Http\Models;
+<?php
+
+namespace Nhlstats\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Models;
+use Nhlstats\Http\Models;
 
 class PlayoffTeams extends Model
 {
@@ -10,12 +12,12 @@ class PlayoffTeams extends Model
 
     public function team1()
     {
-        return $this->belongsTo('App\Http\Models\Team');
+        return $this->belongsTo('Nhlstats\Http\Models\Team');
     }
 
     public function team2()
     {
-        return $this->belongsTo('App\Http\Models\Team');
+        return $this->belongsTo('Nhlstats\Http\Models\Team');
     }
 
     /**

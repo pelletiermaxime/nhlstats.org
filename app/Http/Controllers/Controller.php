@@ -1,6 +1,6 @@
-<?hh
+<?php
 
-namespace app\Http\Controllers;
+namespace Nhlstats\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Foundation\Validation\ValidatesRequests;
