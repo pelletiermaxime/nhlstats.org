@@ -1,7 +1,8 @@
 language: php
 sudo: false
+
 php:
-  - hhvm
+  - '7.0'
 
 before_install:
   - composer install
@@ -16,5 +17,5 @@ services:
   - redis-server
 
 script:
-  # - hhvm vendor/bin/phpunit
+  - vendor/bin/phpunit
   - cd public/doc && dredd APIDoc.md
