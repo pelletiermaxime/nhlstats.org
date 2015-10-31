@@ -22,13 +22,11 @@ return [
     ],
 
     // Tasks to execute after the core Rocketeer Tasks
-    'after'  => [
-        'setup'   => [],
+    'before-symlink'  => [
         'deploy'  => [
             'npm install',
             'gulp --production',
         ],
-        'cleanup' => [],
     ],
 
     // Custom Tasks to register with Rocketeer
