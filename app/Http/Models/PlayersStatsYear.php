@@ -18,13 +18,22 @@ class PlayersStatsYear extends Model
 
     public static function topPlayersByPoints($count, $filters = [], $filtersRaw = [])
     {
+        if ($count == 'All') {
+            $count = -1;
+        }
         $query = DB::table('players_stats_years')
                 ->join('players', 'players.id', '=', 'players_stats_years.player_id')
                 ->join('teams', 'teams.id', '=', 'players.team_id')
                 ->join('divisions', 'divisions.id', '=', 'teams.division_id')
                 ->take($count)
-                ->select('players_stats_years.*', 'divisions.conference', 'teams.name as team_name',
-                    'players.*', 'teams.short_name', 'teams.city')
+                ->select(
+                    'players_stats_years.*',
+                    'divisions.conference',
+                    'teams.name as team_name',
+                    'players.*',
+                    'teams.short_name',
+                    'teams.city'
+                )
                 ->orderBy('points', 'desc')
                 ->orderBy('goals', 'desc')
                 ->orderBy('games', 'asc')

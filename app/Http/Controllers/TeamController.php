@@ -30,7 +30,7 @@ class TeamController extends Controller
         $playersStatsYear = Cache::remember(
             "playersStatsYear-{$count}-{$team}",
             60,
-            function () use ($count,$filter) {
+            function () use ($count, $filter) {
                 return Models\PlayersStatsYear::topPlayersByPoints($count, $filter);
             }
         );

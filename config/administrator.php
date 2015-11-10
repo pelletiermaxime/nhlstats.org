@@ -68,7 +68,8 @@ return [
 
     // 'permission' => $serializer->serialize(function()
     'permission' => function () {
-        return Auth::check() && Auth::user()->admin;
+        return true;
+        // return Auth::check() && Auth::user()->admin;
     },
 
     /*

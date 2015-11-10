@@ -41,7 +41,7 @@ $(function () {
 	<td>{!! $p->position !!}</td>
 	<td>
 		<a href="{!! route('team', $p->short_name) !!}">
-		<img height="35" src="{!! $asset_path !!}/images/SVG/{!! $p->short_name !!}.svg" alt="{!! $p->city !!} {!! $p->team_name !!}"
+		<img height="35" src="/images/SVG/{!! $p->short_name !!}.svg" alt="{!! $p->city !!} {!! $p->team_name !!}"
 			title="{!! $p->city !!} {!! $p->team_name !!}" />
 		</a>
 	</td>

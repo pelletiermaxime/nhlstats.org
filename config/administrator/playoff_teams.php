@@ -10,7 +10,7 @@ return [
 
     'single' => 'team',
 
-    'model' => 'App\Http\Models\PlayoffTeams',
+    'model' => 'Nhlstats\Http\Models\PlayoffTeams',
 
     /*
      * The display columns
