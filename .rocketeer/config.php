@@ -47,7 +47,7 @@ return [
         //     'db_role'   => true,
         // ],
         'production' => [
-            'host'      => '45.79.170.56:36220',
+            'host'      => 'nhlstats.org:36220',
             'username'  => 'max',
             'password'  => '',
             'key'       => '',

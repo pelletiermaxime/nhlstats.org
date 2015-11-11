@@ -13,3 +13,4 @@ public/javascript/vendors/
 .sass-cache
 .env
 .rocketeer/logs
+public/doc/index.html
