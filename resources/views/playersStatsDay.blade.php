@@ -32,7 +32,7 @@ $(function () {
         </a>
     </td>
     <td>
-        <a href="{{ route('players_filtered') }}?team={{ $p->short_name }}&amp;count=all">
+    <a href="{!! route('team', $p->short_name) !!}">
         <img height="35" src="/images/SVG/{{ $p->short_name }}.svg" alt="{{ $p->city }} {{ $p->team_name }}"
             title="{{ $p->city }} {{ $p->team_name }}" />
         </a>

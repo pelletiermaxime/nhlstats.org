@@ -12,6 +12,9 @@ class PlayersStatsDays extends Model
 
     public static function topPlayersByPoints($count, $filters = [])
     {
+        if ($count == 'All') {
+            $count = -1;
+        }
         $query = DB::table('players_stats_days')
                 ->join('players', 'players.id', '=', 'players_stats_days.player_id')
                 ->join('teams', 'teams.id', '=', 'players.team_id')
