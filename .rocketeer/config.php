@@ -37,9 +37,18 @@ return [
     // to track files with credentials : Rocketeer will prompt you for your credentials
     // and store them locally
     'connections'      => [
+        // 'production' => [
+        //     'host'      => 'nhlstats.org:36220',
+        //     'username'  => 'deploy',
+        //     'password'  => '',
+        //     'key'       => '',
+        //     'keyphrase' => '',
+        //     'agent'     => null,
+        //     'db_role'   => true,
+        // ],
         'production' => [
             'host'      => 'nhlstats.org:36220',
-            'username'  => 'deploy',
+            'username'  => 'max',
             'password'  => '',
             'key'       => '',
             'keyphrase' => '',

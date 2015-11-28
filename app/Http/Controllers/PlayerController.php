@@ -77,7 +77,7 @@ class PlayerController extends Controller
         $playersStatsYear = Cache::remember(
             "playersStatsYear-{$filter_string}",
             60,
-            function () use ($count, $filter,$filtersRaw) {
+            function () use ($count, $filter, $filtersRaw) {
                 return $this->players_stats_year->topPlayersByPoints($count, $filter, $filtersRaw);
             }
         );
@@ -105,7 +105,7 @@ class PlayerController extends Controller
         return Cache::remember(
             "playersStatsDay-{$filter_string}",
             60,
-            function () use ($count,$filter) {
+            function () use ($count, $filter) {
                 return $this->players_stats_day->topPlayersByPoints($count, $filter);
             }
         );

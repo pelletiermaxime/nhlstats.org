@@ -10,7 +10,7 @@ return [
 
     'single' => 'user',
 
-    'model' => 'App\User',
+    'model' => 'Nhlstats\User',
 
     /*
      * The display columns

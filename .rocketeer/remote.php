@@ -56,9 +56,6 @@ return [
         // the correct path to the public folder
         'files'      => [
             'storage',
-            'storage/framework',
-            'storage/framework/views',
-            'storage/logs',
         ],
 
         // Here you can configure what actions will be executed to set
@@ -66,9 +63,8 @@ return [
         // a single command as a string or an array of commands
         'callback' => function ($task, $file) {
             return [
-                sprintf('chmod -R 755 %s', $file),
-                sprintf('chmod -R g+s %s', $file),
-                sprintf('setfacl -m u:www-data:rwx,u:deploy:rwx %s', $file),
+                sprintf('setfacl -R -m u:max:rwX -m u:nginx:rwX, %s', $file),
+                sprintf('setfacl -dR -m u:max:rwX -m u:nginx:rwX %s', $file),
             ];
         },
     ],

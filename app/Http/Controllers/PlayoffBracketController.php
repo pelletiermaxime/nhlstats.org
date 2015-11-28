@@ -45,13 +45,17 @@ class PlayoffBracketController extends Controller
 
         $betweenDate = "BETWEEN '$dateCurrentRound' AND '$dateNextRound'";
 
-        return \Cache::tags('playoffs')->remember("games_{$conference}_{$noRound}", 60,
-            () ==> {
+        return \Cache::tags('playoffs')->remember(
+            "games_{$conference}_{$noRound}",
+            60,
+            function () use ($conference, $noRound, $betweenDate) {
                 $games = Models\PlayoffTeams::byConference($conference, $noRound);
                 foreach ($games as &$game) {
                     $wins[$game['team1_id']] = $wins[$game['team2_id']] = 0;
                     $game['regularSeasonGames'] = Models\GameScores::betweenTeams(
-                        $game['team1']['id'], $game['team2']['id'], $betweenDate
+                        $game['team1']['id'],
+                        $game['team2']['id'],
+                        $betweenDate
                     );
                     foreach ($game['regularSeasonGames'] as $noGameScore => $gameScore) {
                         if ($gameScore['score1_T'] > $gameScore['score2_T']) {

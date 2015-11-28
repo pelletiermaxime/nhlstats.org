@@ -10,7 +10,7 @@ return [
 
     'single' => 'round',
 
-    'model' => 'App\Http\Models\PlayoffRounds',
+    'model' => 'Nhlstats\Http\Models\PlayoffRounds',
 
     /*
      * The display columns

@@ -13,4 +13,14 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.sass('app.sass', false, { indentedSyntax: true })
+       .styles(['../../../node_modules/selectize/dist/css/selectize.bootstrap3.css'],
+             'public/css/vendors.css')
+       .copy('node_modules/datatables/media/js/jquery.dataTables.min.js',
+             'public/javascript/vendors/jquery.dataTables.min.js')
+       .copy('node_modules/jquery/dist/jquery.min.js',
+             'public/javascript/vendors/jquery.min.js')
+       .copy('node_modules/bootstrap/dist/js/bootstrap.min.js',
+             'public/javascript/vendors/bootstrap.min.js')
+       .copy('node_modules/selectize/dist/js/standalone/selectize.min.js',
+             'public/javascript/vendors/selectize.min.js')
 });

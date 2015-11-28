@@ -6,12 +6,11 @@ public/packages/barryvdh
 *.sqlite
 _ide_helper.php
 _ide_helper_models.php
-adminer.php
-public/components/
-public/css/app.*
-app/config/development/*
+public/css/
+public/javascript/vendors/
 
 /node_modules
 .sass-cache
 .env
 .rocketeer/logs
+public/doc/index.html

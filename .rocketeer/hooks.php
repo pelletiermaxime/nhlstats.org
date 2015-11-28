@@ -22,13 +22,14 @@ return [
     ],
 
     // Tasks to execute after the core Rocketeer Tasks
-    'after'  => [
-        'setup'   => [],
+    'before-symlink'  => [
         'deploy'  => [
             'npm install',
             'gulp --production',
+            'sudo service php-fpm reload',
+            'php artisan api:docs > public/doc/APIDoc.md',
+            'node_modules/.bin/aglio --theme-full-width --theme-variables slate -i public/doc/APIDoc.md -o public/doc/index.html',
         ],
-        'cleanup' => [],
     ],
 
     // Custom Tasks to register with Rocketeer
