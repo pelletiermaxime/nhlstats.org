@@ -56,7 +56,7 @@ class FetchGameScores extends Command
 
         // $gameDayURL = "http://scores.espn.go.com/nhl/scoreboard?date=$dateESPN";
         $gameDayURL = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=$date&endDate=$date";
-        $gameDayURL .= "&expand=schedule.teams,schedule.linescore,schedule.decisions,schedule.scoringplays";
+        $gameDayURL .= '&expand=schedule.teams,schedule.linescore,schedule.decisions,schedule.scoringplays';
 
         $res = $this->client->get($gameDayURL);
         $gamesToday = json_decode($res->getBody());
@@ -69,7 +69,7 @@ class FetchGameScores extends Command
             $game['team1'] = $score->teams->home->team->name;
             $game['team2'] = $score->teams->away->team->name;
 
-            for ($period=0; $period <= 3; $period++) {
+            for ($period = 0; $period <= 3; $period++) {
                 $realPeriod = $period + 1;
 
                 if ($period == 3) {
@@ -80,7 +80,6 @@ class FetchGameScores extends Command
 
                 if (isset($score->periods[$period])) {
                     $periodScore = $score->periods[$period];
-
 
                     $game["score1_$realPeriod"] = $periodScore->home->goals;
                     $game["score2_$realPeriod"] = $periodScore->away->goals;

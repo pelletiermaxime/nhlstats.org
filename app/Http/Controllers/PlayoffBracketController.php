@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Models;
 use Carbon\Carbon;
 
-use Config;
-
 class PlayoffBracketController extends Controller
 {
     public function index()
@@ -68,6 +66,7 @@ class PlayoffBracketController extends Controller
                     }
                     $game['wins'] = $wins;
                 }
+
                 return $games;
             }
         );

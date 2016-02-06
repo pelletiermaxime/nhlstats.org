@@ -8,7 +8,7 @@ use Nhlstats\Http\Models;
 class PlayoffTeams extends Model
 {
     protected $guarded = [];
-    public static $rules = array();
+    public static $rules = [];
 
     public function team1()
     {
@@ -21,10 +21,12 @@ class PlayoffTeams extends Model
     }
 
     /**
-     * Return all playoff games for a conference and a round
-     * @param  string  $conference EAST|WEST
-     * @param  integer $round
-     * @return array   Games including teams
+     * Return all playoff games for a conference and a round.
+     *
+     * @param string $conference EAST|WEST
+     * @param int    $round
+     *
+     * @return array Games including teams
      */
     public static function byConference(string $conference, int $round = 1): array
     {
