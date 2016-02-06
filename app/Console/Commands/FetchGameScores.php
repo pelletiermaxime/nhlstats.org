@@ -3,7 +3,7 @@
 namespace Nhlstats\Console\Commands;
 
 use Carbon\Carbon;
-use Goutte\Client;
+use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Nhlstats\Http\Models;
 use Symfony\Component\Console\Input\InputArgument;
@@ -52,44 +52,45 @@ class FetchGameScores extends Command
 
     private function getScoresArray()
     {
-        $dateESPN = Carbon::parse($this->fetchDate)->format('Ymd');
+        $date = Carbon::parse($this->fetchDate)->format('Y-m-d');
 
-        $gameDayURL = "http://scores.espn.go.com/nhl/scoreboard?date=$dateESPN";
-        $crawler = $this->client->request('GET', $gameDayURL);
-        $lines = $crawler->filter('.game-details tr');
+        // $gameDayURL = "http://scores.espn.go.com/nhl/scoreboard?date=$dateESPN";
+        $gameDayURL = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=$date&endDate=$date";
+        $gameDayURL .= "&expand=schedule.teams,schedule.linescore,schedule.decisions,schedule.scoringplays";
 
-        $line_cells = [];
-        $lines->each(function ($line) use (&$line_cells) {
-            $line_cells[] = $line->filter('td')->extract(['_text']);
-        });
+        $res = $this->client->get($gameDayURL);
+        $gamesToday = json_decode($res->getBody());
+        $gamesToday = $gamesToday->dates[0]->games;
 
-        $noGame = 0;
-        $home = false;
-        $games = [];
+        foreach ($gamesToday as $g) {
+            $game = [];
+            $score = $g->linescore;
 
-        foreach ($line_cells as $cells) {
-            //Header line of a new game
-            if (empty($cells[0])) {
-                ++$noGame;
-                $home = true;
-            } else {
-                if ($home) {
-                    $games[$noGame]['team1'] = $cells[0];
-                    $games[$noGame]['score1_1'] = $cells[1];
-                    $games[$noGame]['score1_2'] = $cells[2];
-                    $games[$noGame]['score1_3'] = $cells[3];
-                    $games[$noGame]['score1_OT'] = $cells[4];
-                    $games[$noGame]['score1_T'] = $cells[5];
-                } else {
-                    $games[$noGame]['team2'] = $cells[0];
-                    $games[$noGame]['score2_1'] = $cells[1];
-                    $games[$noGame]['score2_2'] = $cells[2];
-                    $games[$noGame]['score2_3'] = $cells[3];
-                    $games[$noGame]['score2_OT'] = $cells[4];
-                    $games[$noGame]['score2_T'] = $cells[5];
+            $game['team1'] = $score->teams->home->team->name;
+            $game['team2'] = $score->teams->away->team->name;
+
+            for ($period=0; $period <= 3; $period++) {
+                $realPeriod = $period + 1;
+
+                if ($period == 3) {
+                    $realPeriod = 'OT';
                 }
-                $home = false;
+
+                $game["score1_$realPeriod"] = $game["score2_$realPeriod"] = -1;
+
+                if (isset($score->periods[$period])) {
+                    $periodScore = $score->periods[$period];
+
+
+                    $game["score1_$realPeriod"] = $periodScore->home->goals;
+                    $game["score2_$realPeriod"] = $periodScore->away->goals;
+                }
             }
+
+            $game['score1_T'] = $g->teams->home->score;
+            $game['score2_T'] = $g->teams->away->score;
+
+            $games[] = $game;
         }
 
         return $games;
@@ -98,6 +99,7 @@ class FetchGameScores extends Command
     private function saveGameScores($games)
     {
         $dateFetched = $this->fetchDate;
+
         foreach ($games as $game) {
             $team1_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team1']}'")->pluck('id');
             $team2_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team2']}'")->pluck('id');
