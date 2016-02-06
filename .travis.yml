@@ -1,5 +1,6 @@
 language: php
-sudo: false
+sudo: required
+dist: trusty
 
 php:
   - '7.0'
@@ -17,5 +18,5 @@ services:
   - redis-server
 
 script:
-  - vendor/bin/phpunit
+  - composer test
   - cd public/doc && dredd APIDoc.md
