@@ -98,7 +98,7 @@ class FetchGoalers extends Command
             $replace = ['LA', 'SJ', 'TB', 'NJ'];
             $replace_to = ['LAK', 'SJS', 'TBL', 'NJD'];
             $newPlayerTeam = str_replace($replace, $replace_to, $newPlayerTeam);
-            #echo $newPlayerTeam;
+            //echo $newPlayerTeam;
             $goalerTeamID = Models\Team::whereShortName($newPlayerTeam)->pluck('id');
 
             $goalerDB = Models\Player::firstOrNew([
