@@ -28,43 +28,34 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         /********* Fetch scores *********/
-        $schedule->command('nhl:fetch-scores')->cron('*/5 18-24 * * *')
-                 ->emailOutputTo('pelletiermaxime@gmail.com');
+        $schedule->command('nhl:fetch-scores')->cron('*/5 18-24 * * *');
 
         // Late games in the west
-        $schedule->command('nhl:fetch-scores --yesterday')->cron('*/5 0-1 * * *')
-                 ->emailOutputTo('pelletiermaxime@gmail.com');
+        $schedule->command('nhl:fetch-scores --yesterday')->cron('*/5 0-1 * * *');
 
         // Weekend games
-        $schedule->command('nhl:fetch-scores')->cron('*/5 13-17 * * 6-7')
-                 ->emailOutputTo('pelletiermaxime@gmail.com');
+        $schedule->command('nhl:fetch-scores')->cron('*/5 13-17 * * 6-7');
 
         // Futur games
-        $schedule->command('nhl:fetch-scores')->dailyAt('5:00')
-                 ->emailOutputTo('pelletiermaxime@gmail.com');
+        $schedule->command('nhl:fetch-scores')->dailyAt('5:00');
 
         /********* Fetch standings *********/
         //After weekend games
-        $schedule->command('nhl:fetch-standings')->cron('0 17 * * 6-7')
-                 ->emailOutputTo('pelletiermaxime@gmail.com');
+        $schedule->command('nhl:fetch-standings')->cron('0 17 * * 6-7');
 
-        $schedule->command('nhl:fetch-standings')->dailyAt('5:30')->emailOutputTo('pelletiermaxime@gmail.com');
-        $schedule->command('nhl:fetch-standings')->dailyAt('6:30')->emailOutputTo('pelletiermaxime@gmail.com');
-        $schedule->command('nhl:fetch-standings')->dailyAt('22:00')->emailOutputTo('pelletiermaxime@gmail.com');
-        $schedule->command('nhl:fetch-standings')->dailyAt('23:00')->emailOutputTo('pelletiermaxime@gmail.com');
+        $schedule->command('nhl:fetch-standings')->dailyAt('5:30');
+        $schedule->command('nhl:fetch-standings')->dailyAt('6:30');
+        $schedule->command('nhl:fetch-standings')->dailyAt('22:00');
+        $schedule->command('nhl:fetch-standings')->dailyAt('23:00');
 
         /********* Fetch player stats *********/
-        $schedule->command('nhl:fetch-players')->dailyAt('6:13')
-                 ->emailOutputTo('pelletiermaxime@gmail.com');
-        $schedule->command('nhl:fetch-players --TOI')->dailyAt('6:23')
-                 ->emailOutputTo('pelletiermaxime@gmail.com');
+        $schedule->command('nhl:fetch-players')->dailyAt('6:13');
+        $schedule->command('nhl:fetch-players --TOI')->dailyAt('6:23');
 
-        $schedule->command('nhl:fetch-players')->dailyAt('9:01')
-                 ->emailOutputTo('pelletiermaxime@gmail.com');
-        $schedule->command('nhl:fetch-players --TOI')->dailyAt('9:12')
-                 ->emailOutputTo('pelletiermaxime@gmail.com');
+        $schedule->command('nhl:fetch-players')->dailyAt('9:01');
+        $schedule->command('nhl:fetch-players --TOI')->dailyAt('9:12');
 
         /********* Fetch goaler stats *********/
-        $schedule->command('nhl:fetch-goalers')->dailyAt('6:40')->emailOutputTo('pelletiermaxime@gmail.com');
+        $schedule->command('nhl:fetch-goalers')->dailyAt('6:40');
     }
 }
