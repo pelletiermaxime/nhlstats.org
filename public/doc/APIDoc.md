@@ -43,7 +43,7 @@ FORMAT: 1A
 
 # Scores [/api/scores]
 
-## Show scores for a date. [GET /api/scores/{date}]
+## Show game scores for a date. [GET /api/scores/{date}]
 
 
 + Parameters
