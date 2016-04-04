@@ -8,7 +8,7 @@ $menu = [
 	'Scores'          => 'scores',
 	'Standings'       => 'standings',
 	'Teams'           => 'teams',
-	// 'Playoff Bracket' => 'playoff_bracket',
+	'Playoff Bracket' => 'playoff_bracket',
 ];
 
 if ($seasonEnded) {

@@ -4,6 +4,21 @@
  * Teams model config.
  */
 
+$year = [
+    'title'   => 'Year',
+    'type'    => 'enum',
+    'options' => [
+        '1415' => '2014-2015',
+        '1516' => '2015-2016',
+    ],
+];
+
+$round = [
+    'title'   => 'Round',
+    'type'    => 'enum',
+    'options' => ['1', '2', '3', '4'],
+];
+
 return [
 
     'title' => 'Playoff Rounds',
@@ -35,36 +50,16 @@ return [
      * The filter set
      */
     'filters' => [
-        'year' => [
-            'title'   => 'Year',
-            'type'    => 'enum',
-            'options' => [
-                '1415' => '2014-2015',
-            ],
-        ],
-        'round' => [
-            'title'   => 'Round',
-            'type'    => 'enum',
-            'options' => ['1', '2', '3', '4'],
-        ],
+        'year' => $year,
+        'round' => $round,
     ],
 
     /*
      * The editable fields
      */
     'edit_fields' => [
-        'year' => [
-            'title'   => 'Year',
-            'type'    => 'enum',
-            'options' => [
-                '1415 ' => '2014-2015',
-            ],
-        ],
-        'round' => [
-            'title'   => 'Round',
-            'type'    => 'enum',
-            'options' => ['1', '2', '3', '4'],
-        ],
+        'year' => $year,
+        'round' => $round,
         'date_start' => [
             'title' => 'Starting date',
             'type'  => 'date',
