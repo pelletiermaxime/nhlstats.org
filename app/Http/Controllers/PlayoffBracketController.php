@@ -2,18 +2,18 @@
 
 namespace Nhlstats\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Models;
 use Carbon\Carbon;
+use Nhlstats\Http\Models\GameScores;
+use Nhlstats\Http\Models\PlayoffRounds;
+use Nhlstats\Http\Models\PlayoffTeams;
 
 class PlayoffBracketController extends Controller
 {
     public function index()
     {
         $gamesEast = $gamesWest = [];
-        $rounds = Models\PlayoffRounds
-            ::where('year', '=', \Config::get('nhlstats.currentYear'))
-            ->get();
+        $rounds = PlayoffRounds::getForYear();
 
         foreach ($rounds as $round) {
             $noRound = $round->round;
@@ -47,10 +47,10 @@ class PlayoffBracketController extends Controller
             "games_{$conference}_{$noRound}",
             60,
             function () use ($conference, $noRound, $betweenDate) {
-                $games = Models\PlayoffTeams::byConference($conference, $noRound);
+                $games = PlayoffTeams::byConference($conference, $noRound);
                 foreach ($games as &$game) {
                     $wins[$game['team1_id']] = $wins[$game['team2_id']] = 0;
-                    $game['regularSeasonGames'] = Models\GameScores::betweenTeams(
+                    $game['regularSeasonGames'] = GameScores::betweenTeams(
                         $game['team1']['id'],
                         $game['team2']['id'],
                         $betweenDate

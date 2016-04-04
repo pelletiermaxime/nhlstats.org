@@ -2,9 +2,11 @@
 
 namespace Nhlstats\Console\Commands;
 
+use DB;
 use Goutte\Client;
 use Illuminate\Console\Command;
 use Nhlstats\Http\Models;
+use Nhlstats\Http\Repositories\PlayoffRepository;
 
 class FetchStandings extends Command
 {
@@ -41,7 +43,7 @@ class FetchStandings extends Command
 
     private function saveStandings($teams)
     {
-        Models\Standings::where('year', \Config::get('nhlstats.currentYear'))->delete();
+        Models\Standings::where('year', config('nhlstats.currentYear'))->delete();
         foreach ($teams as $team) {
             $tabTeam = explode('-', $team['Team']);
             if (isset($tabTeam[1])) {
@@ -57,7 +59,7 @@ class FetchStandings extends Command
             }
             Models\Standings::create([
                 'team_id' => $team_id,
-                'year'    => \Config::get('nhlstats.currentYear'),
+                'year'    => config('nhlstats.currentYear'),
                 'gp'      => $team['GP'],
                 'w'       => $team['W'],
                 'l'       => $team['L'],
@@ -84,12 +86,12 @@ class FetchStandings extends Command
     private function saveStandingsPositions()
     {
         // Get overall teams positions by ordering in SQL
-        $query = \DB::table('standings')
+        $query = DB::table('standings')
             ->select('standings.id')
             ->orderBy('PTS', 'DESC')
             ->orderBy('gp', 'ASC')
             ->orderBy('row', 'DESC')
-            ->where('standings.year', \Config::get('nhlstats.currentYear'))
+            ->where('standings.year', config('nhlstats.currentYear'))
         ;
         $standings = $query->get();
 
@@ -98,7 +100,7 @@ class FetchStandings extends Command
         }
 
         // Get conference teams positions by ordering in SQL
-        $query = \DB::table('standings')
+        $query = DB::table('standings')
             ->select(['standings.id', 'conference'])
             ->join('teams', 'teams.id', '=', 'standings.team_id')
             ->join('divisions', 'divisions.id', '=', 'teams.division_id')
@@ -106,11 +108,12 @@ class FetchStandings extends Command
             ->orderBy('PTS', 'DESC')
             ->orderBy('gp', 'ASC')
             ->orderBy('row', 'DESC')
-            ->where('standings.year', \Config::get('nhlstats.currentYear'))
+            ->where('standings.year', config('nhlstats.currentYear'))
         ;
         $standings = $query->get();
         $previousConference = '';
         $position = 1;
+
         foreach ($standings as $row) {
             if ($row->conference != $previousConference) {
                 $position = 1;
@@ -145,7 +148,6 @@ class FetchStandings extends Command
             ++$noParametre;
             if ($noParametre >= $paramCount) {
                 //Next row of table, so increment team
-
                 $noParametre = 0;
                 ++$noTeam;
             }
@@ -175,7 +177,7 @@ class FetchStandings extends Command
 
     private function generatePlayoffTeams()
     {
-        $playoff = app('Nhlstats\Http\Repositories\PlayoffRepository');
+        $playoff = app(PlayoffRepository::class);
 
         $gamesEast = $playoff->getPlayoffGamesEast();
         $this->savePlayoffTeams($gamesEast, 'EAST');
@@ -189,7 +191,7 @@ class FetchStandings extends Command
      */
     private function savePlayoffTeams($games, $conference)
     {
-        Models\PlayoffTeams::where('year', \Config::get('nhlstats.currentYear'))
+        Models\PlayoffTeams::where('year', config('nhlstats.currentYear'))
             ->where('conference', $conference)
             ->delete();
         foreach ($games as $division) {
@@ -205,7 +207,7 @@ class FetchStandings extends Command
                     'team2_position' => $game['team2']->positionConference,
                     'conference'     => $conference,
                     'round'          => $round,
-                    'year'           => \Config::get('nhlstats.currentYear'),
+                    'year'           => config('nhlstats.currentYear'),
                 ]);
                 $playoffTeams->save();
             }

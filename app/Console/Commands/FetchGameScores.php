@@ -122,7 +122,7 @@ class FetchGameScores extends Command
             // $gameDB->score2_SO = $game['score2_SO'];
             $gameDB->score2_T = $game['score2_T'];
 
-            $gameDB->year = \Config::get('nhlstats.currentYear');
+            $gameDB->year = config('nhlstats.currentYear');
             $gameDB->save();
         }
     }

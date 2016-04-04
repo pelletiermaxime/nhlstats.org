@@ -2,6 +2,7 @@
 
 namespace Nhlstats\Http\Models;
 
+use Cache;
 use Illuminate\Database\Eloquent\Model;
 use Nhlstats\Http\Models;
 
@@ -30,9 +31,9 @@ class PlayoffTeams extends Model
      */
     public static function byConference(string $conference, int $round = 1): array
     {
-        return \Cache::remember("playoffGames_{$conference}_{$round}", 60, function () {
+        return Cache::remember("playoffGames_{$conference}_{$round}", 60, function () use ($conference, $round) {
             return Models\PlayoffTeams::whereConference($conference)
-                ->where('year', '=', \Config::get('nhlstats.currentYear'))
+                ->where('year', '=', config('nhlstats.currentYear'))
                 ->whereRound($round)
                 ->with('Team1')
                 ->with('Team2')
