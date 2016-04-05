@@ -2,13 +2,18 @@
 
 namespace Nhlstats\Http\Controllers;
 
+use Auth;
+use DB;
+use Input;
 use Nhlstats\Http\Models;
+use Nhlstats\Http\Models\PlayoffChoices;
+use Nhlstats\Http\Models\PlayoffTeams;
 
 class PoolController extends Controller
 {
     public function __construct()
     {
-        $this->rounds = \Config::get('nhlstats.rounds');
+        $this->rounds = config('nhlstats.rounds');
     }
 
     /**
@@ -19,8 +24,6 @@ class PoolController extends Controller
     public function index()
     {
         $choicesByUsers = Models\PlayoffChoices::getChoicesByUsers();
-        // var_dump($playoffChoices);
-        // die;
         return view('pool/list')
             ->with('choicesByUsers', $choicesByUsers)
         ;
@@ -33,13 +36,13 @@ class PoolController extends Controller
      */
     public function store()
     {
-        $playoffTeams = \Input::get('WinningTeamId');
-        $games = \Input::get('NbGames');
-        $round = \Input::get('round');
-        $currentYear = \Config::get('nhlstats.currentYear');
+        $playoffTeams = Input::get('WinningTeamId');
+        $games = Input::get('NbGames');
+        $round = Input::get('round');
+        $currentYear = config('nhlstats.currentYear');
         foreach ($playoffTeams as $playoff_team_id => $winning_team_id) {
-            $playoffChoices = Models\PlayoffChoices::firstOrNew([
-                'user_id'         => \Auth::user()->id,
+            $playoffChoices = PlayoffChoices::firstOrNew([
+                'user_id'         => Auth::user()->id,
                 'playoff_team_id' => $playoff_team_id,
             ]);
             $playoffChoices->winning_team_id = $winning_team_id;
@@ -49,7 +52,7 @@ class PoolController extends Controller
             $playoffChoices->save();
         }
 
-        return \Redirect::route('pool_me')->withSuccess('Pool choices saved');
+        return redirect('pool_me')->withSuccess('Pool choices saved');
     }
 
     /**
@@ -61,7 +64,7 @@ class PoolController extends Controller
      */
     public function show($user_id, $round)
     {
-        $query = \DB::table('playoff_choices')
+        $query = DB::table('playoff_choices')
             ->join('playoff_teams', 'playoff_teams.id', '=', 'playoff_choices.playoff_team_id')
             ->join('teams', 'teams.id', '=', 'playoff_choices.winning_team_id')
             ->whereUserId($user_id)
@@ -85,7 +88,7 @@ class PoolController extends Controller
      */
     public function edit()
     {
-        $user_id = \Auth::user()->id;
+        $user_id = Auth::user()->id;
         $view = '';
 
         foreach ($this->rounds as $round => $date) {
@@ -97,8 +100,8 @@ class PoolController extends Controller
                 continue;
             }
 
-            $gamesEast = Models\PlayoffTeams::byConference('EAST', $round);
-            $gamesWest = Models\PlayoffTeams::byConference('WEST', $round);
+            $gamesEast = PlayoffTeams::byConference('EAST', $round);
+            $gamesWest = PlayoffTeams::byConference('WEST', $round);
             $playoffTeams = array_merge($gamesEast, $gamesWest);
             if (count($playoffTeams) > 0) {
                 $view .= view('pool/me')
@@ -108,8 +111,6 @@ class PoolController extends Controller
             }
         }
 
-        return view('pool/edit')
-                ->with('view', $view)
-            ;
+        return view('pool/edit')->withView($view);
     }
 }

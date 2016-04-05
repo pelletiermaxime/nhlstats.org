@@ -1,7 +1,7 @@
 <?php
 $today = date("Y-m-d");
-$seasonEnded = $today > \Config::get('nhlstats.seasonEnds');
-$round1Started = $today >= \Config::get('nhlstats.playoffStart');
+$seasonEnded = $today > config('nhlstats.seasonEnds');
+$round1Started = $today >= config('nhlstats.playoffStart');
 $menu = [
 	'Players'         => 'index',
 	'Goalers'         => 'goalers',
@@ -21,7 +21,7 @@ $menuAliases = [
 	'standings_wildcard' => 'standings',
 ];
 
-if (\Auth::user()) //Logged-in
+if (Auth::user()) //Logged-in
 {
 	if ($seasonEnded) {
 		$menu['Pool choices'] = 'pool_me';
