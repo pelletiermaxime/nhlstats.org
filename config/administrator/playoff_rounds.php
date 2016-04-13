@@ -50,7 +50,7 @@ return [
      * The filter set
      */
     'filters' => [
-        'year' => $year,
+        'year'  => $year,
         'round' => $round,
     ],
 
@@ -58,8 +58,8 @@ return [
      * The editable fields
      */
     'edit_fields' => [
-        'year' => $year,
-        'round' => $round,
+        'year'       => $year,
+        'round'      => $round,
         'date_start' => [
             'title' => 'Starting date',
             'type'  => 'date',
