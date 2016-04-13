@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Requests;
+namespace Nhlstats\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

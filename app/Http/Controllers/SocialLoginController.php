@@ -3,6 +3,8 @@
 namespace Nhlstats\Http\Controllers;
 
 use Nhlstats\User;
+use Auth;
+use Socialize;
 
 class SocialLoginController extends Controller
 {
@@ -13,12 +15,17 @@ class SocialLoginController extends Controller
 
     public function doLogin($type)
     {
-        return \Socialize::with($type)->redirect();
+        if (App::environment('local')) {
+            $user = User::first();
+            Auth::login($user, true);
+            redirect('/');
+        }
+        return Socialize::with($type)->redirect();
     }
 
     public function logged_in($type)
     {
-        $userData = \Socialize::with($type)->user();
+        $userData = Socialize::with($type)->user();
         $username = $userData->nickname;
         if (empty($username)) {
             $username = $userData->email;
@@ -29,15 +36,15 @@ class SocialLoginController extends Controller
         ]);
         $user->save();
 
-        \Auth::login($user, true);
+        Auth::login($user, true);
 
-        return \Redirect::to('/');
+        return redirect('/');
     }
 
     public function logout()
     {
-        \Auth::logout();
+        Auth::logout();
 
-        return \Redirect::to('/');
+        return redirect('/');
     }
 }
