@@ -2,7 +2,6 @@
 
 namespace Nhlstats\Http\Controllers;
 
-use App\Http\Models;
 use Carbon\Carbon;
 use Nhlstats\Http\Models\GameScores;
 use Nhlstats\Http\Models\PlayoffRounds;

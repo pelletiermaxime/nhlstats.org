@@ -2,8 +2,8 @@
 
 namespace Nhlstats\Http\Controllers;
 
-use Nhlstats\User;
 use Auth;
+use Nhlstats\User;
 use Socialize;
 
 class SocialLoginController extends Controller
@@ -20,6 +20,7 @@ class SocialLoginController extends Controller
             Auth::login($user, true);
             redirect('/');
         }
+
         return Socialize::with($type)->redirect();
     }
 

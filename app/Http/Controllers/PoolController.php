@@ -23,6 +23,7 @@ class PoolController extends Controller
     public function index()
     {
         $choicesByUsers = PlayoffChoices::getChoicesByUsers();
+
         return view('pool/list')
             ->with('choicesByUsers', $choicesByUsers)
         ;
@@ -51,7 +52,7 @@ class PoolController extends Controller
             $playoffChoices->save();
         }
 
-        return redirect('pool_me')->withSuccess('Pool choices saved');
+        return redirect()->route('pool_me')->withSuccess('Pool choices saved');
     }
 
     /**

@@ -16,7 +16,7 @@ class PlayoffGames extends Model
      */
     public function byConference($conference, $round = 1)
     {
-        $gamesEast = Cache::remember('playoffGames_'.$conference, 60, function () {
+        $gamesEast = Cache::remember('playoffGames_' . $conference, 60, function () {
         return PlayoffTeams::whereConference($conference)
             ->with('Team1')
             ->with('Team2')

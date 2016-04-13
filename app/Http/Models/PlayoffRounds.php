@@ -16,6 +16,7 @@ class PlayoffRounds extends Model
         if ($year == null) {
             $year = config('nhlstats.currentYear');
         }
+
         return self::where('year', $year)->get();
     }
 }
