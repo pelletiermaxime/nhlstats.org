@@ -61,7 +61,7 @@ class FetchPlayers extends Command
         while ($currentPage <= $endingPage) {
             $fetchCount = ($currentPage - 1) * 40 + 1;
             $regularSeasonUrl = 'http://espn.go.com/nhl/statistics/player/_/stat/points/sort/points/seasontype/2/count/';
-            $crawler = $this->client->request('GET', $regularSeasonUrl.$fetchCount);
+            $crawler = $this->client->request('GET', $regularSeasonUrl . $fetchCount);
             $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
 
             $noParametre = 0;
@@ -107,7 +107,7 @@ class FetchPlayers extends Command
         while ($currentPage <= $endingPage) {
             $fetchCount = ($currentPage - 1) * 40 + 1;
             $regularSeasonUrl = 'http://espn.go.com/nhl/statistics/player/_/stat/timeonice/sort/avgTimeOnIce/count/';
-            $crawler = $this->client->request('GET', $regularSeasonUrl.$fetchCount);
+            $crawler = $this->client->request('GET', $regularSeasonUrl . $fetchCount);
             $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
 
             $noParametre = 0;

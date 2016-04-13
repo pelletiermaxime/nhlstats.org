@@ -73,7 +73,7 @@ class PlayerController extends Controller
         $filter['teams.short_name'] = ['=', $team];
         $filter['players.position'] = ['=', $position];
         $filter['players.year'] = ['=', \Config::get('nhlstats.currentYear')];
-        $filter_string = implode('', array_flatten($filter))."=$name=$count";
+        $filter_string = implode('', array_flatten($filter)) . "=$name=$count";
         $playersStatsYear = Cache::remember(
             "playersStatsYear-{$filter_string}",
             60,

@@ -52,7 +52,7 @@ class PoolController extends Controller
             $playoffChoices->save();
         }
 
-        return redirect('pool_me')->withSuccess('Pool choices saved');
+        return redirect()->route('pool_me')->withSuccess('Pool choices saved');
     }
 
     /**
