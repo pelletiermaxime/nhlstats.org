@@ -5,7 +5,6 @@ namespace Nhlstats\Http\Controllers;
 use Auth;
 use DB;
 use Input;
-use Nhlstats\Http\Models;
 use Nhlstats\Http\Models\PlayoffChoices;
 use Nhlstats\Http\Models\PlayoffTeams;
 
@@ -23,7 +22,7 @@ class PoolController extends Controller
      */
     public function index()
     {
-        $choicesByUsers = Models\PlayoffChoices::getChoicesByUsers();
+        $choicesByUsers = PlayoffChoices::getChoicesByUsers();
         return view('pool/list')
             ->with('choicesByUsers', $choicesByUsers)
         ;
