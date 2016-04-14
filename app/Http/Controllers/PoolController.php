@@ -6,13 +6,14 @@ use Auth;
 use DB;
 use Input;
 use Nhlstats\Http\Models\PlayoffChoices;
+use Nhlstats\Http\Models\PlayoffRounds;
 use Nhlstats\Http\Models\PlayoffTeams;
 
 class PoolController extends Controller
 {
     public function __construct()
     {
-        $this->rounds = config('nhlstats.rounds');
+        $this->rounds = PlayoffRounds::getForYear();
     }
 
     /**
@@ -58,11 +59,11 @@ class PoolController extends Controller
     /**
      * Show an user's pool choices.
      *
-     * @param int $round
+     * @param  int    $round   Round number
      *
-     * @return bool Was there choices to show ?
+     * @return View|bool Was there choices to show ?
      */
-    public function show($user_id, $round)
+    public function show(int $user_id, int $round)
     {
         $query = DB::table('playoff_choices')
             ->join('playoff_teams', 'playoff_teams.id', '=', 'playoff_choices.playoff_team_id')
@@ -91,8 +92,10 @@ class PoolController extends Controller
         $user_id = Auth::user()->id;
         $view = '';
 
-        foreach ($this->rounds as $round => $date) {
-            $resultView = $this->show($user_id, $round);
+        foreach ($this->rounds as $round) {
+            $roundNumber = $round->round;
+
+            $resultView = $this->show($user_id, $roundNumber);
             $view .= $resultView;
 
             // There's choices for this round, so don't show choice form
@@ -100,13 +103,13 @@ class PoolController extends Controller
                 continue;
             }
 
-            $gamesEast = PlayoffTeams::byConference('EAST', $round);
-            $gamesWest = PlayoffTeams::byConference('WEST', $round);
+            $gamesEast = PlayoffTeams::byConference('EAST', $roundNumber);
+            $gamesWest = PlayoffTeams::byConference('WEST', $roundNumber);
             $playoffTeams = array_merge($gamesEast, $gamesWest);
             if (count($playoffTeams) > 0) {
                 $view .= view('pool/me')
                     ->with('playoffTeams', $playoffTeams)
-                    ->withRound($round)
+                    ->withRound($roundNumber)
                 ;
             }
         }

@@ -1,7 +1,10 @@
 <?php
+use Nhlstats\Http\Models\PlayoffRounds;
+
 $today = date("Y-m-d");
 $seasonEnded = $today > config('nhlstats.seasonEnds');
-$round1Started = $today >= config('nhlstats.playoffStart');
+$round1Started = $today >= PlayoffRounds::getForYear()[0]['date_start'];
+
 $menu = [
 	'Players'         => 'index',
 	'Goalers'         => 'goalers',
@@ -23,7 +26,7 @@ $menuAliases = [
 
 if (Auth::user()) //Logged-in
 {
-	if ($seasonEnded) {
+	if ($seasonEnded && !$round1Started) {
 		$menu['Pool choices'] = 'pool_me';
 	}
 	$menu['Logout'] = 'user_logout';
