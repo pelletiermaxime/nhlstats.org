@@ -24,10 +24,9 @@ class PlayoffTeams extends Model
     /**
      * Return all playoff games for a conference and a round.
      *
-     * @param string $conference EAST|WEST
-     * @param int    $round
+     * @param $conference EAST|WEST
      *
-     * @return array Games including teams
+     * @return Games including teams
      */
     public static function byConference(string $conference, int $round = 1): array
     {

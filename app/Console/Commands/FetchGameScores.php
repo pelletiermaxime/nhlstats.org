@@ -98,10 +98,15 @@ class FetchGameScores extends Command
     private function saveGameScores($games)
     {
         $dateFetched = $this->fetchDate;
+        $currentYear = config('nhlstats.currentYear');
 
         foreach ($games as $game) {
-            $team1_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team1']}'")->pluck('id');
-            $team2_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team2']}'")->pluck('id');
+            $team1_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team1']}'")
+                ->where('year', $currentYear)
+                ->pluck('id');
+            $team2_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team2']}'")
+                ->where('year', $currentYear)
+                ->pluck('id');
 
             $gameDB = Models\GameScores::firstOrNew([
                 'date_game' => $dateFetched,
@@ -122,7 +127,7 @@ class FetchGameScores extends Command
             // $gameDB->score2_SO = $game['score2_SO'];
             $gameDB->score2_T = $game['score2_T'];
 
-            $gameDB->year = config('nhlstats.currentYear');
+            $gameDB->year = $currentYear;
             $gameDB->save();
         }
     }
