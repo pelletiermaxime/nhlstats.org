@@ -83,7 +83,7 @@ class PoolController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit/fill playoff pool choices.
      *
      * @return Response
      */

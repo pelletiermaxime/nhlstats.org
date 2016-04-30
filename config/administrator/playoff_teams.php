@@ -39,6 +39,9 @@ return [
         'team2_position' => [
             'title' => 'Position',
         ],
+        'year' => [
+            'title' => 'Year',
+        ],
     ],
 
     /*
@@ -50,6 +53,9 @@ return [
         ],
         'conference' => [
             'title' => 'Conference',
+        ],
+        'year' => [
+            'title' => 'Year',
         ],
     ],
 
@@ -66,18 +72,18 @@ return [
         'team1' => [
             'title'      => 'Team 1',
             'type'       => 'relationship',
-            'name_field' => 'name',
-        ],
-        'team1_position' => [
-            'title' => 'Position team 1',
+            'name_field' => 'city_and_name',
+            'options_filter' => function ($query) {
+                $query->where('year', config('nhlstats.currentYear'));
+            },
         ],
         'team2' => [
             'title'      => 'Team 2',
             'type'       => 'relationship',
-            'name_field' => 'name',
-        ],
-        'team2_position' => [
-            'title' => 'Position team 2',
+            'name_field' => 'city_and_name',
+            'options_filter' => function ($query) {
+                $query->where('year', config('nhlstats.currentYear'));
+            },
         ],
     ],
 

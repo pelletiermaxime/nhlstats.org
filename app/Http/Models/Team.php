@@ -12,6 +12,11 @@ class Team extends Model
         return $this->belongsTo('Nhlstats\Http\Models\Division');
     }
 
+    public function getCityAndNameAttribute()
+    {
+        return $this->city . ' ' . $this->name;
+    }
+
     public static function byDivision(int $year)
     {
         $query = DB::table('teams')

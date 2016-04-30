@@ -6,34 +6,32 @@ $seasonEnded = $today > config('nhlstats.seasonEnds');
 $round1Started = $today >= PlayoffRounds::getForYear()[0]['date_start'];
 
 $menu = [
-	'Players'         => 'index',
-	'Goalers'         => 'goalers',
-	'Scores'          => 'scores',
-	'Standings'       => 'standings',
-	'Teams'           => 'teams',
-	'Playoff Bracket' => 'playoff_bracket',
+    'Players'         => 'index',
+    'Goalers'         => 'goalers',
+    'Scores'          => 'scores',
+    'Standings'       => 'standings',
+    'Teams'           => 'teams',
+    'Playoff Bracket' => 'playoff_bracket',
 ];
 
 if ($seasonEnded) {
-	$menu['Pool Players'] = 'pool_index';
+    $menu['Pool Players'] = 'pool_index';
 }
 
 $menuAliases = [
-	'players_filtered'   => 'index',
-	'standings_division' => 'standings',
-	'standings_wildcard' => 'standings',
+    'players_filtered'   => 'index',
+    'standings_division' => 'standings',
+    'standings_wildcard' => 'standings',
 ];
 
-if (Auth::user()) //Logged-in
-{
-	if ($seasonEnded && !$round1Started) {
-		$menu['Pool choices'] = 'pool_me';
-	}
-	$menu['Logout'] = 'user_logout';
-}
-else
-{
-	$menu['Login']  = 'user_login';
+if (Auth::user()) {
+    //Logged-in
+    if ($seasonEnded) {
+        $menu['Pool choices'] = 'pool_me';
+    }
+    $menu['Logout'] = 'user_logout';
+} else {
+    $menu['Login']  = 'user_login';
 }
 
 $currentRouteName = Route::currentRouteName();
