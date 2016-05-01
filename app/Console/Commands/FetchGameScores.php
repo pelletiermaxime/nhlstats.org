@@ -40,10 +40,9 @@ class FetchGameScores extends Command
     public function fire()
     {
         $this->client = new Client();
+        $this->fetchDate = $this->argument('date');
         if ($this->option('yesterday') === true) {
             $this->fetchDate = Carbon::yesterday()->format('Y-m-d');
-        } else {
-            $this->fetchDate = $this->argument('date');
         }
 
         $games = $this->getScoresArray();
@@ -54,7 +53,6 @@ class FetchGameScores extends Command
     {
         $date = Carbon::parse($this->fetchDate)->format('Y-m-d');
 
-        // $gameDayURL = "http://scores.espn.go.com/nhl/scoreboard?date=$dateESPN";
         $gameDayURL = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=$date&endDate=$date";
         $gameDayURL .= '&expand=schedule.teams,schedule.linescore,schedule.decisions,schedule.scoringplays';
 
@@ -68,6 +66,8 @@ class FetchGameScores extends Command
 
             $game['team1'] = $score->teams->home->team->name;
             $game['team2'] = $score->teams->away->team->name;
+
+            $game['status'] = $g->status->detailedState;
 
             for ($period = 0; $period <= 3; $period++) {
                 $realPeriod = $period + 1;
@@ -126,6 +126,8 @@ class FetchGameScores extends Command
             $gameDB->score2_OT = $game['score2_OT'];
             // $gameDB->score2_SO = $game['score2_SO'];
             $gameDB->score2_T = $game['score2_T'];
+
+            $gameDB->status = $game['status'];
 
             $gameDB->year = $currentYear;
             $gameDB->save();
