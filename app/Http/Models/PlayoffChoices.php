@@ -48,9 +48,7 @@ class PlayoffChoices extends Model
 
         $rounds = PlayoffRounds::getForYear();
 
-        $winners = [];
         foreach ($rounds as $round) {
-            $noRound = $round->round;
             $winners = PlayoffRounds::getWinners($round);
 
             foreach ($choicesByUsers as $username => $userChoices) {
@@ -58,22 +56,29 @@ class PlayoffChoices extends Model
                     $userPoints[$username]  = 0;
                 }
                 foreach ($userChoices as $userChoice) {
-                    if (isset($winners[$userChoice->id])) {
-                        $userPoints[$username] += 5; // Right team
-
-                        $winInGames = $winners[$userChoice->id];
-                        if ($winInGames == $userChoice->games) {
-                            $userPoints[$username] += 3; //Right nb of games
-                        }
-                        if ($winInGames + 1 == $userChoice->games ||
-                            $winInGames - 1 == $userChoice->games) {
-                            $userPoints[$username] += 1; //Right nb of games
-                        }
-                    }
+                    $userPoints[$username] += self::getPointsForRightGameChoices($winners, $userChoice);
                 }
             }
         }
 
         return $userPoints;
+    }
+
+    private static function getPointsForRightGameChoices(array $winners, \stdClass $userChoice) : int
+    {
+        $points = 0;
+        if (isset($winners[$userChoice->id])) {
+            $points += 5; // Right team
+
+            $resultNbGames = $winners[$userChoice->id];
+            if ($resultNbGames == $userChoice->games) {
+                $points += 3; //Right nb of games
+            }
+            if ($resultNbGames + 1 == $userChoice->games ||
+                $resultNbGames - 1 == $userChoice->games) {
+                $points += 1; //+- 1 game
+            }
+        }
+        return $points;
     }
 }
