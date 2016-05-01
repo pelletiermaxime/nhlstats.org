@@ -59,7 +59,7 @@ class PoolController extends Controller
     /**
      * Show an user's pool choices.
      *
-     * @param  int    $round   Round number
+     * @param int $round Round number
      *
      * @return View|bool Was there choices to show ?
      */

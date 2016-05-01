@@ -3,7 +3,6 @@
 /**
  * Teams model config.
  */
-
 $year = [
     'title'   => 'Year',
     'type'    => 'enum',

@@ -70,17 +70,17 @@ return [
             'title' => 'Conference',
         ],
         'team1' => [
-            'title'      => 'Team 1',
-            'type'       => 'relationship',
-            'name_field' => 'city_and_name',
+            'title'          => 'Team 1',
+            'type'           => 'relationship',
+            'name_field'     => 'city_and_name',
             'options_filter' => function ($query) {
                 $query->where('year', config('nhlstats.currentYear'));
             },
         ],
         'team2' => [
-            'title'      => 'Team 2',
-            'type'       => 'relationship',
-            'name_field' => 'city_and_name',
+            'title'          => 'Team 2',
+            'type'           => 'relationship',
+            'name_field'     => 'city_and_name',
             'options_filter' => function ($query) {
                 $query->where('year', config('nhlstats.currentYear'));
             },
