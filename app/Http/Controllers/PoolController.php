@@ -24,9 +24,11 @@ class PoolController extends Controller
     public function index()
     {
         $choicesByUsers = PlayoffChoices::getChoicesByUsers();
+        $pointsByUsers = PlayoffChoices::getPointsByUsers($choicesByUsers);
 
         return view('pool/list')
             ->with('choicesByUsers', $choicesByUsers)
+            ->with('pointsByUsers', $pointsByUsers)
         ;
     }
 
