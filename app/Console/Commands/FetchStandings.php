@@ -85,6 +85,7 @@ class FetchStandings extends Command
 
     private function saveStandingsPositions()
     {
+        $rowsStanding = [];
         // Get overall teams positions by ordering in SQL
         $query = DB::table('standings')
             ->select('standings.id')
@@ -132,8 +133,9 @@ class FetchStandings extends Command
         }
     }
 
-    private function getTeamsArray()
+    private function getTeamsArray() : array
     {
+        $teams = [];
         $params = ['Team', 'GP', 'W', 'L', 'OTL', 'PTS', 'ROW', 'SOW', 'SOL', 'HOME',
             'ROAD', 'GF', 'GA', 'Diff', 'L10', 'Streak', ];
         $paramCount = count($params);
@@ -144,7 +146,7 @@ class FetchStandings extends Command
         $noParametre = 0;
         $noTeam = 1;
         foreach ($cells as $cell) {
-            $team[$noTeam][$params[$noParametre]] = trim($cell);
+            $teams[$noTeam][$params[$noParametre]] = trim($cell);
             ++$noParametre;
             if ($noParametre >= $paramCount) {
                 //Next row of table, so increment team
@@ -162,7 +164,7 @@ class FetchStandings extends Command
         $noParametre = 0;
         $noTeam = 1;
         foreach ($cells as $cell) {
-            $team[$noTeam][$params[$noParametre]] = trim($cell);
+            $teams[$noTeam][$params[$noParametre]] = trim($cell);
             ++$noParametre;
             if ($noParametre >= $paramCount) {
                 //Next row of table, so increment team
@@ -172,7 +174,7 @@ class FetchStandings extends Command
             }
         }
 
-        return $team;
+        return $teams;
     }
 
     private function generatePlayoffTeams()
@@ -198,7 +200,6 @@ class FetchStandings extends Command
             foreach ($division as $game) {
                 $team1 = $game['team1']->team_id;
                 $team2 = $game['team2']->team_id;
-                $conference = $conference;
                 $round = 1;
                 $playoffTeams = Models\PlayoffTeams::firstOrNew([
                     'team1_id'       => $team1,

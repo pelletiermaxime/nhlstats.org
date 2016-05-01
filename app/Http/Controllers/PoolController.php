@@ -11,6 +11,9 @@ use Nhlstats\Http\Models\PlayoffTeams;
 
 class PoolController extends Controller
 {
+    /** @var PlayoffRounds */
+    private $rounds;
+
     public function __construct()
     {
         $this->rounds = PlayoffRounds::getForYear();
