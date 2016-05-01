@@ -29,6 +29,7 @@ class PlayoffBracketController extends Controller
     private function getPlayoffBracket($conference, $round)
     {
         $games = $wins = [];
+        $finalScoresToday = '';
 
         $dateToday        = Carbon::today();
         $dateCurrentRound = $round->date_start;
@@ -37,10 +38,11 @@ class PlayoffBracketController extends Controller
 
         // Don't show scores for today
         if ($dateNextRound > $dateToday->format('Y-m-d')) {
+            $finalScoresToday = "OR (date_game = '$dateToday' AND status = 'Final')";
             $dateNextRound = $dateToday->subDay();
         }
 
-        $betweenDate = "BETWEEN '$dateCurrentRound' AND '$dateNextRound'";
+        $betweenDate = "BETWEEN '$dateCurrentRound' AND '$dateNextRound' $finalScoresToday";
 
         return \Cache::tags('playoffs')->remember(
             "games_{$conference}_{$noRound}",
