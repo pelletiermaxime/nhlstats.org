@@ -9,9 +9,10 @@
 
 <div class="scores_page">
 @foreach ($scores as $s)
-<div class="game">
+
+<div class="game panel panel-default">
 	<div class="game_header">
-		<div class="team_name">&nbsp;</div>
+		<div class="team_name">{{ $s['status'] }}</div>
 		<div>1</div>
 		<div>2</div>
 		<div>3</div>

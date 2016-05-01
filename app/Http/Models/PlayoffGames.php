@@ -11,7 +11,6 @@ class PlayoffGames extends Model
      *
      * @param $conference EAST|WEST
      * @param $round
-     *
      */
     public function byConference(string $conference, int $round = 1)
     {

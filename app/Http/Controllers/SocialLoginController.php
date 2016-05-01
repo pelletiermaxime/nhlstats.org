@@ -19,6 +19,7 @@ class SocialLoginController extends Controller
         if (App::environment('local')) {
             $user = User::first();
             Auth::login($user, true);
+
             return redirect('/');
         }
 
