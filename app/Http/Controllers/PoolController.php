@@ -11,6 +11,9 @@ use Nhlstats\Http\Models\PlayoffTeams;
 
 class PoolController extends Controller
 {
+    /** @var PlayoffRounds */
+    private $rounds;
+
     public function __construct()
     {
         $this->rounds = PlayoffRounds::getForYear();
@@ -23,12 +26,13 @@ class PoolController extends Controller
      */
     public function index()
     {
-        $choicesByUsers = PlayoffChoices::getChoicesByUsers();
-        $pointsByUsers = PlayoffChoices::getPointsByUsers($choicesByUsers);
+        $choices = PlayoffChoices::getChoices();
+        $pointsByRoundsForUsers = PlayoffChoices::getPointsByRoundsForUsers($choices);
+
+        $choicesByUsernameAndRounds = PlayoffChoices::formatChoicesByUsernameAndRounds($choices, $pointsByRoundsForUsers);
 
         return view('pool/list')
-            ->with('choicesByUsers', $choicesByUsers)
-            ->with('pointsByUsers', $pointsByUsers)
+            ->with('choicesByUsernameAndRounds', $choicesByUsernameAndRounds)
         ;
     }
 

@@ -9,10 +9,8 @@ class PlayerPageController extends Controller
     /**
      * Show info and daily stats for a player.
      *
-     * @param int    $id   player_id
-     * @param string $name player's full_name
+     * @param $name player's full_name
      *
-     * @return View
      */
     public function index(int $player_id, string $name)
     {

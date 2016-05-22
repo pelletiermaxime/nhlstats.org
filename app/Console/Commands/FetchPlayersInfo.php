@@ -36,7 +36,7 @@ class FetchPlayersInfo extends Command
     public function fire()
     {
         $this->client = new Client();
-        $playersInfo = $this->getPlayersInfo();
+        $this->getPlayersInfo();
     }
 
     private function getPlayersInfo()
@@ -114,23 +114,17 @@ class FetchPlayersInfo extends Command
 
     /**
      * Get the console command arguments.
-     *
-     * @return array
      */
-    protected function getArguments()
+    protected function getArguments() : array
     {
-        return [
-        ];
+        return [];
     }
 
     /**
      * Get the console command options.
-     *
-     * @return array
      */
-    protected function getOptions()
+    protected function getOptions() : array
     {
-        return [
-        ];
+        return [];
     }
 }

@@ -65,6 +65,8 @@ class Standings extends Model
 
     public function byWildcard()
     {
+        $wildCard = $wildCardConference = [];
+
         $byDivision = $this->byDivision();
         $byConference = $this->byConference();
         //Get the standings by division

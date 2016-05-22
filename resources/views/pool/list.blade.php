@@ -12,21 +12,32 @@
 <thead>
     <tr>
         <th>User</th>
+        <th colspan="{{ count($choicesByUsernameAndRounds) }}">Choices</th>
+        <th>Total</th>
     </tr>
 </thead>
 <tbody>
-@foreach ($choicesByUsers as $username => $userChoices)
+@foreach ($choicesByUsernameAndRounds as $username => $rounds)
 <tr>
     <td>{{ $username }}</td>
-    @foreach ($userChoices as $choice)
-    <td>
-        <img height="35" src="/images/SVG/{{ $choice->short_name }}.svg"
-            alt="{{ $choice->city }} {{ $choice->name }}" />
-        <br />
-        in {{ $choice->games }}
-    </td>
+    <? $total = 0; ?>
+    @foreach ($rounds as $noRound => $userChoices)
+        @foreach ($userChoices['choices'] as $choice)
+        <td>
+            <img height="35" src="/images/SVG/{{ $choice->short_name }}.svg"
+                alt="{{ $choice->city }} {{ $choice->name }}" />
+            <br />
+            in {{ $choice->games }}
+        </td>
+        @endforeach
+        <td style="border:1px solid red;width:30px;text-align:center;">
+            <? $total += $userChoices['points'] ?>
+            {{ $userChoices['points'] }}
+        </td>
     @endforeach
-    <td style="border:1px solid red;width:30px;text-align:center;">{{ $pointsByUsers[$username] }}</td>
+    <td style="border:1px solid red;width:30px;text-align:center;">
+        {{ $total }}
+    </td>
 </tr>
 @endforeach
 </tbody>

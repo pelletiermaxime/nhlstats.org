@@ -9,6 +9,8 @@ use Nhlstats\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
+    protected $auth;
+
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller

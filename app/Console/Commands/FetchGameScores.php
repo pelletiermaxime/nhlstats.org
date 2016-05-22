@@ -49,8 +49,9 @@ class FetchGameScores extends Command
         $this->saveGameScores($games);
     }
 
-    private function getScoresArray()
+    private function getScoresArray() : array
     {
+        $games = [];
         $date = Carbon::parse($this->fetchDate)->format('Y-m-d');
 
         $gameDayURL = "https://statsapi.web.nhl.com/api/v1/schedule?startDate=$date&endDate=$date";
