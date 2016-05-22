@@ -4,6 +4,7 @@ namespace Nhlstats\Http\Models;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class PlayoffChoices extends Model
 {
@@ -25,60 +26,78 @@ class PlayoffChoices extends Model
         return $this->belongsTo('Team');
     }
 
-    public static function getChoicesByUsers() : array
+    public static function getChoices() : Collection
     {
-        $userChoices = [];
         $query = DB::table('playoff_choices')
-            ->select(['username', 'short_name', 'city', 'teams.name', 'games', 'teams.id'])
+            ->select(['username', 'short_name', 'city', 'teams.name', 'games', 'teams.id', 'playoff_choices.round'])
             ->join('playoff_teams', 'playoff_teams.id', '=', 'playoff_choices.playoff_team_id')
             ->join('teams', 'teams.id', '=', 'playoff_choices.winning_team_id')
             ->join('users', 'users.id', '=', 'playoff_choices.user_id')
         ;
-        $playoffChoices = $query->get();
-        foreach ($playoffChoices as $choice) {
-            $userChoices[$choice->username][] = $choice;
-        }
 
-        return $userChoices;
+        return collect($query->get());
     }
 
-    public static function getPointsByUsers(array $choicesByUsers) : array
+    public static function formatChoicesByRoundsAndUsername(Collection $choices) : Collection
+    {
+        return $choices->groupBy('round')->map(function ($roundChoices) {
+            return $roundChoices->groupBy('username');
+        });
+    }
+
+    public static function formatChoicesByUsernameAndRounds(Collection $choices, array $pointsForRoundsByUsers) : Collection
+    {
+        return $choices->groupBy('username')->map(
+            function ($roundChoices, $username) use ($pointsForRoundsByUsers) {
+                return $roundChoices->groupBy('round')->map(
+                    function ($roundChoice, $noRound) use ($pointsForRoundsByUsers, $username) {
+                        return [
+                            'choices' => $roundChoice,
+                            'points'  => $pointsForRoundsByUsers[$noRound][$username],
+                        ];
+                    }
+                );
+            }
+        );
+    }
+
+    public static function getPointsByRoundsForUsers(Collection $choicesByUsers) : array
     {
         $userPoints = [];
+        $choicesByUsers = self::formatChoicesByRoundsAndUsername($choicesByUsers);
 
         $rounds = PlayoffRounds::getForYear();
 
         foreach ($rounds as $round) {
-            $winners = PlayoffRounds::getWinners($round);
-
-            foreach ($choicesByUsers as $username => $userChoices) {
-                if (!isset($userPoints[$username])) {
-                    $userPoints[$username]  = 0;
+            $winners = collect(PlayoffRounds::getWinners($round));
+            $noRound = $round->round;
+            $userPoints[$noRound] = $choicesByUsers[$noRound]->flatMap(
+                function ($userChoice, $username) use ($winners) {
+                    $choicesIDWithGames = $userChoice->pluck('games', 'id');
+                    return [$username => self::getPointsForRightGameChoices($winners, $choicesIDWithGames)];
                 }
-                foreach ($userChoices as $userChoice) {
-                    $userPoints[$username] += self::getPointsForRightGameChoices($winners, $userChoice);
-                }
-            }
+            );
         }
 
         return $userPoints;
     }
 
-    private static function getPointsForRightGameChoices(array $winners, \stdClass $userChoice) : int
+    private static function getPointsForRightGameChoices(Collection $winners, Collection $choicesIDWithGames) : int
     {
-        $points = 0;
-        if (isset($winners[$userChoice->id])) {
-            $points += 5; // Right team
-
-            $resultNbGames = $winners[$userChoice->id];
-            if ($resultNbGames == $userChoice->games) {
-                $points += 3; //Right nb of games
+        $points = $winners->map(function ($games, $winner) use ($choicesIDWithGames) {
+            $points = 0;
+            if ($choiceGames = $choicesIDWithGames->get($winner)) {
+                $points += 5;
+                if ($games == $choiceGames) {
+                    $points += 3; //Right nb of games
+                }
+                if ($games + 1 == $choiceGames ||
+                    $games - 1 == $choiceGames) {
+                    $points += 1; //+- 1 game
+                }
             }
-            if ($resultNbGames + 1 == $userChoice->games ||
-                $resultNbGames - 1 == $userChoice->games) {
-                $points += 1; //+- 1 game
-            }
-        }
-        return $points;
+            return $points;
+        });
+        return $points->sum();
     }
 }
