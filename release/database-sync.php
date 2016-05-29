@@ -3,10 +3,13 @@
 env('localPath', 'database.sql.gz');
 env('remotePath', '/tmp/database.sql.gz');
 env('localDatabaseName', 'nhlstats');
+env('envFilePath', function () {
+    return env('deploy_path') . "/current/.env";
+});
 
 function configFromEnvFile($config)
 {
-    $envFilePath = env('deploy_path') . "/current/.env";
+    $envFilePath = env('envFilePath');
     $valueLine   = run("cat $envFilePath | grep $config");
 
     if (strpos($valueLine, '=') !== false) {
