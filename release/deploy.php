@@ -2,6 +2,7 @@
 require 'recipe/laravel.php';
 require 'database-sync.php';
 
+/// Server config
 server('prod', 'nhlstats.org', 36220)
     ->user('max')
     ->forwardAgent()
@@ -19,6 +20,7 @@ set('shared_dirs', [
     'node_modules'
 ]);
 
+/// Custom tasks
 task('nhlstats:gulp', function () {
     cd('{{release_path}}');
     run('npm install');
@@ -38,11 +40,13 @@ task('reload:php-fpm', function () {
     run('sudo service php-fpm reload');
 });
 
+/// Hooks
 before('deploy:symlink', 'nhlstats:generate-doc');
 before('nhlstats:generate-doc', 'nhlstats:gulp');
 
 after('deploy', 'reload:php-fpm');
 
+// Overwrite laravel recipe because route and config cache don't work for this project
 task('deploy', [
     'deploy:prepare',
     'deploy:release',
