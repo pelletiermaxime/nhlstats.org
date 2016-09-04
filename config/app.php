@@ -15,6 +15,8 @@ return [
 
     'debug' => env('APP_DEBUG'),
 
+    'env' => env('APP_ENV', 'production'),
+
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -113,13 +115,11 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-        Illuminate\Routing\ControllerServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
@@ -144,10 +144,10 @@ return [
         Nhlstats\Providers\EventServiceProvider::class,
         Nhlstats\Providers\RouteServiceProvider::class,
 
-        'Illuminate\Html\HtmlServiceProvider',
-        'Barryvdh\Debugbar\ServiceProvider',
-        'Laravel\Socialite\SocialiteServiceProvider',
-        'Frozennode\Administrator\AdministratorServiceProvider',
+        Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        Frozennode\Administrator\AdministratorServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
     ],
 
@@ -196,10 +196,10 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
 
-        'Form'      => 'Illuminate\Html\FormFacade',
-        'Html'      => 'Illuminate\Html\HtmlFacade',
-        'Debugbar'  => 'Barryvdh\Debugbar\Facade',
-        'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+        'Form'      => Collective\Html\FormFacade::class,
+        'Html'      => Collective\Html\HtmlFacade::class,
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
+        'Socialize' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

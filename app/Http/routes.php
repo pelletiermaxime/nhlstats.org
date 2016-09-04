@@ -1,7 +1,7 @@
 <?php
 
-get('/', 'PlayerController@getListFiltered')->name('index');
-get('player', 'PlayerController@getListFiltered')->name('players_filtered');
+Route::get('/', 'PlayerController@getListFiltered')->name('index');
+Route::get('player', 'PlayerController@getListFiltered')->name('players_filtered');
 
 Route::get('player/{id}/{name}', [
     'as'   => 'player_page',
