@@ -153,11 +153,9 @@ class FetchPlayers extends Command
             $position = $player['Pos'];
             $tabTeam = explode('/', $player['Team']);
             $newPlayerTeam = $tabTeam[0];
-            $replace = ['LA', 'SJ', 'TB', 'NJ'];
+            $replace = ['/\bLA\b/', '/\bSJ\b/', '/\bTB\b/', '/\bNJ\b/'];
             $replace_to = ['LAK', 'SJS', 'TBL', 'NJD'];
-            if ($newPlayerTeam != 'FLA') {
-                $newPlayerTeam = str_replace($replace, $replace_to, $newPlayerTeam);
-            }
+            $newPlayerTeam = preg_replace($replace, $replace_to, $newPlayerTeam);
             $playerTeamID = Models\Team::whereShortName($newPlayerTeam)->pluck('id');
 
             $playerDB = Models\Player::firstOrNew([
