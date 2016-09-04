@@ -3,7 +3,7 @@ require 'recipe/laravel.php';
 require 'database-sync.php';
 
 /// Server config
-server('prod', 'nhlstats.org', 36220)
+server('production', 'nhlstats.org', 36220)
     ->user('max')
     ->forwardAgent()
     ->stage('prod')

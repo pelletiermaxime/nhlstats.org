@@ -44,7 +44,7 @@ task('database:dump', function () {
     run(databaseDumpCommand());
     download($localPath, $remotePath);
     run("rm $remotePath");
-})->onlyOn('prod');
+})->onlyOn('production');
 
 task('database:restore', function () {
     $localPath = env('localPath');
