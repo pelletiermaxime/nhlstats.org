@@ -3,7 +3,6 @@ use Nhlstats\Http\Models\PlayoffRounds;
 
 $today = date("Y-m-d");
 $seasonEnded = $today > config('nhlstats.seasonEnds');
-$round1Started = $today >= PlayoffRounds::getForYear()[0]['date_start'];
 
 $menu = [
     'Players'         => 'index',
