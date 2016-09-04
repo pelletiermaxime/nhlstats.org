@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'currentYear'  => '1516',
-    'seasonStarts' => '2015-10-07',
-    'seasonEnds'   => '2016-04-10',
+    'currentYear'  => '1617',
+    'seasonStarts' => '2016-10-12',
+    'seasonEnds'   => '2017-04-09',
 ];
