@@ -24,13 +24,10 @@ class PlayoffRepository
 
         //The strongest team plays against the 2nd wildcard
         if ($wildcard['conference']['ATLANTIC'][0]->pts >
-            $wildcard['conference']['METROPOLITAN'][0]->pts)
-        {
+            $wildcard['conference']['METROPOLITAN'][0]->pts) {
             $wildcardAtlantic     = $wildcardEast[1];
             $wildcardMetropolitan = $wildcardEast[0];
-        }
-        else
-        {
+        } else {
             $wildcardAtlantic     = $wildcardEast[0];
             $wildcardMetropolitan = $wildcardEast[1];
         }
@@ -63,13 +60,10 @@ class PlayoffRepository
         $wildcardWest = $wildcard['wildcard']['WEST'];
         //The strongest team plays against the 2nd wildcard
         if ($wildcard['conference']['CENTRAL'][0]->pts >
-            $wildcard['conference']['PACIFIC'][0]->pts)
-        {
+            $wildcard['conference']['PACIFIC'][0]->pts) {
             $team2Central = $wildcardWest[1];
             $team2Pacific = $wildcardWest[0];
-        }
-        else
-        {
+        } else {
             $team2Central = $wildcardWest[0];
             $team2Pacific = $wildcardWest[1];
         }

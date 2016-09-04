@@ -1,7 +1,5 @@
 <?php
 
-$serializer = new SuperClosure\Serializer();
-
 return [
 
     /*
@@ -66,10 +64,8 @@ return [
      * @type closure
      */
 
-    // 'permission' => $serializer->serialize(function()
     'permission' => function () {
-        // return true;
-        return Auth::check() && Auth::user()->admin;
+        return true;
     },
 
     /*

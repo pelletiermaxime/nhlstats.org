@@ -53,9 +53,9 @@ class FetchStandings extends Command
             }
             if (strpos($team['Team'], 'NY') !== false) {
                 $teamNY = str_replace('NY ', '', $teamName);
-                $team_id = Models\Team::whereName($teamNY)->pluck('id');
+                $team_id = Models\Team::whereName($teamNY)->pluck('id')->last();
             } else {
-                $team_id = Models\Team::whereCity($teamName)->pluck('id');
+                $team_id = Models\Team::whereCity($teamName)->pluck('id')->last();
             }
             Models\Standings::create([
                 'team_id' => $team_id,
