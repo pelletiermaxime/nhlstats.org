@@ -44,8 +44,6 @@ task('reload:php-fpm', function () {
 before('deploy:symlink', 'nhlstats:generate-doc');
 before('nhlstats:generate-doc', 'nhlstats:gulp');
 
-after('deploy', 'reload:php-fpm');
-
 // Overwrite laravel recipe because route and config cache don't work for this project
 task('deploy', [
     'deploy:prepare',
@@ -56,4 +54,5 @@ task('deploy', [
     'deploy:writable',
     'deploy:symlink',
     'cleanup',
+    'reload:php-fpm',
 ])->desc('Deploy your project');

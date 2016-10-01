@@ -23,6 +23,7 @@ class TeamController extends Controller
         $count = 'All';
         $filter = [];
 
+
         /* -------- PLAYER STATS -------- */
         $position = Input::get('position', 'all');
         $filter['teams.short_name'] = ['=', $team];
