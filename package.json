@@ -5,5 +5,8 @@
     "datatables": "^1.10.9",
     "selectize": "^0.12.1",
     "laravel-elixir": "*"
+  },
+  "scripts": {
+    "postinstall": "gulp --production"
   }
 }
