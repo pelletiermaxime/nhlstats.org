@@ -80,7 +80,9 @@ class Standings extends Model
 
         //Get a list of team_id of those 6 top teams
         $wildCardList = array_flatten($wildCard);
-        $wildCardList = array_map(function ($array) {return $array->team_id; }, $wildCardList);
+        $wildCardList = array_map(function ($array) {
+            return $array->team_id;
+        }, $wildCardList);
 
         foreach ($byConference as $standing) {
             if (!in_array($standing->team_id, $wildCardList)) {

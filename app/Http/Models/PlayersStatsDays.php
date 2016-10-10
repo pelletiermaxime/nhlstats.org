@@ -19,8 +19,13 @@ class PlayersStatsDays extends Model
                 ->join('players', 'players.id', '=', 'players_stats_days.player_id')
                 ->join('teams', 'teams.id', '=', 'players.team_id')
                 ->take($count)
-                ->select('players_stats_days.*', 'teams.name as team_name',
-                    'players.*', 'teams.short_name', 'teams.city')
+                ->select(
+                    'players_stats_days.*',
+                    'teams.name as team_name',
+                    'players.*',
+                    'teams.short_name',
+                    'teams.city'
+                )
                 ->orderBy('points', 'desc')
                 ->orderBy('goals', 'desc')
                 ->orderBy('plusminus', 'desc')
