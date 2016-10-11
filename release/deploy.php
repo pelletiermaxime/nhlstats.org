@@ -40,10 +40,6 @@ task('reload:php-fpm', function () {
     run('sudo service php-fpm reload');
 });
 
-/// Hooks
-before('deploy:symlink', 'nhlstats:generate-doc');
-before('nhlstats:generate-doc', 'nhlstats:gulp');
-
 // Overwrite laravel recipe because route and config cache don't work for this project
 task('deploy', [
     'deploy:prepare',
@@ -52,6 +48,8 @@ task('deploy', [
     'deploy:shared',
     'deploy:vendors',
     'deploy:writable',
+    'nhlstats:gulp',
+    // 'nhlstats:generate-doc',
     'deploy:symlink',
     'cleanup',
     'reload:php-fpm',
