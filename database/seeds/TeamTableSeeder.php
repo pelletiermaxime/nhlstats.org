@@ -30,7 +30,7 @@ class TeamTableSeeder extends Seeder
                         $team['abbreviation'],
                         $team['locationName'],
                         $team['teamName'],
-                        $divisions[$record['division']['name']]['id'],
+                        $divisions[strtoupper($record['division']['name'])]['id'],
                     ];
                 }
             }

@@ -3,6 +3,7 @@
 use GuzzleHttp\Client;
 use Illuminate\Database\Seeder;
 use Nhlstats\Http\Models\Division;
+use Nhlstats\Http\Models\Standings;
 use Nhlstats\Http\Models\Team;
 
 class DivisionsTableSeeder extends Seeder
@@ -19,11 +20,15 @@ class DivisionsTableSeeder extends Seeder
             $divisions = [];
             $yearAndNext = $year . $year + 1;
             $standingsYearURL = sprintf($standingsURL, $yearAndNext);
+            $conferences = ['Eastern' => 'EAST', 'Western' => 'WEST'];
 
             $res = $this->client->get($standingsYearURL);
             $standings = json_decode($res->getBody(), true);
             foreach ($standings['records'] as $record) {
-                $divisions[] = [$record['division']['name'], $record['division']['conference']['name']];
+                $divisions[] = [
+                    strtoupper($record['division']['name']),
+                    $conferences[$record['division']['conference']['name']],
+                ];
             }
 
             $this->insert($divisions, $year);
@@ -32,6 +37,7 @@ class DivisionsTableSeeder extends Seeder
 
     private function insert($divisions, $year)
     {
+        Standings::where('year', $year)->delete();
         Team::where('year', $year)->delete();
         Division::where('year', $year)->delete();
 
