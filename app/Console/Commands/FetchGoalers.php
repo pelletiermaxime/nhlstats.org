@@ -39,8 +39,7 @@ class FetchGoalers extends Command
 
     private function getGoalers()
     {
-        $currentSeason = config('nhlstats.currentYear') . config('nhlstats.currentYear') + 1;
-        $currentSeason = "20152016";
+        $currentSeason = $this->argument('season') . $this->argument('season') + 1;
         $goalersURL = "http://www.nhl.com/stats/rest/grouped/goalies/season/goaliesummary";
         $goalersURL .= "?cayenneExp=seasonId=$currentSeason and gameTypeId=2 and playerPositionCode=\"G\"";
 
@@ -95,7 +94,7 @@ class FetchGoalers extends Command
             $goalerDB->first_name = $firstName;
             $goalerDB->name = $name;
             $goalerDB->position = 'G';
-            $goalerDB->year = \Config::get('nhlstats.currentYear');
+            $goalerDB->year = $this->argument('season');
             $goalerDB->save();
 
             $goaler_stats = Models\GoalersStatsYear::firstOrNew([
@@ -125,8 +124,7 @@ class FetchGoalers extends Command
     protected function getArguments()
     {
         return [
-            ['startingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 1],
-            ['endingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 3],
+            ['season', InputArgument::OPTIONAL, 'Season to fetch.', config('nhlstats.currentYear')],
         ];
     }
 
