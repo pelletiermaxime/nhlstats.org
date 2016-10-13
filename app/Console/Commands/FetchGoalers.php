@@ -2,31 +2,18 @@
 
 namespace Nhlstats\Console\Commands;
 
-use Goutte\Client;
+use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Console\Command;
 use Nhlstats\Http\Models;
 use Symfony\Component\Console\Input\InputArgument;
 
 class FetchGoalers extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
     protected $name = 'nhl:fetch-goalers';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Fetch goalers stats from espn.';
 
-    /**
-     * @var Client Goutte client
-     */
-    private $client;
+    private $guzzleClient;
 
     /**
      * Execute the console command.
@@ -35,51 +22,41 @@ class FetchGoalers extends Command
      */
     public function fire()
     {
-        $this->client = new Client();
-        $goalers = $this->getGoalersArray();
+        $this->guzzleClient = new GuzzleClient();
+        $goalers = $this->getGoalers();
         $this->savePlayers($goalers);
     }
 
-    private function getGoalersArray()
+    private function getGoalers()
     {
-        $startingPage = $this->argument('startingPage');
-        $endingPage = $this->argument('endingPage');
-        $currentPage = $startingPage;
+        $currentSeason = $this->argument('season') . $this->argument('season') + 1;
+        $goalersURL = "http://www.nhl.com/stats/rest/grouped/goalies/season/goaliesummary";
+        $goalersURL .= "?cayenneExp=seasonId=$currentSeason and gameTypeId=2 and playerPositionCode=\"G\"";
 
-        $params = ['Rank', 'Player', 'Team', 'GP', 'W', 'L', 'OTL', 'GAA', 'GA', 'SA',
-            'Sv', 'Sv%', 'SO', 'SASO', 'SVSO', 'Sv%SO', ];
-        $paramCount = count($params);
-        $goaler = [];
-        $noGoaler = 1;
+        $res = $this->guzzleClient->get($goalersURL);
+        $goalersArray = collect(json_decode($res->getBody(), true)['data']);
 
-        while ($currentPage <= $endingPage) {
-            $fetchCount = ($currentPage - 1) * 40 + 1;
-            $regularSeasonUrl = "http://espn.go.com/nhl/statistics/player/_/stat/goaltending/qualified/false/count/$fetchCount";
-            $crawler = $this->client->request('GET', $regularSeasonUrl);
-            $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
+        $goalersArray->transform(function ($goaler) {
+            return [
+                "Player" => $goaler['playerName'],
+                "Team"   => $goaler['playerTeamsPlayedFor'],
+                "GP"     => $goaler['gamesPlayed'],
+                "W"      => $goaler['wins'],
+                "L"      => $goaler['losses'],
+                "OTL"    => $goaler['otLosses'],
+                "GAA"    => $goaler['goalsAgainstAverage'],
+                "GA"     => $goaler['goalsAgainst'],
+                "SA"     => $goaler['shotsAgainst'],
+                "Sv"     => $goaler['saves'],
+                "Sv%"    => $goaler['savePctg'],
+                "SO"     => $goaler['shutouts'],
+                "G"      => $goaler['goals'],
+                "A"      => $goaler['assists'],
+                "PIM"    => $goaler['penaltyMinutes'],
+            ];
+        });
 
-            $noParametre = 0;
-            foreach ($cells as $cell) {
-                $curParam = $params[$noParametre];
-                $goaler[$noGoaler][$curParam] = trim($cell);
-                if ($curParam == 'Player') {
-                    $tabPlayerName = explode(',', $cell);
-                    $goaler[$noGoaler]['Player'] = $tabPlayerName[0];
-                }
-                ++$noParametre;
-                if ($noParametre >= $paramCount) {
-                    //Next row of table, so increment player
-
-                    $noParametre = 0;
-                    ++$noGoaler;
-                }
-            }
-            echo "Page #$currentPage fetched\n";
-            sleep(2.5);
-            ++$currentPage;
-        }
-        // var_dump($goaler);
-        return $goaler;
+        return $goalersArray;
     }
 
     private function savePlayers($goalers)
@@ -107,7 +84,7 @@ class FetchGoalers extends Command
             $goalerDB->first_name = $firstName;
             $goalerDB->name = $name;
             $goalerDB->position = 'G';
-            $goalerDB->year = \Config::get('nhlstats.currentYear');
+            $goalerDB->year = $this->argument('season');
             $goalerDB->save();
 
             $goaler_stats = Models\GoalersStatsYear::firstOrNew([
@@ -118,9 +95,9 @@ class FetchGoalers extends Command
             $goaler_stats->lose = $goaler['L'];
             $goaler_stats->saves = $goaler['Sv'];
             $goaler_stats->saves_pourcent = str_replace('.', '', $goaler['Sv%']);
-            // $goaler_stats->goals   = $goaler['L'];
-            // $goaler_stats->assists = $goaler['L'];
-            // $goaler_stats->pim     = $goaler['L'];
+            $goaler_stats->goals   = $goaler['G'];
+            $goaler_stats->assists = $goaler['A'];
+            $goaler_stats->pim     = $goaler['PIM'];
             $goaler_stats->goals_against_average = $goaler['GAA'];
             $goaler_stats->shots_against = $goaler['SA'];
             $goaler_stats->goals_against = $goaler['GA'];
@@ -137,8 +114,7 @@ class FetchGoalers extends Command
     protected function getArguments()
     {
         return [
-            ['startingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 1],
-            ['endingPage', InputArgument::OPTIONAL, 'Fetch only a specific page.', 3],
+            ['season', InputArgument::OPTIONAL, 'Season to fetch.', config('nhlstats.currentYear')],
         ];
     }
 

@@ -59,6 +59,10 @@ class FetchGameScores extends Command
 
         $res = $this->client->get($gameDayURL);
         $gamesToday = json_decode($res->getBody());
+        if (!isset($gamesToday->dates[0])) {
+            $this->error("No games on $date");
+            die;
+        }
         $gamesToday = $gamesToday->dates[0]->games;
 
         foreach ($gamesToday as $g) {
@@ -103,11 +107,9 @@ class FetchGameScores extends Command
 
         foreach ($games as $game) {
             $team1_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team1']}'")
-                ->where('year', $currentYear)
-                ->pluck('id');
+                ->thisYear()->pluck('id')->first();
             $team2_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team2']}'")
-                ->where('year', $currentYear)
-                ->pluck('id');
+                ->thisYear()->pluck('id')->first();
 
             $gameDB = Models\GameScores::firstOrNew([
                 'date_game' => $dateFetched,
