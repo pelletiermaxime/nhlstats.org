@@ -9,18 +9,8 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class FetchGoalers extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
     protected $name = 'nhl:fetch-goalers';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Fetch goalers stats from espn.';
 
     private $guzzleClient;
