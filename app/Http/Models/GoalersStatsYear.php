@@ -24,8 +24,14 @@ class GoalersStatsYear extends Model
                 ->join('players', 'players.id', '=', 'goaler.player_id')
                 ->join('teams', 'teams.id', '=', 'players.team_id')
                 ->join('divisions', 'divisions.id', '=', 'teams.division_id')
-                ->select('goaler.*', 'divisions.conference', 'teams.name as team_name',
-                    'players.*', 'teams.short_name', 'teams.city')
+                ->select(
+                    'goaler.*',
+                    'divisions.conference',
+                    'teams.name as team_name',
+                    'players.*',
+                    'teams.short_name',
+                    'teams.city'
+                )
                 ->orderBy('goals_against_average', 'asc')
                 ->where('position', '=', 'G');
                 // ->where('games'   , '>', $minGames)

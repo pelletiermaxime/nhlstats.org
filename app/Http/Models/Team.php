@@ -50,4 +50,9 @@ class Team extends Model
 
         return $listTeam;
     }
+
+    public function scopeThisYear($query) : \Illuminate\Database\Eloquent\Builder
+    {
+        return $query->where('year', config('nhlstats.currentYear'));
+    }
 }
