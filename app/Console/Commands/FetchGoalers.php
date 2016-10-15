@@ -61,6 +61,7 @@ class FetchGoalers extends Command
 
     private function savePlayers($goalers)
     {
+        $year = $this->argument('season');
         echo "Enregistre les informations dans la bd mysql\n";
         foreach ($goalers as $goaler) {
             if (empty($goaler['Player'])) {
@@ -75,11 +76,12 @@ class FetchGoalers extends Command
             $replace = ['/\bLA\b/', '/\bSJ\b/', '/\bTB\b/', '/\bNJ\b/'];
             $replace_to = ['LAK', 'SJS', 'TBL', 'NJD'];
             $newPlayerTeam = preg_replace($replace, $replace_to, $newPlayerTeam);
-            $goalerTeamID = Models\Team::whereShortName($newPlayerTeam)->pluck('id')->last();
+            $goalerTeamID = Models\Team::whereShortName($newPlayerTeam)->where('year', $year)->pluck('id')->last();
 
             $goalerDB = Models\Player::firstOrNew([
                 'full_name' => $fullName,
                 'team_id'   => $goalerTeamID,
+                'year'      => $year,
             ]);
             $goalerDB->first_name = $firstName;
             $goalerDB->name = $name;
@@ -106,24 +108,14 @@ class FetchGoalers extends Command
         }
     }
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
+    protected function getArguments() : array
     {
         return [
             ['season', InputArgument::OPTIONAL, 'Season to fetch.', config('nhlstats.currentYear')],
         ];
     }
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
+    protected function getOptions() : array
     {
         return [];
     }
