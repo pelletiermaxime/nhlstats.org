@@ -10,7 +10,7 @@ class TeamType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'Team',
-        'description' => 'A type'
+        'description' => 'Teams'
     ];
 
     public function fields()

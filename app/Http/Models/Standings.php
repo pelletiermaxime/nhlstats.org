@@ -12,7 +12,7 @@ class Standings extends Model
 
     public function team()
     {
-        return $this->belongsTo('Team');
+        return $this->belongsTo('Nhlstats\Http\Models\Team');
     }
 
     public function byOverall()

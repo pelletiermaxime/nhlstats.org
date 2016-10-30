@@ -53,30 +53,12 @@ return [
     // The schemas for query and/or mutation. It expects an array to provide
     // both the 'query' fields and the 'mutation' fields. You can also
     // provide directly an object GraphQL\Schema
-    //
-    // Example:
-    //
-    // 'schemas' => [
-    //     'default' => new Schema($config)
-    // ]
-    //
-    // or
-    //
-    // 'schemas' => [
-    //     'default' => [
-    //         'query' => [
-    //              'users' => 'App\GraphQL\Query\UsersQuery'
-    //          ],
-    //          'mutation' => [
-    //
-    //          ]
-    //     ]
-    // ]
-    //
+
     'schemas' => [
         'default' => [
             'query' => [
-                'team' => 'Nhlstats\GraphQL\Query\TeamQuery',
+                'teams' => 'Nhlstats\GraphQL\Query\TeamsQuery',
+                'standings' => 'Nhlstats\GraphQL\Query\StandingsQuery',
             ],
             'mutation' => [
                 'test' => 'Nhlstats\GraphQL\Mutation\TestMutation',
@@ -86,22 +68,10 @@ return [
 
     // The types available in the application. You can then access it from the
     // facade like this: GraphQL::type('user')
-    //
-    // Example:
-    //
-    // 'types' => [
-    //     'user' => 'App\GraphQL\Type\UserType'
-    // ]
-    //
-    // or whitout specifying a key (it will use the ->name property of your type)
-    //
-    // 'types' => [
-    //     'App\GraphQL\Type\UserType'
-    // ]
-    //
     'types' => [
         'Nhlstats\GraphQL\Type\TeamType',
         'Nhlstats\GraphQL\Type\DivisionType',
+        'Nhlstats\GraphQL\Type\StandingType',
     ],
 
     // This callable will received every Error objects for each errors GraphQL catch.

@@ -27,11 +27,20 @@ class DivisionType extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'The current year of the division'
             ],
+            'conference' => [
+                'type' => Type::string(),
+                'description' => 'The conference of the division'
+            ],
         ];
     }
 
     protected function resolveNameField($root)
     {
         return ucwords(strtolower($root->division));
+    }
+
+    protected function resolveConferenceField($root)
+    {
+        return ucwords(strtolower($root->conference));
     }
 }

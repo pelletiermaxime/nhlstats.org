@@ -8,7 +8,7 @@ use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Nhlstats\Http\Models\Team;
 
-class TeamQuery extends Query
+class TeamsQuery extends Query
 {
     protected $attributes = [
         'name'        => 'team',
@@ -42,10 +42,10 @@ class TeamQuery extends Query
         }
 
         if (isset($args['id'])) {
-            $teams->whereId($args['id'])->where('year', config('nhlstats.currentYear'));
-        } else {
-            $teams->where('year', config('nhlstats.currentYear'));
+            $teams->whereId($args['id']);
         }
+        $teams->where('year', config('nhlstats.currentYear'));
+
         return $teams->get();
     }
 }

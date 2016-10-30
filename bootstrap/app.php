@@ -1,5 +1,7 @@
 <?php
 
+use GraphQL\Validator\DocumentValidator;
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -40,6 +42,12 @@ $app->singleton(
     'Illuminate\Contracts\Debug\ExceptionHandler',
     'Nhlstats\Exceptions\Handler'
 );
+
+// $queryComplexity = DocumentValidator::getRule('QueryComplexity');
+// $queryComplexity->setMaxQueryComplexity($maxQueryComplexity = 1);
+
+// $queryDepth = DocumentValidator::getRule('QueryDepth');
+// $queryDepth->setMaxQueryDepth($maxQueryDepth = 1);
 
 /*
 |--------------------------------------------------------------------------
