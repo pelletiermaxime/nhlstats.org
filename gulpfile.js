@@ -23,5 +23,9 @@ elixir(function(mix) {
              'public/javascript/vendors/bootstrap.min.js')
        .copy('node_modules/selectize/dist/js/standalone/selectize.min.js',
              'public/javascript/vendors/selectize.min.js')
+       .copy('node_modules/graphiql/graphiql.min.js',
+             'public/javascript/vendors/graphiql.min.js')
+       .copy('node_modules/graphiql/graphiql.css',
+             'public/css/graphiql.css')
        .browserSync({ proxy: 'nhlstats.local', open: false });
 });

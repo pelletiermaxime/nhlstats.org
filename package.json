@@ -2,7 +2,7 @@
   "dependencies": {
     "bootstrap": "^3.3.5",
     "datatables": "^1.10.9",
-    "selectize": "^0.12.1"
+    "graphiql": "^0.7.8"
   },
   "devDependencies": {
     "gulp": "^3.8.8",

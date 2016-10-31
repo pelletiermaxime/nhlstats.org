@@ -146,11 +146,12 @@ return [
         Nhlstats\Providers\RouteServiceProvider::class,
         Nhlstats\Providers\BroadcastServiceProvider::class,
 
-        Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
-        Frozennode\Administrator\AdministratorServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
+        Folklore\GraphQL\ServiceProvider::class,
+        Frozennode\Administrator\AdministratorServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -203,6 +204,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
         'Socialize' => Laravel\Socialite\Facades\Socialite::class,
+        'GraphQL'   => Folklore\GraphQL\Support\Facades\GraphQL::class,
     ],
 
 ];
