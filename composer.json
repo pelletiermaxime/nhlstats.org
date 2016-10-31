@@ -13,7 +13,8 @@
 		,"laravel/socialite": "~2.0"
 		,"frozennode/administrator": "5.*"
 		,"dingo/api": "^1.0.0-beta"
-		,"dingo/blueprint": "0.1.4"
+		,"dingo/blueprint": "^0.2"
+		,"folklore/graphql": "^1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0"

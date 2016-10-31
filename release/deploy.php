@@ -23,7 +23,7 @@ set('shared_dirs', [
 /// Custom tasks
 task('nhlstats:gulp', function () {
     cd('{{release_path}}');
-    run('npm install');
+    run('yarn');
     run('gulp --production');
 });
 

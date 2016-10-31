@@ -1,5 +1,9 @@
 <?php
 
+Route::get('graphiql', function () {
+    return view('graphiql');
+});
+
 Route::get('/', 'PlayerController@getListFiltered')->name('index');
 Route::get('player', 'PlayerController@getListFiltered')->name('players_filtered');
 

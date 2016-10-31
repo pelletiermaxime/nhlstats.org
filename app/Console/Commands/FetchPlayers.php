@@ -3,31 +3,17 @@
 namespace Nhlstats\Console\Commands;
 
 use Carbon\Carbon;
-use Goutte\Client;
+use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Console\Command;
 use Nhlstats\Http\Models;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 class FetchPlayers extends Command
 {
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
     protected $name = 'nhl:fetch-players';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Fetch player stats from espn.';
 
-    /**
-     * @var Client Goutte client
-     */
     private $client;
 
     /**
@@ -37,111 +23,41 @@ class FetchPlayers extends Command
      */
     public function fire()
     {
-        $this->client = new Client();
-        $toi = $this->option('TOI');
-        if ($toi === true) {
-            $players = $this->getPlayersOnIceArray();
-        } else {
-            $players = $this->getPlayersArray();
-        }
+        $this->guzzleClient = new GuzzleClient();
+        $players = $this->getPlayers();
         $this->savePlayers($players);
     }
 
-    private function getPlayersArray()
+    private function getPlayers()
     {
-        $startingPage = $this->argument('startingPage');
-        $endingPage = $this->argument('endingPage');
-        $currentPage = $startingPage;
+        $currentSeason = $this->argument('season') . $this->argument('season') + 1;
+        $playersURL = "http://www.nhl.com/stats/rest/grouped/skaters/basic/season/skatersummary";
+        $playersURL .= "?cayenneExp=seasonId=$currentSeason and gameTypeId=2";
 
-        $params = ['Rank', 'Player', 'Team', 'GP', 'G', 'A', 'P', '+/-', 'PIM', '1', '2', '3', '4', '5', '6', '7', '8'];
-        $paramCount = count($params);
-        $player = [];
-        $noPlayer = 1;
+        $res = $this->guzzleClient->get($playersURL);
+        $playersArray = collect(json_decode($res->getBody(), true)['data']);
 
-        while ($currentPage <= $endingPage) {
-            $fetchCount = ($currentPage - 1) * 40 + 1;
-            $regularSeasonUrl = 'http://espn.go.com/nhl/statistics/player/_/stat/points/sort/points/seasontype/2/count/';
-            $crawler = $this->client->request('GET', $regularSeasonUrl . $fetchCount);
-            $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
+        $playersArray->transform(function ($player) {
+            return [
+                "+/-"    => $player['plusMinus'],
+                "A"      => $player['assists'],
+                "G"      => $player['goals'],
+                "GP"     => $player['gamesPlayed'],
+                "P"      => $player['points'],
+                "PIM"    => $player['penaltyMinutes'],
+                "Player" => $player['playerName'],
+                "Pos"    => $player['playerPositionCode'],
+                "Team"   => $player['playerTeamsPlayedFor'],
+            ];
+        });
 
-            $noParametre = 0;
-            if (count($cells) == 0) {
-                break;
-            }
-            foreach ($cells as $cell) {
-                $curParam = $params[$noParametre];
-                $player[$noPlayer][$curParam] = trim($cell);
-                if ($curParam == 'Player') {
-                    $tabPlayerName = explode(',', $cell);
-                    $player[$noPlayer]['Player'] = $tabPlayerName[0];
-                    $player[$noPlayer]['Pos'] = trim($tabPlayerName[1]);
-                }
-                ++$noParametre;
-                if ($noParametre >= $paramCount) {
-                    //Next row of table, so increment player
-
-                    $noParametre = 0;
-                    ++$noPlayer;
-                }
-            }
-            echo "Page #$currentPage fetched\n";
-            sleep(2.5);
-            ++$currentPage;
-        }
-        // var_dump($player);
-        return $player;
-    }
-
-    private function getPlayersOnIceArray()
-    {
-        $startingPage = $this->argument('startingPage');
-        $endingPage = $this->argument('endingPage');
-        $currentPage = $startingPage;
-
-        $params = ['Rank', 'Player', 'Team', 'GP', 'G', 'A', 'P', '+/-', 'TOI/G', 'Shifts', '1', '2'];
-        $paramCount = count($params);
-        $player = [];
-        $noPlayer = 1;
-
-        echo "Fetching Players by time on ice by pages $startingPage-$endingPage\n";
-        while ($currentPage <= $endingPage) {
-            $fetchCount = ($currentPage - 1) * 40 + 1;
-            $regularSeasonUrl = 'http://espn.go.com/nhl/statistics/player/_/stat/timeonice/sort/avgTimeOnIce/count/';
-            $crawler = $this->client->request('GET', $regularSeasonUrl . $fetchCount);
-            $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
-
-            $noParametre = 0;
-            if (count($cells) == 0) {
-                break;
-            }
-            foreach ($cells as $cell) {
-                $curParam = $params[$noParametre];
-                $player[$noPlayer][$curParam] = trim($cell);
-                if ($curParam == 'Player') {
-                    $tabPlayerName = explode(',', $cell);
-                    $player[$noPlayer]['Player'] = $tabPlayerName[0];
-                    $player[$noPlayer]['Pos'] = trim($tabPlayerName[1]);
-                }
-                ++$noParametre;
-                if ($noParametre >= $paramCount) {
-                    //Next row of table, so increment player
-
-                    $noParametre = 0;
-                    ++$noPlayer;
-                }
-            }
-            echo "Page #$currentPage fetched\n";
-            sleep(2.5);
-            ++$currentPage;
-        }
-        // var_dump($player);
-        return $player;
+        return $playersArray;
     }
 
     private function savePlayers($players)
     {
         echo "Enregistre les informations dans la bd mysql\n";
-        $currentYear = \Config::get('nhlstats.currentYear');
+        $year = $this->argument('season');
         foreach ($players as $player) {
             if (empty($player['Player'])) {
                 continue;
@@ -156,16 +72,16 @@ class FetchPlayers extends Command
             $replace = ['/\bLA\b/', '/\bSJ\b/', '/\bTB\b/', '/\bNJ\b/'];
             $replace_to = ['LAK', 'SJS', 'TBL', 'NJD'];
             $newPlayerTeam = preg_replace($replace, $replace_to, $newPlayerTeam);
-            $playerTeamID = Models\Team::whereShortName($newPlayerTeam)->pluck('id');
+            $playerTeamID = Models\Team::whereShortName($newPlayerTeam)->where('year', $year)->pluck('id')->last();
 
             $playerDB = Models\Player::firstOrNew([
                 'full_name' => $fullName,
                 'team_id'   => $playerTeamID,
+                'year'      => $year,
             ]);
             $playerDB->first_name = $firstName;
             $playerDB->name = $name;
             $playerDB->position = $position;
-            $playerDB->year = $currentYear;
             $playerDB->save();
 
             $player_stats = Models\PlayersStatsYear::firstOrNew([
@@ -184,6 +100,7 @@ class FetchPlayers extends Command
             $player_stats->assists = $player['A'];
             $player_stats->points = $player['P'];
             $player_stats->plusminus = $player['+/-'];
+            $player_stats->pim = $player['PIM'];
             $player_stats->save();
         }
     }
@@ -202,28 +119,15 @@ class FetchPlayers extends Command
         $player_stats_day->save();
     }
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
+    protected function getArguments() : array
     {
         return [
-            ['startingPage', InputArgument::OPTIONAL, 'Stating page number to fetch.', 1],
-            ['endingPage', InputArgument::OPTIONAL, 'Ending page number to fetch.', 20],
+            ['season', InputArgument::OPTIONAL, 'Season to fetch.', config('nhlstats.currentYear')],
         ];
     }
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
+    protected function getOptions() : array
     {
-        return [
-            ['TOI', null, InputOption::VALUE_NONE, 'Fetch by time on ice, to get all players.', null],
-        ];
+        return [];
     }
 }
