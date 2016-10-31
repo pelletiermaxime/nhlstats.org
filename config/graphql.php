@@ -57,7 +57,7 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'teams' => 'Nhlstats\GraphQL\Query\TeamsQuery',
+                'teams'     => 'Nhlstats\GraphQL\Query\TeamsQuery',
                 'standings' => 'Nhlstats\GraphQL\Query\StandingsQuery',
             ],
             'mutation' => [
