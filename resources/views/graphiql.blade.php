@@ -1,11 +1,3 @@
-<!--
- *  Copyright (c) 2015, Facebook, Inc.
- *  All rights reserved.
- *
- *  This source code is licensed under the license found in the
- *  LICENSE file in the root directory of this source tree.
- *
--->
 <!DOCTYPE html>
 <html>
   <head>
@@ -89,7 +81,7 @@
 
       // Defines a GraphQL fetcher using the fetch API.
       function graphQLFetcher(graphQLParams) {
-        return fetch(window.location.origin + '/graphql', {
+        return fetch(window.location.origin + '/{{ config('graphql.prefix') }}', {
           method: 'post',
           headers: {
             'Accept': 'application/json',
