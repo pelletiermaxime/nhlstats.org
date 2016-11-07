@@ -20,11 +20,11 @@
         height: 100vh;
       }
     </style>
-    <link rel="stylesheet" href="/css/graphiql.css" />
-    <script src="//cdn.jsdelivr.net/fetch/0.9.0/fetch.min.js"></script>
-    <script src="//cdn.jsdelivr.net/react/15.0.1/react.min.js"></script>
-    <script src="//cdn.jsdelivr.net/react/15.0.1/react-dom.min.js"></script>
-    <script src="/javascript/vendors/graphiql.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/graphiql@^0.7.8/graphiql.css" />
+    <script src="https://unpkg.com/whatwg-fetch@0.11.1/fetch.js"></script>
+    <script src="https://unpkg.com/react@^15.0/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@^15.0/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/graphiql@^0.7.8/graphiql.min.js"></script>
   </head>
   <body>
     <div id="graphiql">Loading...</div>
