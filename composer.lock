@@ -560,16 +560,16 @@
         },
         {
             "name": "folklore/graphql",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Folkloreatelier/laravel-graphql.git",
-                "reference": "e30251793f45baa3aabe385e0c43ca8a8eb06a34"
+                "reference": "ad8194f7c6fc8550c22e2394db70db8e8be48f39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Folkloreatelier/laravel-graphql/zipball/e30251793f45baa3aabe385e0c43ca8a8eb06a34",
-                "reference": "e30251793f45baa3aabe385e0c43ca8a8eb06a34",
+                "url": "https://api.github.com/repos/Folkloreatelier/laravel-graphql/zipball/ad8194f7c6fc8550c22e2394db70db8e8be48f39",
+                "reference": "ad8194f7c6fc8550c22e2394db70db8e8be48f39",
                 "shasum": ""
             },
             "require": {
@@ -615,7 +615,7 @@
                 "laravel",
                 "react"
             ],
-            "time": "2016-11-04 14:34:23"
+            "time": "2016-11-04 21:43:05"
         },
         {
             "name": "frozennode/administrator",
@@ -1714,16 +1714,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.3",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "c0125896dbb151380ab47e96c621741e79623beb"
+                "reference": "a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c0125896dbb151380ab47e96c621741e79623beb",
-                "reference": "c0125896dbb151380ab47e96c621741e79623beb",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e",
+                "reference": "a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e",
                 "shasum": ""
             },
             "require": {
@@ -1758,7 +1758,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-10-17 15:23:22"
+            "time": "2016-11-07 23:38:38"
         },
         {
             "name": "phpdocumentor/reflection-common",

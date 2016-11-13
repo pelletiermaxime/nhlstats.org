@@ -37,7 +37,7 @@ class StandingsQuery extends Query
 
         foreach (array_keys($fields) as $field) {
             if ($field === 'team') {
-                $standings->with('team');
+                $standings->with('team.division');
             }
         }
 
