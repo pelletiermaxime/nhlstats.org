@@ -81,7 +81,7 @@ class FetchPlayersInfo extends Command
 
     private function savePlayers($players)
     {
-        $currentYear = config('nhlstats.currentYear');
+        $currentYear = current_year();
         echo "Enregistre les informations dans la bd mysql\n";
         foreach ($players as $player) {
             if (empty($player['name'])) {

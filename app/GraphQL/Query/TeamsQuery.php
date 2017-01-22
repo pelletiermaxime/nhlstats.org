@@ -44,7 +44,7 @@ class TeamsQuery extends Query
         if (isset($args['id'])) {
             $teams->whereId($args['id']);
         }
-        $teams->where('year', config('nhlstats.currentYear'));
+        $teams->where('year', current_year());
 
         return $teams->get();
     }

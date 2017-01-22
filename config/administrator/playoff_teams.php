@@ -74,7 +74,7 @@ return [
             'type'           => 'relationship',
             'name_field'     => 'city_and_name',
             'options_filter' => function ($query) {
-                $query->where('year', config('nhlstats.currentYear'));
+                $query->where('year', current_year());
             },
         ],
         'team2' => [
@@ -82,7 +82,7 @@ return [
             'type'           => 'relationship',
             'name_field'     => 'city_and_name',
             'options_filter' => function ($query) {
-                $query->where('year', config('nhlstats.currentYear'));
+                $query->where('year', current_year());
             },
         ],
     ],

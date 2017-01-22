@@ -122,7 +122,7 @@ class FetchPlayers extends Command
     protected function getArguments() : array
     {
         return [
-            ['season', InputArgument::OPTIONAL, 'Season to fetch.', config('nhlstats.currentYear')],
+            ['season', InputArgument::OPTIONAL, 'Season to fetch.', current_year()],
         ];
     }
 

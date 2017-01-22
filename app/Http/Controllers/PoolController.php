@@ -46,7 +46,7 @@ class PoolController extends Controller
         $playoffTeams = Input::get('WinningTeamId');
         $games = Input::get('NbGames');
         $round = Input::get('round');
-        $currentYear = config('nhlstats.currentYear');
+        $currentYear = current_year();
         foreach ($playoffTeams as $playoff_team_id => $winning_team_id) {
             $playoffChoices = PlayoffChoices::firstOrNew([
                 'user_id'         => Auth::user()->id,

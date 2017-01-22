@@ -103,7 +103,7 @@ class FetchGameScores extends Command
     private function saveGameScores($games)
     {
         $dateFetched = $this->fetchDate;
-        $currentYear = config('nhlstats.currentYear');
+        $currentYear = current_year();
 
         foreach ($games as $game) {
             $team1_id = Models\Team::whereRaw("CONCAT(city, ' ', name) = '{$game['team1']}'")

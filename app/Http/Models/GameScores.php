@@ -26,7 +26,7 @@ class GameScores extends Model
             '((team1_id = ? AND team2_id = ?) OR (team1_id = ? AND team2_id = ?))',
             [$team1_id, $team2_id, $team2_id, $team1_id]
         )
-            ->where('year', '=', config('nhlstats.currentYear'))
+            ->where('year', '=', current_year())
             ->orderBy('date_game')
             ->with(['team1', 'team2'])
         ;

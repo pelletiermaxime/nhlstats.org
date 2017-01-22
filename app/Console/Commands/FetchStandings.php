@@ -43,7 +43,7 @@ class FetchStandings extends Command
 
     private function saveStandings($teams)
     {
-        Models\Standings::where('year', config('nhlstats.currentYear'))->delete();
+        Models\Standings::where('year', current_year())->delete();
         foreach ($teams as $team) {
             $tabTeam = explode('-', $team['Team']);
             if (isset($tabTeam[1])) {
@@ -59,7 +59,7 @@ class FetchStandings extends Command
             }
             Models\Standings::create([
                 'team_id' => $team_id,
-                'year'    => config('nhlstats.currentYear'),
+                'year'    => current_year(),
                 'gp'      => $team['GP'],
                 'w'       => $team['W'],
                 'l'       => $team['L'],
@@ -92,7 +92,7 @@ class FetchStandings extends Command
             ->orderBy('PTS', 'DESC')
             ->orderBy('gp', 'ASC')
             ->orderBy('row', 'DESC')
-            ->where('standings.year', config('nhlstats.currentYear'))
+            ->where('standings.year', current_year())
         ;
         $standings = $query->get();
 
@@ -109,7 +109,7 @@ class FetchStandings extends Command
             ->orderBy('PTS', 'DESC')
             ->orderBy('gp', 'ASC')
             ->orderBy('row', 'DESC')
-            ->where('standings.year', config('nhlstats.currentYear'))
+            ->where('standings.year', current_year())
         ;
         $standings = $query->get();
         $previousConference = '';
@@ -193,7 +193,7 @@ class FetchStandings extends Command
      */
     private function savePlayoffTeams($games, $conference)
     {
-        Models\PlayoffTeams::where('year', config('nhlstats.currentYear'))
+        Models\PlayoffTeams::where('year', current_year())
             ->where('conference', $conference)
             ->delete();
         foreach ($games as $division) {
@@ -208,7 +208,7 @@ class FetchStandings extends Command
                     'team2_position' => $game['team2']->positionConference,
                     'conference'     => $conference,
                     'round'          => $round,
-                    'year'           => config('nhlstats.currentYear'),
+                    'year'           => current_year(),
                 ]);
                 $playoffTeams->save();
             }

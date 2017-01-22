@@ -53,6 +53,6 @@ class Team extends Model
 
     public function scopeThisYear($query) : \Illuminate\Database\Eloquent\Builder
     {
-        return $query->where('year', config('nhlstats.currentYear'));
+        return $query->where('year', current_year());
     }
 }

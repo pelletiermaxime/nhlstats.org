@@ -44,7 +44,7 @@ class StandingsQuery extends Query
         if (isset($args['id'])) {
             $standings->whereId($args['id']);
         }
-        $standings->where('year', config('nhlstats.currentYear'));
+        $standings->where('year', current_year());
 
         return $standings->get();
     }

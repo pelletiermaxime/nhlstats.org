@@ -30,7 +30,7 @@ class FetchGoalers extends Command
     private function getGoalers()
     {
         $currentSeason = $this->argument('season') . $this->argument('season') + 1;
-        $goalersURL = "http://www.nhl.com/stats/rest/grouped/goalies/season/goaliesummary";
+        $goalersURL = "http://www.nhl.com/stats/rest/grouped/goalies/goalie_basic/season/goaliesummary";
         $goalersURL .= "?cayenneExp=seasonId=$currentSeason and gameTypeId=2 and playerPositionCode=\"G\"";
 
         $res = $this->guzzleClient->get($goalersURL);
@@ -111,7 +111,7 @@ class FetchGoalers extends Command
     protected function getArguments() : array
     {
         return [
-            ['season', InputArgument::OPTIONAL, 'Season to fetch.', config('nhlstats.currentYear')],
+            ['season', InputArgument::OPTIONAL, 'Season to fetch.', current_year()],
         ];
     }
 

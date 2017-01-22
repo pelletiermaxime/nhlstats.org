@@ -21,20 +21,14 @@ class GoalerController extends Controller
         }
 
         /* -------- GOALER STATS -------- */
-        // Get the top played games by a goaler
-        $topGames = DB::table('goalers_stats_years AS goaler')
-            ->where('players.year', '=', config('nhlstats.currentYear'))
-            ->join('players', 'players.id', '=', 'goaler.player_id')
-            ->max('games');
-        // Set a filter to a quarter of that
-        $minGames = $topGames / 4;
+        $minGames = $this->getMinimumGamesPlayed();
         $filterMinGames = Input::get('show_all', 0);
         if ($filterMinGames === 0) {
             $filter['goaler.games'] = ['>=', $minGames];
         }
 
         $filter['teams.short_name'] = ['=', $team];
-        $filter['players.year'] = ['=', config('nhlstats.currentYear')];
+        $filter['players.year'] = ['=', current_year()];
         $goalersStatsYear = Models\GoalersStatsYear::topGoalersByGAA($filter);
 
         return view('goalers/goalers')
@@ -43,5 +37,17 @@ class GoalerController extends Controller
             ->with('filterMinGames', $filterMinGames)
             ->with('team', $team)
         ;
+    }
+
+    private function getMinimumGamesPlayed() : int
+    {
+        // Get the top played games by a goaler
+        $topGames = DB::table('goalers_stats_years AS goaler')
+            ->where('players.year', '=', current_year())
+            ->join('players', 'players.id', '=', 'goaler.player_id')
+            ->max('games');
+
+
+        return $topGames / 4;
     }
 }

@@ -32,7 +32,7 @@ class PlayoffTeams extends Model
     {
         return Cache::remember("playoffGames_{$conference}_{$round}", 60, function () use ($conference, $round) {
             return Models\PlayoffTeams::whereConference($conference)
-                ->where('year', '=', config('nhlstats.currentYear'))
+                ->where('year', '=', current_year())
                 ->whereRound($round)
                 ->with('Team1')
                 ->with('Team2')

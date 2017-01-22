@@ -2,6 +2,8 @@
 
 namespace Nhlstats\Http\Models;
 
+use DB;
+use Cache;
 use Illuminate\Database\Eloquent\Model;
 
 class GoalersStatsYear extends Model
@@ -19,8 +21,8 @@ class GoalersStatsYear extends Model
     {
         $filter_string = implode('', array_flatten($filters));
 
-        return \Cache::remember("goalersStatsYear-{$filter_string}", 60, function () use ($filters) {
-            $query = \DB::table('goalers_stats_years AS goaler')
+        return Cache::remember("goalersStatsYear-{$filter_string}", 60, function () use ($filters) {
+            $query = DB::table('goalers_stats_years AS goaler')
                 ->join('players', 'players.id', '=', 'goaler.player_id')
                 ->join('teams', 'teams.id', '=', 'players.team_id')
                 ->join('divisions', 'divisions.id', '=', 'teams.division_id')
@@ -32,9 +34,9 @@ class GoalersStatsYear extends Model
                     'teams.short_name',
                     'teams.city'
                 )
+                ->selectRaw("ROUND(saves / shots_against * 1000) AS roundedPourcent")
                 ->orderBy('goals_against_average', 'asc')
                 ->where('position', '=', 'G');
-                // ->where('games'   , '>', $minGames)
 
             foreach ($filters as $condition => $value) {
                 if ($value[1] != 'all') {

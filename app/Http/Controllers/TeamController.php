@@ -11,7 +11,7 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $teamsByDivision = Models\Team::byDivision(config('nhlstats.currentYear'));
+        $teamsByDivision = Models\Team::byDivision(current_year());
 
         return view('team.index')
             ->withTeamsByDivision($teamsByDivision)
@@ -27,7 +27,7 @@ class TeamController extends Controller
         /* -------- PLAYER STATS -------- */
         $position = Input::get('position', 'all');
         $filter['teams.short_name'] = ['=', $team];
-        $filter['players.year'] = ['=', config('nhlstats.currentYear')];
+        $filter['players.year'] = ['=', current_year()];
         $playersStatsYear = Cache::remember(
             "playersStatsYear-{$count}-{$team}",
             60,
