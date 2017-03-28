@@ -9,6 +9,13 @@ return [
      */
     'uri' => 'admin',
 
+    /**
+     *  Middleware for admin routing.
+     *
+     *  @type array
+     */
+    'middleware' => ['web', 'logged_as_admin'],
+
     /*
      * Page title
      *
