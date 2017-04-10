@@ -2,7 +2,7 @@
 use Nhlstats\Http\Models\PlayoffRounds;
 
 $today = date("Y-m-d");
-$seasonEnded = $today > config('nhlstats.seasonEnds');
+$seasonEnded = $today >= config('nhlstats.seasonEnds');
 
 $menu = [
     'Players'         => 'index',
