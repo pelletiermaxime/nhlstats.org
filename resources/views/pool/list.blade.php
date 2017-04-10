@@ -12,7 +12,7 @@
 <thead>
     <tr>
         <th>User</th>
-        <th colspan="{{ count($choicesByUsernameAndRounds) }}">Choices</th>
+        <th colspan="{{ $choicesByUsernameAndRounds->first()->first()['choices']->count() }}">Choices</th>
         <th>Total</th>
     </tr>
 </thead>

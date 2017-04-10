@@ -66,6 +66,10 @@ class PlayoffChoices extends Model
         $userPoints = [];
         $choicesByUsers = self::formatChoicesByRoundsAndUsername($choicesByUsers);
 
+        if ($choicesByUsers->isEmpty()) {
+            return [];
+        }
+
         $rounds = PlayoffRounds::getForYear();
 
         foreach ($rounds as $round) {
