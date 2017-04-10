@@ -28,11 +28,11 @@ class PoolController extends Controller
     {
         $choices = PlayoffChoices::getChoices();
         $pointsByRoundsForUsers = PlayoffChoices::getPointsByRoundsForUsers($choices);
-
         $choicesByUsernameAndRounds = PlayoffChoices::formatChoicesByUsernameAndRounds($choices, $pointsByRoundsForUsers);
+        $nbPlayoffGames = PlayoffTeams::count();
 
         return view('pool/list')
-            ->with('choicesByUsernameAndRounds', $choicesByUsernameAndRounds)
+            ->with(compact('choicesByUsernameAndRounds', 'nbPlayoffGames'))
         ;
     }
 
