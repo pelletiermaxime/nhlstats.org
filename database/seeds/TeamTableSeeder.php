@@ -14,7 +14,8 @@ class TeamTableSeeder extends Seeder
         $standingsURL = "https://statsapi.web.nhl.com/api/v1/standings";
         $standingsURL .= "?expand=standings.team&season=%s";
 
-        $years = range(2010, 2016);
+        // $years = range(2010, 2016);
+        $years = [2017];
         foreach ($years as $year) {
             $divisions = Division::where('year', $year)->select(['id', 'division'])->get()->keyBy('division');
             $teams = [];

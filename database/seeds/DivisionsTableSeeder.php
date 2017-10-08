@@ -15,7 +15,8 @@ class DivisionsTableSeeder extends Seeder
         $standingsURL = "https://statsapi.web.nhl.com/api/v1/standings";
         $standingsURL .= "?expand=standings.team,standings.division,standings.conference&season=%s";
 
-        $years = range(2010, 2016);
+        // $years = range(2010, 2016);
+        $years = [2017];
         foreach ($years as $year) {
             $divisions = [];
             $yearAndNext = $year . $year + 1;
