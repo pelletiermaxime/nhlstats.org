@@ -31,8 +31,8 @@ class FetchPlayers extends Command
     private function getPlayers()
     {
         $currentSeason = $this->argument('season') . $this->argument('season') + 1;
-        $playersURL = "http://www.nhl.com/stats/rest/grouped/skaters/basic/season/skatersummary";
-        $playersURL .= "?cayenneExp=seasonId=$currentSeason and gameTypeId=2";
+        $playersURL = "http://www.nhl.com/stats/rest/skaters?reportType=basic&reportName=skatersummary";
+        $playersURL .= "&cayenneExp=seasonId=$currentSeason and gameTypeId=2";
 
         $res = $this->guzzleClient->get($playersURL);
         $playersArray = collect(json_decode($res->getBody(), true)['data']);
