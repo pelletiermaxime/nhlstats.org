@@ -14,7 +14,7 @@ class FetchPlayers extends Command
 
     protected $description = 'Fetch player stats from espn.';
 
-    private $client;
+    private $guzzleClient;
 
     /**
      * Execute the console command.

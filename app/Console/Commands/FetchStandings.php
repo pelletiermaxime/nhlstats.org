@@ -3,10 +3,11 @@
 namespace Nhlstats\Console\Commands;
 
 use DB;
-use Goutte\Client;
+use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Console\Command;
 use Nhlstats\Http\Models;
 use Nhlstats\Http\Repositories\PlayoffRepository;
+use Symfony\Component\Console\Input\InputArgument;
 
 class FetchStandings extends Command
 {
@@ -24,17 +25,15 @@ class FetchStandings extends Command
      */
     protected $description = 'Fetch the nhl standing info from espn.';
 
-    /**
-     * @var Client Goutte client
-     */
-    private $client;
+    /** @var GuzzleClient */
+    private $guzzleClient;
 
     /**
      * Execute the console command.
      */
     public function fire()
     {
-        $this->client = new Client();
+        $this->guzzleClient = new GuzzleClient();
         $teams = $this->getTeamsArray();
         $this->saveStandings($teams);
         $this->saveStandingsPositions();
@@ -45,20 +44,10 @@ class FetchStandings extends Command
     {
         Models\Standings::where('year', current_year())->delete();
         foreach ($teams as $team) {
-            $tabTeam = explode('-', $team['Team']);
-            if (isset($tabTeam[1])) {
-                $teamName = trim($tabTeam[1]);
-            } else {
-                $teamName = $team['Team'];
-            }
-            if (strpos($team['Team'], 'NY') !== false) {
-                $teamNY = str_replace('NY ', '', $teamName);
-                $team_id = Models\Team::whereName($teamNY)->pluck('id')->last();
-            } else {
-                $team_id = Models\Team::whereCity($teamName)->pluck('id')->last();
-            }
+            $teamID = Models\Team::whereName($team['Team'])->pluck('id')->last();
+
             Models\Standings::create([
-                'team_id' => $team_id,
+                'team_id' => $teamID,
                 'year'    => current_year(),
                 'gp'      => $team['GP'],
                 'w'       => $team['W'],
@@ -69,12 +58,6 @@ class FetchStandings extends Command
                 'gf'      => $team['GF'],
                 'ga'      => $team['GA'],
                 'diff'    => $team['Diff'],
-                'ppg'     => $team['PPG'],
-                'ppo'     => $team['PPO'],
-                'ppp'     => $team['PPP'],
-                'ppga'    => $team['PPGA'],
-                'ppoa'    => $team['PPOA'],
-                'pkp'     => $team['PKP'],
                 'home'    => $team['HOME'],
                 'away'    => $team['ROAD'],
                 'l10'     => $team['L10'],
@@ -135,46 +118,44 @@ class FetchStandings extends Command
 
     private function getTeamsArray() : array
     {
-        $teams = [];
-        $params = ['Team', 'GP', 'W', 'L', 'OTL', 'PTS', 'ROW', 'SOW', 'SOL', 'HOME',
-            'ROAD', 'GF', 'GA', 'Diff', 'L10', 'Streak', ];
-        $paramCount = count($params);
+        $currentSeason = $this->argument('season') . $this->argument('season') + 1;
 
-        $crawler = $this->client->request('GET', 'http://espn.go.com/nhl/standings');
-        $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
+        $standingURL = "https://statsapi.web.nhl.com/api/v1/standings?season=$currentSeason&expand=standings.record,standings.team";
+        $res = $this->guzzleClient->get($standingURL);
+        $standingsDivisions = collect(json_decode($res->getBody(), true)['records']);
+        $standings = [];
+        foreach ($standingsDivisions as $standingsDivision) {
+            $standings[] = collect($standingsDivision['teamRecords'])->map(function ($standing) {
+                $records = collect($standing['records']['overallRecords'])->mapWithKeys(function ($item) {
+                    $record = "{$item['wins']}-{$item['losses']}";
+                    if (isset($item['ot'])) {
+                        $record .= '-' . $item['ot'];
+                    }
+                    return [$item['type'] => $record];
+                });
 
-        $noParametre = 0;
-        $noTeam = 1;
-        foreach ($cells as $cell) {
-            $teams[$noTeam][$params[$noParametre]] = trim($cell);
-            ++$noParametre;
-            if ($noParametre >= $paramCount) {
-                //Next row of table, so increment team
-                $noParametre = 0;
-                ++$noTeam;
-            }
+                return [
+                    'Team'   => $standing['team']['teamName'],
+                    'GP'     => $standing['gamesPlayed'],
+                    'W'      => $standing['leagueRecord']['wins'],
+                    'L'      => $standing['leagueRecord']['losses'],
+                    'ROW'    => $standing['row'],
+                    'OTL'    => $standing['leagueRecord']['ot'],
+                    'PTS'    => $standing['points'],
+                    'GF'     => $standing['goalsScored'],
+                    'GA'     => $standing['goalsAgainst'],
+                    'Diff'   => $standing['goalsScored'] - $standing['goalsAgainst'],
+                    'HOME'   => $records['home'],
+                    'ROAD'   => $records['away'],
+                    'L10'    => $records['lastTen'],
+                    'Streak' => $standing['streak']['streakCode'],
+                ];
+            });
         }
 
-        $params = ['Team', 'GP', 'W', 'L', 'OTL', 'PTS', 'PPG', 'PPO', 'PPP', 'PPGA', 'PPOA', 'PKP'];
-        $paramCount = count($params);
+        $standings = collect($standings)->collapse();
 
-        $crawler = $this->client->request('GET', 'http://espn.go.com/nhl/standings/_/type/expanded');
-        $cells = $crawler->filter('tr.evenrow td, tr.oddrow td')->extract(['_text']);
-
-        $noParametre = 0;
-        $noTeam = 1;
-        foreach ($cells as $cell) {
-            $teams[$noTeam][$params[$noParametre]] = trim($cell);
-            ++$noParametre;
-            if ($noParametre >= $paramCount) {
-                //Next row of table, so increment team
-
-                $noParametre = 0;
-                ++$noTeam;
-            }
-        }
-
-        return $teams;
+        return $standings->toArray();
     }
 
     private function generatePlayoffTeams()
@@ -222,7 +203,9 @@ class FetchStandings extends Command
      */
     protected function getArguments()
     {
-        return [];
+        return [
+            ['season', InputArgument::OPTIONAL, 'Season to fetch.', current_year()],
+        ];
     }
 
     /**
