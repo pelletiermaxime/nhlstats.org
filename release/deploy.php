@@ -52,5 +52,5 @@ task('deploy', [
     // 'nhlstats:generate-doc',
     'deploy:symlink',
     'cleanup',
-    'reload:php-fpm',
+    // 'reload:php-fpm',
 ])->desc('Deploy your project');
