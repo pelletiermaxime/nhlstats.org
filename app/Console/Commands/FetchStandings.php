@@ -75,6 +75,7 @@ class FetchStandings extends Command
             ->orderBy('PTS', 'DESC')
             ->orderBy('gp', 'ASC')
             ->orderBy('row', 'DESC')
+            ->orderBy('w', 'DESC')
             ->where('standings.year', current_year())
         ;
         $standings = $query->get();
@@ -92,6 +93,7 @@ class FetchStandings extends Command
             ->orderBy('PTS', 'DESC')
             ->orderBy('gp', 'ASC')
             ->orderBy('row', 'DESC')
+            ->orderBy('w', 'DESC')
             ->where('standings.year', current_year())
         ;
         $standings = $query->get();

@@ -23,6 +23,7 @@ class Standings extends Model
             ->orderBy('PTS', 'DESC')
             ->orderBy('gp', 'ASC')
             ->orderBy('row', 'DESC')
+            ->orderBy('w', 'DESC')
             ->where('standings.year', \Config::get('nhlstats.currentYear'))
         ;
         $standings = $query->get();
@@ -40,6 +41,7 @@ class Standings extends Model
             ->orderBy('PTS', 'DESC')
             ->orderBy('gp', 'ASC')
             ->orderBy('row', 'DESC')
+            ->orderBy('w', 'DESC')
             ->where('standings.year', \Config::get('nhlstats.currentYear'))
         ;
         $standings = $query->get();
@@ -56,6 +58,7 @@ class Standings extends Model
             ->orderBy('PTS', 'DESC')
             ->orderBy('gp', 'ASC')
             ->orderBy('row', 'DESC')
+            ->orderBy('w', 'DESC')
             ->where('standings.year', \Config::get('nhlstats.currentYear'))
         ;
         $standings = $query->get();

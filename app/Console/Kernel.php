@@ -41,21 +41,21 @@ class Kernel extends ConsoleKernel
 
         /********* Fetch standings *********/
         //After weekend games
-        $schedule->command('nhl:fetch-standings')->cron('0 17 * * 6-7');
+        // $schedule->command('nhl:fetch-standings')->cron('0 17 * * 6-7');
 
-        $schedule->command('nhl:fetch-standings')->dailyAt('5:30');
-        $schedule->command('nhl:fetch-standings')->dailyAt('6:30');
-        $schedule->command('nhl:fetch-standings')->dailyAt('22:00');
-        $schedule->command('nhl:fetch-standings')->dailyAt('23:00');
+        // $schedule->command('nhl:fetch-standings')->dailyAt('5:30');
+        // $schedule->command('nhl:fetch-standings')->dailyAt('6:30');
+        // $schedule->command('nhl:fetch-standings')->dailyAt('22:00');
+        // $schedule->command('nhl:fetch-standings')->dailyAt('23:00');
 
         /********* Fetch player stats *********/
-        $schedule->command('nhl:fetch-players')->dailyAt('6:13');
-        $schedule->command('nhl:fetch-players --TOI')->dailyAt('6:23');
+        // $schedule->command('nhl:fetch-players')->dailyAt('6:13');
+        // $schedule->command('nhl:fetch-players --TOI')->dailyAt('6:23');
 
-        $schedule->command('nhl:fetch-players')->dailyAt('9:01');
-        $schedule->command('nhl:fetch-players --TOI')->dailyAt('9:12');
+        // $schedule->command('nhl:fetch-players')->dailyAt('9:01');
+        // $schedule->command('nhl:fetch-players --TOI')->dailyAt('9:12');
 
         /********* Fetch goaler stats *********/
-        $schedule->command('nhl:fetch-goalers')->dailyAt('6:40');
+        // $schedule->command('nhl:fetch-goalers')->dailyAt('6:40');
     }
 }
