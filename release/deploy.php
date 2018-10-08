@@ -1,16 +1,24 @@
 <?php
+namespace Deployer;
+
 require 'recipe/laravel.php';
-require 'database-sync.php';
+// require 'database-sync.php';
+
+/// Configuration
+set('ssh_type', 'native');
+set('ssh_multiplexing', false);
 
 /// Server config
 server('production', 'nhlstats.org', 36220)
     ->user('max')
-    ->forwardAgent()
+    ->identityFile()
     ->stage('prod')
-    ->env('deploy_path', '/var/www/nhlstats.org');
+    ->set('deploy_path', '/var/www/nhlstats.org')
+    ->pty(true)
+;
 
-localServer('local')
-    ->stage('prod');
+// localServer('local')
+    // ->stage('prod');
 
 set('repository', 'https://github.com/pelletiermaxime/nhlstats.org');
 

@@ -1,15 +1,17 @@
 <?php
 
-env('localPath', 'database.sql.gz');
-env('remotePath', '/tmp/database.sql.gz');
-env('localDatabaseName', 'nhlstats');
-env('envFilePath', function () {
-    return env('deploy_path') . "/current/.env";
+namespace Deployer;
+
+set('localPath', 'database.sql.gz');
+set('remotePath', '/tmp/database.sql.gz');
+set('localDatabaseName', 'nhlstats');
+set('envFilePath', function () {
+    return get('deploy_path') . "/current/.env";
 });
 
 function configFromEnvFile($config)
 {
-    $envFilePath = env('envFilePath');
+    $envFilePath = get('envFilePath');
     $valueLine   = run("cat $envFilePath | grep $config");
 
     if (strpos($valueLine, '=') !== false) {
@@ -21,7 +23,7 @@ function configFromEnvFile($config)
 
 function databaseDumpCommand()
 {
-    $remotePath       = env('remotePath');
+    $remotePath       = get('remotePath');
     $databaseName     = configFromEnvFile('DB_DATABASE');
     $databaseUsername = configFromEnvFile('DB_USERNAME');
     $databasePassword = configFromEnvFile('DB_PASSWORD');
@@ -31,15 +33,15 @@ function databaseDumpCommand()
 
 function databaseRestoreCommand()
 {
-    $localDatabaseName = env('localDatabaseName');
-    $localPath         = env('localPath');
+    $localDatabaseName = get('localDatabaseName');
+    $localPath         = get('localPath');
 
     return "zcat $localPath | mysql $localDatabaseName";
 }
 
 task('database:dump', function () {
-    $localPath  = env('localPath');
-    $remotePath = env('remotePath');
+    $localPath  = get('localPath');
+    $remotePath = get('remotePath');
 
     run(databaseDumpCommand());
     download($localPath, $remotePath);
@@ -47,7 +49,7 @@ task('database:dump', function () {
 })->onlyOn('production');
 
 task('database:restore', function () {
-    $localPath = env('localPath');
+    $localPath = get('localPath');
 
     runLocally(databaseRestoreCommand());
     runLocally("rm $localPath");
