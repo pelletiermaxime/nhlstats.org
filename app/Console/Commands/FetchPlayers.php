@@ -31,8 +31,8 @@ class FetchPlayers extends Command
     private function getPlayers()
     {
         $currentSeason = $this->argument('season') . $this->argument('season') + 1;
-        $playersURL = "http://www.nhl.com/stats/rest/skaters?reportType=basic&reportName=skatersummary";
-        $playersURL .= "&cayenneExp=seasonId=$currentSeason and gameTypeId=2";
+        $playersURL = "https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false";
+        $playersURL .= "&cayenneExp=gameTypeId=2 and seasonId=$currentSeason";
 
         $res = $this->guzzleClient->get($playersURL);
         $playersArray = collect(json_decode($res->getBody(), true)['data']);
@@ -45,9 +45,9 @@ class FetchPlayers extends Command
                 "GP"     => $player['gamesPlayed'],
                 "P"      => $player['points'],
                 "PIM"    => $player['penaltyMinutes'],
-                "Player" => $player['playerName'],
-                "Pos"    => $player['playerPositionCode'],
-                "Team"   => $player['playerTeamsPlayedFor'],
+                "Player" => $player['skaterFullName'],
+                "Pos"    => $player['positionCode'],
+                "Team"   => $player['teamAbbrevs'],
             ];
         });
 
