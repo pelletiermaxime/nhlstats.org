@@ -113,7 +113,7 @@ class FetchStandings extends Command
         foreach ($rowsStanding as $standing_id => $standing_row) {
             $standing = Models\Standings::find($standing_id);
             $standing->positionOverall = $standing_row['positionOverall'];
-            $standing->positionConference = $standing_row['positionConference'];
+            $standing->positionConference = $standing_row['positionConference'] ?? 0;
             $standing->save();
         }
     }
