@@ -31,7 +31,7 @@ class FetchGoalers extends Command
     {
         $currentSeason = $this->argument('season') . $this->argument('season') + 1;
 
-        $goalersURL = "http://www.nhl.com/stats/rest/goalies?reportType=goalie_basic&isGame=false&reportName=goaliesummary";
+        $goalersURL = "https://api.nhle.com/stats/rest/en/goalie/summary?isAggregate=false&start=0&limit=-1";
         $goalersURL .= "&cayenneExp=gameTypeId=2 and seasonId=$currentSeason";
 
         $res = $this->guzzleClient->get($goalersURL);
@@ -39,8 +39,8 @@ class FetchGoalers extends Command
 
         $goalersArray->transform(function ($goaler) {
             return [
-                "Player" => $goaler['playerName'],
-                "Team"   => $goaler['playerTeamsPlayedFor'],
+                "Player" => $goaler['goalieFullName'],
+                "Team"   => $goaler['teamAbbrevs'],
                 "GP"     => $goaler['gamesPlayed'],
                 "W"      => $goaler['wins'],
                 "L"      => $goaler['losses'],
@@ -49,7 +49,7 @@ class FetchGoalers extends Command
                 "GA"     => $goaler['goalsAgainst'],
                 "SA"     => $goaler['shotsAgainst'],
                 "Sv"     => $goaler['saves'],
-                "Sv%"    => $goaler['savePctg'],
+                "Sv%"    => $goaler['savePct'],
                 "SO"     => $goaler['shutouts'],
                 "G"      => $goaler['goals'],
                 "A"      => $goaler['assists'],
