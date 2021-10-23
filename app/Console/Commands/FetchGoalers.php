@@ -29,7 +29,7 @@ class FetchGoalers extends Command
 
     private function getGoalers()
     {
-        $currentSeason = $this->argument('season') . $this->argument('season') + 1;
+        $currentSeason = $this->argument('season') . ($this->argument('season') + 1);
 
         $goalersURL = "https://api.nhle.com/stats/rest/en/goalie/summary?isAggregate=false&start=0&limit=-1";
         $goalersURL .= "&cayenneExp=gameTypeId=2 and seasonId=$currentSeason";
