@@ -2,16 +2,17 @@
 namespace Deployer;
 
 require 'recipe/laravel.php';
-// require 'database-sync.php';
+ require 'database-sync.php';
 
 /// Configuration
-set('ssh_type', 'native');
-set('ssh_multiplexing', false);
+//set('ssh_type', 'native');
+//set('ssh_multiplexing', true);
 
 /// Server config
 server('production', 'nhlstats.org', 36220)
     ->user('max')
-    ->identityFile()
+->password()
+//    ->identityFile()
     ->stage('prod')
     ->set('deploy_path', '/var/www/nhlstats.org')
     ->pty(true)

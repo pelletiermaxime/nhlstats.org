@@ -10,7 +10,6 @@ $menu = [
     'Scores'          => 'scores',
     'Standings'       => 'standings',
     'Teams'           => 'teams',
-    'Playoff Bracket' => 'playoff_bracket',
 ];
 
 if ($seasonEnded) {
@@ -22,6 +21,10 @@ $menuAliases = [
     'standings_division' => 'standings',
     'standings_wildcard' => 'standings',
 ];
+
+if ($seasonEnded) {
+    $menu['Playoff Bracket'] = 'playoff_bracket';
+}
 
 if (Auth::user()) {
     //Logged-in
