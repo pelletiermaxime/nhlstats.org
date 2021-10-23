@@ -32,7 +32,7 @@ set('shared_dirs', [
 /// Custom tasks
 task('nhlstats:gulp', function () {
     cd('{{release_path}}');
-    run('yarn');
+    run('npm ci');
     run('gulp --production');
 });
 
