@@ -120,7 +120,7 @@ class FetchStandings extends Command
 
     private function getTeamsArray() : array
     {
-        $currentSeason = $this->argument('season') . $this->argument('season') + 1;
+        $currentSeason = $this->argument('season') . ($this->argument('season') + 1);
 
         $standingURL = "https://statsapi.web.nhl.com/api/v1/standings?season=$currentSeason&expand=standings.record,standings.team";
         $res = $this->guzzleClient->get($standingURL);
