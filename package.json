@@ -7,5 +7,11 @@
   "devDependencies": {
     "gulp": "^3.8.8",
     "laravel-elixir": "github:avvertix/elixir"
+  },
+  "scripts": {
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "resolutions": {
+    "graceful-fs": "^4.2.4"
   }
 }
